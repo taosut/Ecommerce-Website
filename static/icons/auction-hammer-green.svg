@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="22.524" height="22.522" viewBox="0 0 22.524 22.522">
+    <defs>
+        <style>
+            .cls-1{fill:#81b441}
+        </style>
+    </defs>
+    <g id="auction" transform="translate(0 -.03)">
+        <g id="Group_10" data-name="Group 10" transform="translate(0 17.785)">
+            <g id="Group_9" data-name="Group 9">
+                <path id="Path_16" d="M12.949 387.484H1.691A1.692 1.692 0 0 0 0 389.175v3.076h14.64v-3.076a1.692 1.692 0 0 0-1.691-1.691z" class="cls-1" data-name="Path 16" transform="translate(0 -387.484)"/>
+            </g>
+        </g>
+        <g id="Group_12" data-name="Group 12" transform="translate(2.76 .03)">
+            <g id="Group_11" data-name="Group 11">
+                <path id="Path_17" d="M79.692 18.024L69.416 7.747 71.4 5.766a.833.833 0 0 0 1.14-1.214L68.262.276a.831.831 0 0 0-1.175 1.175l-.035-.035-5.434 5.43.035.039a.831.831 0 0 0-1.175 1.175l4.276 4.279a.834.834 0 0 0 1.179-1.179l.035.035 1.985-1.981 10.272 10.274a1.036 1.036 0 1 0 1.468-1.464z" class="cls-1" data-name="Path 17" transform="translate(-60.231 -.03)"/>
+            </g>
+        </g>
+    </g>
+</svg>
