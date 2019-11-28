@@ -49,12 +49,7 @@ export const state = () => ({
     getCategory: [],
     getAllProducts: [],
     getAllOrder: [],
-    getAllAuction: [],
-    getAllCompletedAuction: [],
-    getAllOngoingAuction: [],
-    getAllUpcomingAuction: [],
     getSingleProduct: [],
-    getSingleAuction: [],
     
 
 
@@ -87,29 +82,10 @@ export const mutations = {
         console.log('selecting exercise mutation, ' + getAllOrder)
         state.getAllOrder = getAllOrder
     },
-    getAllAuction(state, getAllAuction) {
-        console.log('selecting exercise mutation, ' + getAllAuction)
-        state.getAllAuction = getAllAuction
-    },
-    getAllCompletedAuction(state, getAllCompletedAuction) {
-        console.log('selecting exercise mutation, ' + getAllCompletedAuction)
-        state.getAllCompletedAuction = getAllCompletedAuction
-    },
-    getAllOngoingAuction(state, getAllOngoingAuction) {
-        console.log(getAllOngoingAuction)
-        state.getAllOngoingAuction = getAllOngoingAuction
-    },
+   
     getSingleProduct(state, getSingleProduct) {
         console.log('selecting exercise mutation, ' + getSingleProduct)
         state.getSingleProduct = getSingleProduct
-    },
-    getSingleAuction(state, getSingleAuction) {
-        console.log('selecting exercise mutation, ' + getSingleAuction)
-        state.getSingleAuction = getSingleAuction
-    },
-    getAllUpcomingAuction(state, getAllUpcomingAuction) {
-        console.log('selecting exercise mutation, ' + getAllUpcomingAuction)
-        state.getAllUpcomingAuction = getAllUpcomingAuction
     },
     cart(state, cart) {
         console.log('selecting exercise mutation, ' + cart)
@@ -376,30 +352,6 @@ export const actions = {
         })
     },
 
-    getAllOngoingAuction({ commit, state }) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getAllOngoingAuction,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log('getAllOngoingAuction')
-                    console.log('getAllOngoingAuction ' + res.data)
-                    commit('getAllOngoingAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
 
     getsubCategory({ commit, state }, payload) {
 
@@ -470,7 +422,7 @@ export const actions = {
 
             axios({
                 method: 'GET',
-                url: state.api.allProducts,
+                url: state.api.eachCategoryProducts,
                 contentType: 'application/json',
                 // headers: {
                 //     'Authorization': "bearer " + this.$cookies.get('access_token')
@@ -488,139 +440,6 @@ export const actions = {
         })
     },
 
-    getAllAuction({ commit, state }, payload) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getAllAuction,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log(res.data)
-                    console.log('response')
-                    commit('getAllAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
-
-    getAllCompletedAuction({ commit, state }, payload) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getAllCompletedAuction,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log(res.data)
-                    console.log('response')
-                    commit('getAllCompletedAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
-
-    getAllUpcomingAuction({ commit, state }, payload) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getAllUpcomingAuction,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log(res.data)
-                    console.log('response')
-                    commit('getAllUpcomingAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
-
-    getSingleAuction({ commit, state }, payload) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getSingleAuction + localStorage.getItem("single_product"),
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log(res.data)
-                    console.log('response')
-                    commit('getSingleAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
-
-    getBiddingFromAuctionID({ commit, state }, payload) {
-
-
-        return new Promise((resolve, reject) => {
-
-            axios({
-                method: 'GET',
-                url: state.api.getBiddingFromAuctionID + payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
-                .then(res => {
-                    console.log(res.data)
-                    console.log('response')
-                    commit('getSingleAuction', res.data);
-                    resolve(res)
-                })
-                .catch(err => {
-                    console.log('error in request', err)
-                })
-        })
-    },
-
-
-
-
-
-
-
-
-
-
+  
 }
 

@@ -5,7 +5,7 @@ var url
 
 if(process.env.NODE_ENV == "development"){
 
-    var url = "/api/";
+    var url = "http://127.0.0.1:8000/backend/api/";
 
 }else{
 
@@ -22,7 +22,9 @@ export const state = () => ({
 
     signup: url + "users/create/",
 
-    allProducts : url + "products/",
+    allProducts : url + "products/getAllActiveProducts",
+
+    eachCategoryProducts : url + "products/eachCategoryProducts",
 
     getSingleProduct : url + "products/",
 
@@ -33,21 +35,7 @@ export const state = () => ({
     getBrand : url + "products/product/brand",
 
     getAllOrder : url + "orders",
-
-    getAllAuction : url + "auction",
-
-    getSingleAuction : url + "auction/single/",
-
-    createBid : url + "auction/bidding/create",
-
-    getBiddingFromAuctionID : url + "auction/bidding/",
-
-    getAllOngoingAuction : url + "auction/ongoing/all",
     
-    getAllCompletedAuction : url + "auction/completed/all",
-
-    getAllUpcomingAuction : url + "auction/upcoming/all",
-
     addProduct : url + "products/create/product",
 
     deleteProduct : url + "products/delete/",
