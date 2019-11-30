@@ -292,4 +292,10 @@ p {
 .pointer {
   cursor: pointer;
 }
+
+@media (min-width: 1200px){
+.container {
+    max-width: 1680px;
+}
+}
 </style>

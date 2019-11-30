@@ -35,7 +35,7 @@
 							<div class="top_bar_user">
 								<div class="user_icon"><img src="~static/images/user.svg" alt=""></div>
 								<div><a href="#">Register</a></div>
-								<div><a href="#">Sign in</a></div>
+								<div><nuxt-link to="/login">Sign In</nuxt-link></div>
 							</div>
 						</div>
 					</div>
@@ -110,29 +110,16 @@
 
 							<!-- Categories Menu -->
 
-							<div class="cat_menu_container">
-								<div class="cat_menu_title d-flex flex-row align-items-center justify-content-start">
-									<div class="cat_burger"><span></span><span></span><span></span></div>
-									<div class="cat_menu_text">categories</div>
-								</div>
-
-								<ul class="cat_menu">
-									<li v-for="p in category" :key="p.id"><a href="#">{{p.name}} <i class="fas fa-chevron-right ml-auto"></i></a></li>
-								</ul>
+							<div class="">
+				
 							</div>
 
 							<!-- Main Nav Menu -->
 
-							<div class="main_nav_menu ml-auto">
+							<div class="main_nav_menu m-auto">
 								<ul class="standard_dropdown main_nav_dropdown">
-											<li><a href="shop.html">Home<i class="fas fa-chevron-down"></i></a></li>
+											<li v-for="p in category" :key="p.id"><a href="shop.html">{{p.name}}<i class="fas fa-chevron-down"></i></a></li>
 											<li><a href="product.html">Offers<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog.html">Best Sellers<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="regular.html">New Releases<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="cart.html">Coupons<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="contact.html">Gift Cards<i class="fas fa-chevron-down"></i></a></li>
-										</ul>
 								</ul>
 							</div>
 
@@ -174,11 +161,11 @@ export default {
       return this.$store.state.cart
     },
     email() {
-      console.log(this.$cookies.get('email'))
-      if (this.$cookies.get('email') != undefined) {
+      console.log(this.$cookies.get('name'))
+      if (this.$cookies.get('name') != undefined) {
         console.log('cookie')
         this.$store.commit('isLoggedIn', 1)
-        this.$store.commit('user_email', this.$cookies.get('email'))
+        this.$store.commit('user_email', this.$cookies.get('name'))
       } else {
         console.log('cookieNot')
         this.$store.commit('isLoggedIn', 0)
@@ -190,15 +177,18 @@ export default {
 
   mounted() {
 
-     this.$store.dispatch('getCartByUser')
+      if (this.$cookies.get('name') != undefined) {
+        this.$store.dispatch('getCartByUser')
+      }
+
 
          this.$store.dispatch('getCategory').then(res =>{
       this.category = Object.assign({} , res.data)
     })
 
-    console.log("this.$cookies.get('email')")
-    console.log(this.$cookies.get('email'))
-    if (this.$cookies.get('email') != undefined) {
+    console.log("this.$cookies.get('name')")
+    console.log(this.$cookies.get('name'))
+    if (this.$cookies.get('name') != undefined) {
       console.log('cookie')
       this.$store.commit('isLoggedIn', 1)
       this.$store.commit('user_email', this.$cookies.get('email'))

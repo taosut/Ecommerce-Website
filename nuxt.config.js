@@ -9,7 +9,7 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!' || process.env.npm_package_name,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -111,6 +111,12 @@ export default {
     '@nuxtjs/axios',
     'cookie-universal-nuxt'
   ],
+
+  env: {
+    // baseUrl: process.env.BASE_URL || 'http://localhost:3003',
+    baseUrl: (process.env.NODE_ENV == "development") ? "http://127.0.0.1:8000" : 'https://www.wenslink.com',
+    cookie: (process.env.NODE_ENV == "development") ? false : true,
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

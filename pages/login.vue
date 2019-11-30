@@ -36,7 +36,7 @@ export default {
     login: function() {
       var payload = new FormData()
 
-      payload.append('email', document.getElementById('usr').value)
+      payload.append('phone_number', document.getElementById('usr').value)
       payload.append('password', document.getElementById('pwd').value)
 
       this.$store.dispatch('login', payload).then(res => {
@@ -46,26 +46,19 @@ export default {
 
         this.$cookies.set('access_token', res.data.access, {
           path: '/',
-        //   httpOnly : true,
-        //   secure: true,
+          httpOnly : process.env.cookie,
+          secure: process.env.cookie,
           maxAge: 60 * 60 * 24 * 7
         })
-        
-        this.$cookies.set('email', res.data.user_info.email, {
+
+        this.$cookies.set('name', res.data.user_info.name, {
           path: '/',
-        //   httpOnly : true,
-        //   secure: true,
-          maxAge: 60 * 60 * 24 * 7
-        })
-        this.$cookies.set('user_id', res.data.user_info.id, {
-          path: '/',
-        //   httpOnly : true,
-        //   secure: true,
+          httpOnly : process.env.cookie,
+          secure: process.env.cookie,
           maxAge: 60 * 60 * 24 * 7
         })
 
         this.$store.commit('isLoggedIn', 1)
-        this.$store.commit('user_email', this.$cookies.get('email'))
 
         this.$router.push('/')
       })

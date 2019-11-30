@@ -10,24 +10,22 @@
 				<!-- Images -->
 				<div class="col-lg-1 order-lg-1 order-2">
 					<ul class="image_list">
-						<li data-image="images/single_4.jpg"><img  :src='"/media/products/" + product.images[0]' @error="setFallbackImageUrl"  alt=""></li>
-						<li data-image="images/single_2.jpg"><img  :src='"/media/products/" + product.images[1]' @error="setFallbackImageUrl"  alt=""></li>
-						<li data-image="images/single_3.jpg"><img  :src='"/media/products/" + product.images[2]' @error="setFallbackImageUrl"  alt=""></li>
+						<li v-for="(p, index) in product.images" :key="p.id"><img :src='baseurl + "/media/products/" + p' @error="setFallbackImageUrl"  alt=""></li>
 					</ul>
 				</div>
 
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
-					<div class="image_selected"><img  :src='"/media/products/" + product.images[0]'
+					<div class="image_selected"><img  :src='baseurl + "/media/products/" + product.images[0]'
                         @error="setFallbackImageUrl" alt=""></div>
 				</div>
 
 				<!-- Description -->
 				<div class="col-lg-5 order-3">
 					<div class="product_description">
-						<div class="product_category">{{product.category['name']}}</div>
+						<div class="product_category">{{product.category_name}}</div>
 						<div class="product_name">{{product.product_name}}</div>
-						<div>{{product.brand['name']}}</div>
+						<div>{{product.brand_name}}</div>
 						<!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->
 						<div class="product_text"><p>{{product.description}}</p></div>
 						<div class="order_info d-flex flex-row">
@@ -63,12 +61,12 @@
 
               <div class="owl-carousel owl-theme viewed_slider">
                 <!-- Recently Viewed Item -->
-                <div class="" v-for="p in ongoingAuction" :key="p.id">
+                <div class="" v-for="p in product" :key="p.id">
                   <div
                     class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
                   >
                     <div class="viewed_image">
-                      <img   :src='"/media/products/" + p.images[0]'
+                      <img   :src='"/media/products/"'
                         @error="setFallbackImageUrl" alt />
                     </div>
                     <div class="viewed_content text-center">
@@ -76,7 +74,7 @@
                         <a href="#">{{p.product_name}}</a>
                       </div>
                       <div class="viewed_price">
-                        ${{p.price}}
+                        ${{p.price}}fg fg {{p}}
                         <span>${{p.discount}}</span>
                       </div>
 
@@ -129,6 +127,7 @@ export default {
     images: {},
     auction_data: [],
     auction_timer: [],
+    baseurl: process.env.baseUrl,
     auction_status: 0,
     bidding_list: {
       user_id: ""
@@ -148,12 +147,13 @@ export default {
 
 
 
-      this.getAllOngoingAuction()
+      // this.getAllOngoingAuction()
 
     this.$store
       .dispatch('getSingleProduct', this.$route.params.product)
       .then(res => {
-        this.product = JSON.parse(JSON.stringify(res.data))
+        this.product = Object.assign({} , res.data.product)
+        this.product['price'] = res.data.variations[0]['price']
         this.product.images = JSON.parse(this.product.images)
 
 

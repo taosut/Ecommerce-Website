@@ -18,7 +18,7 @@ export const state = () => ({
 
 
 
-    login: url + "login/",
+    login: url + "login/customers",
 
     signup: url + "users/create/",
 

@@ -1,37 +1,21 @@
 <template>
   <div>
-    <div class="banner">
-      <div
-        class="banner_background"
-        style="background-image:url(images/banner_background.jpg)"
-      ></div>
-      <div class="container fill_height">
-        <div class="row fill_height">
-          <div class="banner_product_image">
-            <img src="images/banner_product.png" alt />
-          </div>
-          <div class="col-lg-5 offset-lg-4 fill_height">
-            <div class="banner_content">
-              <h1 class="banner_text">new era of smartphones</h1>
-              <div class="banner_price"><span>$530</span>$460</div>
-              <div class="banner_product_name">Apple Iphone 6s</div>
-              <div class="button banner_button">
-                <a href="#">Shop Now</a>
-              </div>
-            </div>
-          </div>
+    <div class="container">
+        <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
+          <div class="item"><img src="images/hero3.jpg"></div>
+          <div class="item"><img src="images/hero2.jpg"></div>
+          <div class="item"><img src="images/hero1.jpg"></div>
         </div>
-      </div>
     </div>
 
     <!-- Characteristics -->
 
-    <div style="position: relative;top: -111px;">
+    <div style="position: relative;">
       <div class="characteristics" style="padding-bottom: 0;">
         <div class="container">
           <div class="row">
             <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
+            <div class="col-lg-4 col-md-6 char_col" v-for="p in 3" :key="p">
               <div
                 class="viewed_item discount d-flex flex-column justify-content-center"
               >
@@ -42,70 +26,7 @@
                   class="viewed_image"
                   style="display: flex;width: 100%;align-items: center;justify-content: center;"
                 >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
+                  <img src="images/adv_1.png" alt />
                 </div>
                 <div class="viewed_content text-center">
                   <div class="viewed_name">
@@ -122,184 +43,41 @@
       <div class="viewed">
         <div class="container">
           <div class="row">
-            <div class="col">
-              <div class="">
-                <h3 class="viewed_title">Newly Added</h3>
-              </div>
+            <div class="col-12" v-for="p in carousel" :key="p.id">
+              <div v-if="p.products.length != 0">
+                <div class="">
+                  <h3 class="viewed_title">{{ p.title }}</h3>
+                </div>
 
-              <div>
-                <!-- Recently Viewed Slider -->
-
-                <div class="owl-carousel owl-theme viewed_slider">
-                  <!-- Recently Viewed Item -->
-                  <div class="" v-for="p in allProducts" :key="p.id">
-                    <div
-                      class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                    >
-                      <div class="viewed_image">
-                        <img
-                          :src="'/media/products/' + p.product_id.images[0]"
-                          @error="setFallbackImageUrl"
-                          alt
-                        />
-                      </div>
-                      <div class="viewed_content text-center">
-                        <div class="viewed_name">
-                          <nuxt-link :to="'/products/' + p.slug">{{
-                            p.product_name
-                          }}</nuxt-link>
+                <div>
+                  <div class="owl-carousel owl-theme viewed_slider">
+                    <div class="" v-for="q in p.products" :key="q.id">
+                      <nuxt-link :to="'/products/' + q.slug">
+                        <div
+                          class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
+                        >
+                          <div class="viewed_image">
+                            <img
+                              :src="baseurl + '/media/products/' + q.images[0]"
+                              @error="setFallbackImageUrl"
+                              alt
+                            />
+                          </div>
+                          <div class="viewed_content text-center">
+                            <div class="viewed_name">
+                              <p>{{ q.product_name }}</p>
+                            </div>
+                            <div class="viewed_price">
+                              ${{ q.price }}
+                              <span>${{ q.mrp }}</span>
+                            </div>
+                          </div>
+                          <ul class="item_marks">
+                            <li class="item_mark item_discount">-25%</li>
+                            <li class="item_mark item_new">new</li>
+                          </ul>
                         </div>
-                        <div class="viewed_price">
-                          ${{ p.price }}
-                          <span>${{ p.discount }}</span>
-                        </div>
-                      </div>
-                      <ul class="item_marks">
-                        <li class="item_mark item_discount">-25%</li>
-                        <li class="item_mark item_new">new</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Characteristics -->
-
-      <div class="" style="background-color: #eff6fa">
-        <div class="container">
-          <div class="row">
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col">
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
-                <div
-                  class="viewed_image"
-                  style="display: flex;width: 100%;align-items: center;justify-content: center;"
-                >
-                  <img src="images/view_1.jpg" alt />
-                </div>
-                <div class="viewed_content text-center">
-                  <div class="viewed_name">
-                    <a href="#">Explore all Apple devices</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recently Viewed -->
-      <div class="viewed">
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="">
-                <h3 class="viewed_title">Newly Added</h3>
-              </div>
-
-              <div>
-                <!-- Recently Viewed Slider -->
-
-                <div class="owl-carousel owl-theme viewed_slider">
-                  <!-- Recently Viewed Item -->
-                  <div class="" v-for="p in allProducts" :key="p.id">
-                    <div
-                      class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                    >
-                      <div class="viewed_image">
-                        <img
-                          :src="'/media/products/' + p.product_id.images[0]"
-                          @error="setFallbackImageUrl"
-                          alt
-                        />
-                      </div>
-                      <div class="viewed_content text-center">
-                        <div class="viewed_name">
-                          <nuxt-link :to="'/products/' + p.slug">{{
-                            p.product_id.product_name
-                          }}</nuxt-link>
-                        </div>
-                        <div class="viewed_price">
-                          ₹ {{ p.price }}
-                          <span>₹ {{ p.mrp }}</span>
-                        </div>
-                      </div>
-                      <ul class="item_marks">
-                        <li class="item_mark item_discount">-25%</li>
-                        <li class="item_mark item_new">new</li>
-                      </ul>
+                      </nuxt-link>
                     </div>
                   </div>
                 </div>
@@ -317,11 +95,13 @@ export default {
     allProducts: [
       {
         id: '',
-        product_id:{
+        product_id: {
           images: []
         }
       }
-    ]
+    ],
+    carousel: [],
+    baseurl: process.env.baseUrl
   }),
   mounted() {
     this.getAllProducts()
@@ -338,7 +118,7 @@ export default {
         loop: true,
         nav: true,
         navText: [
-          "<img class='rotate180' src='icons/arrow.svg'>",
+          "<img class='rotate180' src='static/icons/arrow.svg'>",
           "<img src='icons/arrow.svg'>"
         ],
         dotsEach: true,
@@ -357,6 +137,11 @@ export default {
       $('.hero-carousel, .testimonial').owlCarousel({
         loop: true,
         margin: 10,
+                nav: true,
+        navText: [
+          "<img class='rotate180' src='icons/arrow.svg'>",
+          "<img src='icons/arrow.svg'>"
+        ],
         center: true,
         responsiveClass: true,
         responsive: {
@@ -368,22 +153,31 @@ export default {
     }, 100)
   },
   methods: {
-
     getAllProducts: function() {
       this.$store.dispatch('allProducts').then(res => {
         console.log(res)
         this.allProducts = JSON.parse(JSON.stringify(res.data))
 
-        this.allProducts.filter(v => (v.product_id.images = JSON.parse(v.product_id.images)))
+        for (let key1 in this.allProducts) {
+          if (this.allProducts.hasOwnProperty(key1)) {
+            this.allProducts[key1].filter(
+              v => (v.images = JSON.parse(v.images))
+            )
 
+            var products = {}
+            products['title'] = key1
+            products['products'] = this.allProducts[key1]
+            this.carousel.push(products)
+          }
+        }
 
         setTimeout(function() {
           $('.products, .viewed_slider').owlCarousel({
-            loop: true,
+            loop: false,
             nav: true,
             navText: [
-              "<img class='rotate180' src='/icons/arrow.svg'>",
-              "<img src='/icons/arrow.svg'>"
+              "<img class='rotate180' src='icons/arrow.svg'>",
+              "<img src='icons/arrow.svg'>"
             ],
             dots: false,
             dotsEach: false,
@@ -446,5 +240,17 @@ export default {
 .owl-nav {
   position: absolute;
   width: 100%;
+}
+
+.owl-item .item{
+  height: 100%;
+  object-fit: cover
+}
+
+.owl-carousel .owl-item img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+    height: 100%;
 }
 </style>

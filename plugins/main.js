@@ -55,7 +55,7 @@ Vue.mixin({
         },
         setFallbackImageUrl(event) {
             console.log('Image failed to load, setting fallback.')
-            event.target.src = 'https://via.placeholder.com/250x250'
+            event.target.src = '/ecommerce/images/adv_1.png'
         }
     }
 })
