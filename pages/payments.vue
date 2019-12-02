@@ -1,119 +1,120 @@
 <template>
   <div>
     <div class="container">
-      <div class="row mt-4">
+      <div class="row mt-4 mb-4">
         <div class="col-md-8">
-          <div class="shadow bg-white">
-            <div class="d-flex w-100 justify-content-between">
+          <div class="bg-white pb-4">
+            <div class="d-flex w-100 justify-content-between border-bottom">
               <div class="cart-header">
-                <p>My Cart</p>
-              </div>
-              <div class="d-flex pad-2">
-                <span><img src="~static/icons/maps-and-flags.svg"/></span>
-                <span><p style="padding:5px">Deliver to</p></span>
-                <span>
-                  <div class="d-flex form-group m-0">
-                    <label for="sel1"></label>
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                  </div>
-                </span>
+                <p>Select Delivery Address</p>
               </div>
             </div>
-            <div class="pad24" v-for="(p, index) in cart" :key="p.id" style="border-top: 1px solid #f0f0f0!important;">
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-2">
-                  <div class="d-flex justify-content-center">
-                    <img
-                      style="width: 100%;height: 112px;object-fit: contain;"
-                      :src="
-                        baseurl +
-                          '/media/products/' +
-                          p.product_info['images'][0]
-                      "
-                      @error="setFallbackImageUrl"
-                      alt
-                    />
-                  </div>
-                </div>
-                <div class="col-md-7">
+                <!-- <div class="pad24" > -->
+                <div
+                  class="col-12 col-sm-6"
+                  v-for="(p, index) in alluseraddress"
+                  :key="p.id"
+                >
                   <div>
                     <div>
                       <p class="pad-9" style="font-size:16px">
-                        {{ p.product_name }}
+                        {{ p.fullname }}
                       </p>
                     </div>
-                    <!-- <div>
-                                    <p class="pad-11 font-12">4GB Ram</p>
-                                </div> -->
                     <div>
-                      <p class="pad-11 font-12">Seller:Vision Star</p>
+                      <p class="pad-11 font-12"> {{ p.building }} {{ p.street }}</p>
+                      <p v-if="p.landmark != ''" class="pad-11 font-12"> {{ p.landmark }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{p.product_info.price}}</p>
-                      <p class="pad-11">₹ {{p.product_info.mrp}}</p>
+                      <p class="pad-11"> {{ p.city }}, {{ p.state }} {{ p.pincode }} </p>
+                      <p class="pad-11"> {{ p.country }} </p>
                     </div>
+                    <button type="button" @click="selectedAddress(p.id)" class="btn btn-primary btn-sm">
+                      Deliver to this address
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                      Delete
+                    </button>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div>
-                    <p class="pad-9 font-12">
-                      Delivery by Tue Oct 22 | Free₹40
-                    </p>
-                  </div>
-                  <div>
-                    <p class="font-12">10 Days Replacement Policy</p>
-                  </div>
-                </div>
+                <!-- </div> -->
               </div>
-              <div class="d-flex mt-2 align-items-center">
-                <div class="mt-3">
-                  <div class="quantity buttons_added">
-                    <input
-                      type="button"
-                      value="-"
-                      class="minus"
-                      :disabled="p.quantity <= 1"
-                      @click="minus(index)"
-                    />
-                    <input
-                      type="number"
-                      step="1"
-                      min="1"
-                      max=""
-                      v-model="p.quantity"
-                      name="quantity"
-                      value="1"
-                      title="Qty"
-                      class="input-text qty text"
-                      size="4"
-                      pattern=""
-                      inputmode=""
-                    />
-                    <input type="button" value="+" class="plus" @click="plus(index)" />
+            </div>
+
+            <div class="address-section">
+              <div class="container">
+                <div class="row" style="padding-top: 50px">
+                  <div class="col-xs-6">
+                    <div class="col-12">
+                      <p>Add New Address</p>
+                      <div class="form-group">
+                        <label for="email">Full Name</label>
+                        <input type="email" v-model="payload.fullname" class="form-control" id="email" />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">Mobile Number</label>
+                        <input type="text" v-model="payload.mobilenumber" class="form-control" id="email" />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">Pincode</label>
+                        <input type="text" v-model="payload.pincode" class="form-control" id="email" />
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email"
+                          >Flat, House no., Building, Company, Apartment:</label
+                        >
+                        <input type="text" v-model="payload.building" class="form-control" id="email" />
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email"
+                          >Area, Colony, Street, Sector, Village:</label
+                        >
+                        <input type="text" v-model="payload.street" class="form-control" id="email" />
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">Town/City:</label>
+                        <input type="text" v-model="payload.city" class="form-control" id="email" />
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">Landmark e.g. near apollo hospital: </label>
+                        <input type="text" v-model="payload.landmark" class="form-control" id="email" />
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">State:</label>
+                        <input type="text" v-model="payload.state" class="form-control" id="email" />
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <button @click="addNewAddress" type="button" class="btn btn-order">
+                        Add Address
+                      </button>
+                    </div>
                   </div>
-                </div>
-                <div class="d-flex">
-                  <span style="padding:0 0 0 36px"
-                    ><nuxt-link class="none" to=""
-                      >SAVE FOR LATER</nuxt-link
-                    ></span
-                  >
-                  <span style="padding:0 0 0 12px"
-                    ><nuxt-link class="none" to="">REMOVE</nuxt-link></span
-                  >
                 </div>
               </div>
             </div>
-          </div>
-          <div class="d-flex justify-content-end pad12">
-           <button @click="startOrder" type="button" class="btn btn-order">
-                        Place Order
-            </button>
           </div>
         </div>
         <div class="col-md-4">
@@ -124,7 +125,9 @@
             <div style="padding:0 24px">
               <div class="d-flex justify-content-between" style="margin:20px 0">
                 <span><p>Price (2 items)</p></span>
-                <span><p>₹ {{totalSum}}</p></span>
+                <span
+                  ><p>₹ {{ totalSum }}</p></span
+                >
               </div>
               <div class="d-flex justify-content-between" style="margin:20px 0">
                 <span><p>Delivery</p></span>
@@ -135,11 +138,13 @@
                 style="margin:20px 0"
               >
                 <span><p>Total Payable</p></span>
-                <span><p>₹ {{totalSum}}</p></span>
+                <span
+                  ><p>₹ {{ totalSum }}</p></span
+                >
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
-              <p>You will save ₹{{discountedtotalSum}} on this order</p>
+              <p>You will save ₹{{ discountedtotalSum }} on this order</p>
             </div>
           </div>
         </div>
@@ -148,13 +153,14 @@
   </div>
 </template>
 
-
 <script>
 import { mapState } from 'vuex'
 
 export default {
   data: () => ({
     totalSum: 0,
+    payload: [],
+    alluseraddress: [],
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
     cart: [
@@ -164,13 +170,14 @@ export default {
           product_name: ''
         }
       }
-    ],
+    ]
   }),
 
   //   computed: mapState(['cart_data']),
 
   mounted() {
     this.getCartByUser()
+    this.getAllUserAddress()
   },
   methods: {
     getCartByUser: function() {
@@ -189,7 +196,8 @@ export default {
             'product_id'
           ]['product_name']
           this.totalSum += parseInt(element.product_info.price)
-          this.discountedtotalSum += parseInt(element.product_info.mrp) - this.totalSum
+          this.discountedtotalSum +=
+            parseInt(element.product_info.mrp) - this.totalSum
         })
       })
     },
@@ -199,42 +207,50 @@ export default {
         this.getCartByUser()
       })
     },
-    goToProducts: function(id) {
-      localStorage.setItem('single_product', id)
-
-      console.log(id)
-
-      this.$router.push('/product')
+    getAllUserAddress: function(id) {
+      this.$store.dispatch('getAllUserAddress').then(res => {
+        this.alluseraddress = res.data
+      })
     },
-
-    minus: function(id) {
-      console.log(id)
-      this.cart[id].quantity = this.cart[id].quantity - 1
-    },
-
-    plus: function(id) {
-      console.log(id)
-     this.cart[id].quantity = this.cart[id].quantity + 1
-    },
-    startOrder: function(){
+    selectedAddress: function() {
 
 
-      this.$cookies.set('order_step', '1', {
+      this.$cookies.set('order_step', '2', {
           path: '/',
           httpOnly : process.env.cookie,
           secure: process.env.cookie,
           maxAge: 60 * 60 * 24 * 7
         })
 
-      this.$router.push('/address')
+      this.$router.push('/payments')
 
+
+    },
+    addNewAddress: function() {
+
+      var payload = new FormData()
+
+      console.log(this.payload.fullname)
+
+      payload.append('fullname' , this.payload.fullname)
+      payload.append('pincode' , this.payload.pincode )
+      payload.append('mobilenumber' , this.payload.mobilenumber)
+      payload.append('building' , this.payload.building)
+      payload.append('street' , this.payload.street)
+      payload.append('city' , this.payload.city)
+      payload.append('landmark' , this.payload.landmark)
+      payload.append('state' , this.payload.state)
+
+      this.$store.dispatch('addNewAddress', payload).then(res => {
+
+          console.log(res)
+          this.alluseraddress = res.data
+
+      })
     }
-
   }
 }
 </script>
-
-
 
 <style scoped>
 .pad24 {
@@ -372,7 +388,6 @@ export default {
     max-width: 1260px;
   }
 }
-
 </style>
 
 <!-- <div>

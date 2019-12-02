@@ -21,18 +21,22 @@
                   <div>
                     <div>
                       <p class="pad-9" style="font-size:16px">
-                        {{ p.product_name }}
+                        {{ p.fullname }}
                       </p>
                     </div>
                     <div>
-                      <p class="pad-11 font-12">Seller:Vision Star</p>
+                      <p class="pad-11 font-12"> {{ p.building }} {{ p.street }}</p>
+                      <p v-if="p.landmark != ''" class="pad-11 font-12"> {{ p.landmark }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ </p>
-                      <p class="pad-11">₹ </p>
+                      <p class="pad-11"> {{ p.city }}, {{ p.state }} {{ p.pincode }} </p>
+                      <p class="pad-11"> {{ p.country }} </p>
                     </div>
-                    <button type="button" class="btn btn-primary btn-sm">
+                    <button type="button" @click="selectedAddress(p.id)" class="btn btn-primary btn-sm">
                       Deliver to this address
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -88,6 +92,12 @@
                         <input type="text" v-model="payload.city" class="form-control" id="email" />
                       </div>
                     </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="email">Landmark e.g. near apollo hospital: </label>
+                        <input type="text" v-model="payload.landmark" class="form-control" id="email" />
+                      </div>
+                    </div>
 
                     <div class="col-12">
                       <div class="form-group">
@@ -136,10 +146,6 @@
             <div class="border-top" style="padding:20px 24px">
               <p>You will save ₹{{ discountedtotalSum }} on this order</p>
             </div>
-          </div>
-
-          <div class="d-flex justify-content-end pad12">
-            <button type="button" class="btn btn-order">PLACE ORDER</button>
           </div>
         </div>
       </div>
@@ -206,6 +212,20 @@ export default {
         this.alluseraddress = res.data
       })
     },
+    selectedAddress: function() {
+
+
+      this.$cookies.set('order_step', '2', {
+          path: '/',
+          httpOnly : process.env.cookie,
+          secure: process.env.cookie,
+          maxAge: 60 * 60 * 24 * 7
+        })
+
+      this.$router.push('/payment')
+
+
+    },
     addNewAddress: function() {
 
       var payload = new FormData()
@@ -218,11 +238,13 @@ export default {
       payload.append('building' , this.payload.building)
       payload.append('street' , this.payload.street)
       payload.append('city' , this.payload.city)
+      payload.append('landmark' , this.payload.landmark)
       payload.append('state' , this.payload.state)
 
       this.$store.dispatch('addNewAddress', payload).then(res => {
 
           console.log(res)
+          this.alluseraddress = res.data
 
       })
     }
