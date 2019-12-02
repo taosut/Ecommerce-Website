@@ -75,7 +75,7 @@ p
 {
 	font-family: 'Rubik', sans-serif;
 	font-size: 14px;
-	line-height: 1.7;
+	line-height: 1.4;
 	font-weight: 400;
 	color: #828282;
 	-webkit-font-smoothing: antialiased;
@@ -476,7 +476,7 @@ section
 	font-size: 12px;
 	font-weight: 300;
 	line-height: 45px;
-	color: #000;
+	color: #fff;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
 	-ms-transition: all 200ms ease;

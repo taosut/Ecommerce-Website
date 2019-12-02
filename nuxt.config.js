@@ -20,7 +20,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/static/favicon.ico' },
       {
         rel: 'stylesheet',
         href:
@@ -39,7 +39,7 @@ export default {
     ],
     script: [
       {
-        src: '/ecommerce/jquery.min.js',
+        src: '/jquery.min.js',
         type: 'text/javascript'
       },
       {
@@ -47,18 +47,18 @@ export default {
           'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',
         type: 'text/javascript'
       },
-      { src: '/ecommerce/styles/bootstrap4/popper.js',  type: 'text/javascript' },
-      { src: '/ecommerce/styles/bootstrap4/bootstrap.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/greensock/TweenMax.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/greensock/TimelineMax.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/scrollmagic/ScrollMagic.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/greensock/animation.gsap.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/greensock/ScrollToPlugin.min.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/OwlCarousel2-2.2.1/owl.carousel.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/slick-1.8.0/slick.js',  type: 'text/javascript' },
-      { src: '/ecommerce/plugins/easing/easing.js',  type: 'text/javascript' },
-      { src: '/ecommerce/js/custom.js',  type: 'text/javascript' },
-      { src: '/ecommerce/js/product_custom.js',  type: 'text/javascript' },
+      { src: '/styles/bootstrap4/popper.js',  type: 'text/javascript' },
+      { src: '/styles/bootstrap4/bootstrap.min.js',  type: 'text/javascript' },
+      { src: '/plugins/greensock/TweenMax.min.js',  type: 'text/javascript' },
+      { src: '/plugins/greensock/TimelineMax.min.js',  type: 'text/javascript' },
+      { src: '/plugins/scrollmagic/ScrollMagic.min.js',  type: 'text/javascript' },
+      { src: '/plugins/greensock/animation.gsap.min.js',  type: 'text/javascript' },
+      { src: '/plugins/greensock/ScrollToPlugin.min.js',  type: 'text/javascript' },
+      { src: '/plugins/OwlCarousel2-2.2.1/owl.carousel.js',  type: 'text/javascript' },
+      { src: '/plugins/slick-1.8.0/slick.js',  type: 'text/javascript' },
+      { src: '/plugins/easing/easing.js',  type: 'text/javascript' },
+      { src: '/js/custom.js',  type: 'text/javascript' },
+      { src: '/js/product_custom.js',  type: 'text/javascript' },
     ]
   },
 
@@ -87,7 +87,7 @@ export default {
 
   
   router: {
-    base: '/ecommerce/'
+    // base: '/ecommerce/'
   },
 
 

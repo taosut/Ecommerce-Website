@@ -88,7 +88,7 @@
                         <a href="#">{{p.product_name}}</a>
                       </div>
                       <div class="viewed_price">
-                        ${{p.price}}fg fg {{p}}
+                        ₹{{p.price}}fg fg {{p}}
                         <span>${{p.discount}}</span>
                       </div>
 

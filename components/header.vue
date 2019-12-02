@@ -12,7 +12,7 @@
               <div class="top_bar_icon">
                 <img src="~static/images/phone.png" alt="" />
               </div>
-              +38 068 005 3570
+              <a href="tel:1800 121 3578">1800 121 3578</a>
             </div>
             <div class="top_bar_contact_item">
               <div class="top_bar_icon">
@@ -78,7 +78,7 @@
       <div class="container">
         <div class="row">
           <!-- Logo -->
-          <div class="col-lg-2 col-sm-3 col-3 order-1">
+          <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
               <div class="logo"><nuxt-link to="/">Ecommerce</nuxt-link></div>
             </div>
@@ -86,7 +86,7 @@
 
           <!-- Search -->
           <div
-            class="col-lg-5 col-12 order-lg-2 order-3 text-lg-left text-right"
+            class="col-lg-5 col-6 text-lg-left text-right"
           >
             <div class="header_search">
               <div class="header_search_content">
@@ -114,7 +114,7 @@
 
           <!-- Wishlist -->
           <div
-            class="col-lg-5 col-9 order-lg-3 order-2 text-lg-left text-right"
+            class="col-lg-5 col-3 text-lg-left text-right"
           >
             <div
               class="wishlist_cart d-flex flex-row align-items-center justify-content-end"

@@ -65,11 +65,11 @@
                           </div>
                           <div class="viewed_content text-center">
                             <div class="viewed_name">
-                              <p>{{ q.product_name }}</p>
+                              <p class="clamp2">{{ q.product_name }}</p>
                             </div>
                             <div class="viewed_price">
-                              ${{ q.price }}
-                              <span v-if="q.price < q.mrp">${{ q.mrp }}</span>
+                              ₹{{ q.price }}
+                              <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
                             </div>
                           </div>
                           <ul class="item_marks">

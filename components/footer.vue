@@ -15,11 +15,12 @@
 						<div class="logo_container">
 							<div class="logo"><a href="#">Logo</a></div>
 						</div>
-						<div class="footer_title">Got Question?</div>
-						<div class="footer_phone">(800) 8001-8588</div>
+						<!-- <div class="footer_title">Got Question?</div> -->
+						<div class="footer_phone">1800 121 3578</div>
 						<div class="footer_contact_text">
 							<p style="font-weight: bold">Contact Info</p>
-							<p>Lorem ipsum dolor sit amet consectetur</p>
+							<p>Toll Free Number - 1800 121 3578</p>
+							<p>Email - info@wenslink.com</p>
 						</div>
 					</div>
 				</div>

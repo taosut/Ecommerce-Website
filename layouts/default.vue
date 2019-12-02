@@ -297,7 +297,7 @@ p {
 
 @media (min-width: 1200px) {
   .container {
-    max-width: 1680px;
+    max-width: 1250px;
   }
 }
 

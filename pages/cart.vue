@@ -157,14 +157,7 @@ export default {
     totalSum: 0,
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
-    cart: [
-      {
-        product_info: {
-          images: [],
-          product_name: ''
-        }
-      }
-    ],
+    cart: [],
   }),
 
   //   computed: mapState(['cart_data']),
