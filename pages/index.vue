@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="    margin-top: 20px;">
     <div class="container">
         <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
           <div class="item"><img src="images/hero3.jpg"></div>
@@ -15,7 +15,7 @@
         <div class="container">
           <div class="row">
             <!-- Char. Item -->
-            <div class="col-lg-4 col-md-6 char_col" v-for="p in 3" :key="p">
+            <div class="col-lg-3 col-md-6 char_col" v-for="p in 4" :key="p" style="display: none">
               <div
                 class="viewed_item discount d-flex flex-column justify-content-center"
               >
@@ -44,8 +44,8 @@
         <div class="container">
           <div class="row">
             <div class="col-12" v-for="p in carousel" :key="p.id">
-              <div v-if="p.products.length != 0">
-                <div class="">
+              <div class="product_section" v-if="p.products.length != 0">
+                <div class="product_section_title">
                   <h3 class="viewed_title">{{ p.title }}</h3>
                 </div>
 
@@ -69,11 +69,11 @@
                             </div>
                             <div class="viewed_price">
                               ${{ q.price }}
-                              <span>${{ q.mrp }}</span>
+                              <span v-if="q.price < q.mrp">${{ q.mrp }}</span>
                             </div>
                           </div>
                           <ul class="item_marks">
-                            <li class="item_mark item_discount">-25%</li>
+                            <li class="item_mark item_discount" v-if="q.price < q.mrp">{{ Math.round(((q.mrp - q.price) / q.mrp ) * 100 ) }} %</li>
                             <li class="item_mark item_new">new</li>
                           </ul>
                         </div>
@@ -111,7 +111,7 @@ export default {
       opacity: '1'
     })
 
-    $('body').css('background-color', '#eff6fa')
+    // $('body').css('background-color', '#eff6fa')
 
     setTimeout(function() {
       $('.associates').owlCarousel({
@@ -137,7 +137,7 @@ export default {
       $('.hero-carousel, .testimonial').owlCarousel({
         loop: true,
         margin: 10,
-                nav: true,
+        nav: true,
         navText: [
           "<img class='rotate180' src='icons/arrow.svg'>",
           "<img src='icons/arrow.svg'>"
@@ -189,7 +189,7 @@ export default {
                 items: 3
               },
               1000: {
-                items: 5
+                items: 6
               }
             }
           })
@@ -252,5 +252,27 @@ export default {
     width: 100%;
     object-fit: cover;
     height: 100%;
+}
+
+.viewed_item:hover{
+  box-shadow: 0 7px 17px 0 rgba(23,84,116,0.18);
+  border: solid 0.9px #f3f3f3
+}
+
+.viewed_item{
+  border: solid 0.9px  rgba(243, 243, 243, 0);
+}
+
+.product_section{
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
+  margin: 0px 0px 10px
+}
+
+
+.product_section_title{
+  padding: 15px 20px;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 }
 </style>

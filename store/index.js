@@ -41,7 +41,7 @@ export const state = () => ({
 
 
     //global var
-    user_email: "",
+    name: "",
     user_id: 0,
     cart: 0,
     cart_data: [],
@@ -65,9 +65,9 @@ export const mutations = {
         state.isLoggedIn = isLoggedIn
     },
 
-    user_email(state, user_email) {
-        console.log('selecting exercise mutation, ' + user_email)
-        state.user_email = user_email
+    name(state, name) {
+        console.log('selecting exercise mutation, ' + name)
+        state.name = name
     },
 
     getCategory(state, getCategory) {
@@ -159,7 +159,7 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('user_email' , res.data.user_info.email)
+                    commit('name' , res.data.user_info.name )
                     commit('isLoggedIn' , 1)
                     resolve(res)
                 })
@@ -180,13 +180,14 @@ export const actions = {
                 url: state.api.addToCart,
                 data : payload,
                 contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
             })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
+                    commit('cart' , res.data.length)
                     resolve(res)
                 })
                 .catch(err => {
@@ -202,18 +203,17 @@ export const actions = {
 
             axios({
                 method: 'GET',
-                url: state.api.getCartByUser + this.$cookies.get('user_id'),
+                url: state.api.getCartByUser,
                 data : payload,
                 contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
             })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
                     commit('cart' , res.data.length)
-                    commit('cart_data' , res.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -425,13 +425,62 @@ export const actions = {
                 url: state.api.eachCategoryProducts,
                 contentType: 'application/json',
                 // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                //     'Authorization': "Bearer " + this.$cookies.get('access_token')
                 // }
             })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
                     commit('getAllProducts', res.data);
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    getAllUserAddress({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'GET',
+                url: state.api.getalluseraddress,
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    addNewAddress({ commit, state } , payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'POST',
+                data: payload,
+                url: state.api.addnewuseraddress,
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
                     resolve(res)
                 })
                 .catch(err => {

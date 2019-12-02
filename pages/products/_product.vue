@@ -32,6 +32,7 @@
 							<form action="#">
 
 								<div class="product_price">${{product.price}}</div>
+								<div class="product_mrp">${{product.mrp}}</div>
 								<div class="button_container">
 									<button type="button" class="button cart_button">Buy Now</button>
 									<button type="button" class="button cart_button" @click="addToCart(product.id)" style="background-color: transparent;border: 1px solid black;color: black;">Add to Cart</button>
@@ -40,6 +41,19 @@
 							</form>
 						</div>
 					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="single_product">
+		<div class="container">
+			<div class="row">
+				<!-- Description -->
+				<div class="col-lg-5 order-3">
+
+
 				</div>
 
 			</div>
@@ -85,9 +99,6 @@
                     </ul>
                   </div>
                 </div>
-
-
-
               </div>
             </div>
           </div>
@@ -127,6 +138,7 @@ export default {
     images: {},
     auction_data: [],
     auction_timer: [],
+    variations: [],
     baseurl: process.env.baseUrl,
     auction_status: 0,
     bidding_list: {
@@ -153,8 +165,11 @@ export default {
       .dispatch('getSingleProduct', this.$route.params.product)
       .then(res => {
         this.product = Object.assign({} , res.data.product)
+        this.variations = res.data.variations
         this.product['price'] = res.data.variations[0]['price']
+        this.product['mrp'] = res.data.variations[0]['mrp']
         this.product.images = JSON.parse(this.product.images)
+        this.product.bullet_points = JSON.parse(this.product.bullet_points)
 
 
       })
@@ -207,6 +222,20 @@ export default {
              this.bidding_list = JSON.parse(JSON.stringify(res.data))
 
           })
+
+
+    },
+
+    addToCart: function(){
+
+
+      var payload = new FormData()
+
+      payload.append('product_info', this.variations[0].id)
+      payload.append('quantity', 1)
+      payload.append('seller_id', 100)
+
+      this.$store.dispatch('addToCart', payload )    
 
 
     },
@@ -613,6 +642,12 @@ button[disabled] {
   border-color: #9e9e9e;
 }
 
-
+.product_mrp{
+position: relative;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(0,0,0,0.6);
+    margin-left: 8px;
+}
 
 </style>

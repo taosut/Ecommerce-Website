@@ -1,12 +1,11 @@
 <template>
   <div>
-    <Header />
+    <!-- <Header v-if="$nuxt.$route.name != 'address'"/> -->
+    <Header/>
     <nuxt />
-    <Footer />
+    <Footer/>
   </div>
 </template>
-
-
 
 <script>
 // import TopNav from '@/components/TopNav'
@@ -44,7 +43,6 @@ export default {
 }
 </script>
 
-
 <style>
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -63,6 +61,10 @@ html {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+body{
+  background-color: #f1f3f6
 }
 
 .button--green {
@@ -204,7 +206,7 @@ p {
 
 .owl-carousel .owl-next {
   position: absolute;
-  right: -12px;
+  right: -5px;
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
@@ -218,7 +220,7 @@ p {
 
 .owl-carousel .owl-prev {
   position: absolute;
-  left: -12px;
+  left: -5px;
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
@@ -293,9 +295,15 @@ p {
   cursor: pointer;
 }
 
-@media (min-width: 1200px){
-.container {
+@media (min-width: 1200px) {
+  .container {
     max-width: 1680px;
+  }
 }
+
+@media (min-width: 576px) and (max-width: 1024px) {
+  .container {
+    max-width: 95%;
+  }
 }
 </style>

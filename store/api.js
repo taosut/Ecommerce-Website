@@ -48,9 +48,15 @@ export const state = () => ({
 
     addToCart : url + "cart/create",
 
-    getCartByUser : url + "cart/",
+    getCartByUser : url + "cart",
 
     removeFromCart : url + "cart/delete/",
+    
+    getalluseraddress : url + "users/getalluseraddress",
+
+    changeuseraddress : url + "users/changeuseraddress", //id
+
+    addnewuseraddress : url + "users/addnewuseraddress",
 
 
 

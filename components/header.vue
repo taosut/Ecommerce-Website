@@ -1,155 +1,207 @@
 <template>
-	<!-- Header -->
-	
-	<header class="header">
+  <!-- Header -->
 
-		<!-- Top Bar -->
+  <header class="header">
+    <!-- Top Bar -->
 
-		<div class="top_bar">
-			<div class="container">
-				<div class="row">
-					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~static/images/phone.png" alt=""></div>+38 068 005 3570</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="~static/images/mail.png" alt=""></div><a href="mailto:ecom@gmail.com">fastsales@gmail.com</a></div>
-						<div class="top_bar_content ml-auto">
-							<div class="top_bar_menu">
-								<ul class="standard_dropdown top_bar_dropdown">
-									<li>
+    <div class="top_bar">
+      <div class="container">
+        <div class="row">
+          <div class="col d-flex flex-row">
+            <div class="top_bar_contact_item">
+              <div class="top_bar_icon">
+                <img src="~static/images/phone.png" alt="" />
+              </div>
+              +38 068 005 3570
+            </div>
+            <div class="top_bar_contact_item">
+              <div class="top_bar_icon">
+                <img src="~static/images/mail.png" alt="" />
+              </div>
+              <a href="mailto:ecom@gmail.com">info@wenslink.com</a>
+            </div>
+            <div class="ml-auto d-flex">
+              <div class="top_bar_menu">
+                <ul class="standard_dropdown top_bar_dropdown">
+                  <!-- <li>
 										<a href="#">English<i class="fas fa-chevron-down"></i></a>
 										<ul>
 											<li><a href="#">Italian</a></li>
 											<li><a href="#">Spanish</a></li>
 											<li><a href="#">Japanese</a></li>
 										</ul>
-									</li>
-									<li>
-										<a href="#">$ US dollar<i class="fas fa-chevron-down"></i></a>
-										<ul>
+									</li> -->
+                  <li>
+                    <a href="#">₹ Rupee<i class="fas fa-chevron-down"></i></a>
+                    <!-- <ul>
 											<li><a href="#">EUR Euro</a></li>
 											<li><a href="#">GBP British Pound</a></li>
 											<li><a href="#">JPY Japanese Yen</a></li>
-										</ul>
-									</li>
-								</ul>
-							</div>
-							<div class="top_bar_user">
-								<div class="user_icon"><img src="~static/images/user.svg" alt=""></div>
-								<div><a href="#">Register</a></div>
-								<div><nuxt-link to="/login">Sign In</nuxt-link></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>		
-		</div>
+										</ul> -->
+                  </li>
+                </ul>
+              </div>
 
-		<!-- Header Main -->
+              <div class="top_bar_menu">
+                <ul class="standard_dropdown top_bar_dropdown">
+                  <li>
+                    <a v-if="name" href="#"
+                      >{{ name }}<i class="fas fa-chevron-down"></i
+                    ></a>
+                    <ul>
+                      <li><a href="#">Your Account</a></li>
+                      <li><a href="#">Your Orders</a></li>
+                      <li><a href="#" @click="logout">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
 
-		<div class="header_main">
-			<div class="container">
-				<div class="row">
+              <div class="top_bar_user">
+                <div v-if="!name">
+                  <div class="user_icon">
+                    <img src="~static/images/user.svg" alt="" />
+                  </div>
+                  <div><a href="#">Register</a></div>
+                  <div><nuxt-link to="/login">Sign In</nuxt-link></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-					<!-- Logo -->
-					<div class="col-lg-2 col-sm-3 col-3 order-1">
-						<div class="logo_container">
-							<div class="logo"><nuxt-link to="/">Ecommerce</nuxt-link></div>
-						</div>
-					</div>
+    <!-- Header Main -->
 
-					<!-- Search -->
-					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
-						<div class="header_search">
-							<div class="header_search_content">
-								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+    <div class="header_main">
+      <div class="container">
+        <div class="row">
+          <!-- Logo -->
+          <div class="col-lg-2 col-sm-3 col-3 order-1">
+            <div class="logo_container">
+              <div class="logo"><nuxt-link to="/">Ecommerce</nuxt-link></div>
+            </div>
+          </div>
 
-										<button type="submit" class="header_search_button trans_300" value="Submit"><img src="~static/images/search.png" alt=""></button>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
+          <!-- Search -->
+          <div
+            class="col-lg-5 col-12 order-lg-2 order-3 text-lg-left text-right"
+          >
+            <div class="header_search">
+              <div class="header_search_content">
+                <div class="header_search_form_container">
+                  <form action="#" class="header_search_form clearfix">
+                    <input
+                      type="search"
+                      required="required"
+                      class="header_search_input"
+                      placeholder="Search for products..."
+                    />
 
-					<!-- Wishlist -->
-					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist_icon"><img src="~static/images/heart.png" alt=""></div>
-								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-								</div>
-							</div>
+                    <button
+                      type="submit"
+                      class="header_search_button trans_300"
+                      value="Submit"
+                    >
+                      <img src="~static/images/search.png" alt="" />
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
 
-							<!-- Cart -->
-							<div class="cart">
-								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
-									<div class="cart_icon">
-										<img src="~static/images/cart.png" alt="">
-										<div class="cart_count"><span>{{cart}}</span></div>
-									</div>
-									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<!-- Main Navigation -->
+          <!-- Wishlist -->
+          <div
+            class="col-lg-5 col-9 order-lg-3 order-2 text-lg-left text-right"
+          >
+            <div
+              class="wishlist_cart d-flex flex-row align-items-center justify-content-end"
+            >
+              <div
+                class="wishlist d-flex flex-row align-items-center justify-content-end"
+              >
+                <div class="wishlist_icon">
+                  <img src="~static/images/heart.png" alt="" />
+                </div>
+                <div class="wishlist_content">
+                  <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                </div>
+              </div>
 
-		<nav class="main_nav">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						
-						<div class="main_nav_content d-flex flex-row">
+              <!-- Cart -->
+              <div class="cart">
+                <div
+                  class="cart_container d-flex flex-row align-items-center justify-content-end"
+                >
+                  <div class="cart_icon">
+                    <img src="~static/images/cart.png" alt="" />
+                    <div class="cart_count">
+                      <span>{{ cart }}</span>
+                    </div>
+                  </div>
+                  <div class="cart_content">
+                    <div class="cart_text"><nuxt-link to="/cart">Cart</nuxt-link></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-							<!-- Categories Menu -->
+    <!-- Main Navigation -->
 
-							<div class="">
-				
-							</div>
+    <nav class="main_nav">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <div class="main_nav_content d-flex flex-row">
+              <!-- Categories Menu -->
 
-							<!-- Main Nav Menu -->
+              <div class=""></div>
 
-							<div class="main_nav_menu m-auto">
-								<ul class="standard_dropdown main_nav_dropdown">
-											<li v-for="p in category" :key="p.id"><a href="shop.html">{{p.name}}<i class="fas fa-chevron-down"></i></a></li>
-											<li><a href="product.html">Offers<i class="fas fa-chevron-down"></i></a></li>
-								</ul>
-							</div>
+              <!-- Main Nav Menu -->
 
-							<!-- Menu Trigger -->
+              <div class="main_nav_menu m-auto">
+                <ul class="standard_dropdown main_nav_dropdown">
+                  <li v-for="p in category" :key="p.id">
+                    <a href="shop.html"
+                      >{{ p.name }}<i class="fas fa-chevron-down"></i
+                    ></a>
+                  </li>
+                </ul>
+              </div>
 
-							<div class="menu_trigger_container ml-auto">
-								<div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
-									<div class="menu_burger">
-										<div class="menu_trigger_text">menu</div>
-										<div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
-									</div>
-								</div>
-							</div>
+              <!-- Menu Trigger -->
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</nav>
-		
-
-
-	</header>
+              <div class="menu_trigger_container ml-auto">
+                <div
+                  class="menu_trigger d-flex flex-row align-items-center justify-content-end"
+                >
+                  <div class="menu_burger">
+                    <div class="menu_trigger_text">menu</div>
+                    <div class="cat_burger menu_burger_inner">
+                      <span></span><span></span><span></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      category : []
+      category: []
     }
   },
 
@@ -160,30 +212,28 @@ export default {
     cart() {
       return this.$store.state.cart
     },
-    email() {
+    name() {
       console.log(this.$cookies.get('name'))
       if (this.$cookies.get('name') != undefined) {
         console.log('cookie')
         this.$store.commit('isLoggedIn', 1)
-        this.$store.commit('user_email', this.$cookies.get('name'))
+        this.$store.commit('name', this.$cookies.get('name'))
       } else {
         console.log('cookieNot')
         this.$store.commit('isLoggedIn', 0)
       }
 
-      return this.$store.state.user_email
+      return this.$store.state.name
     }
   },
 
   mounted() {
+    if (this.$cookies.get('name') != undefined) {
+      this.$store.dispatch('getCartByUser')
+    }
 
-      if (this.$cookies.get('name') != undefined) {
-        this.$store.dispatch('getCartByUser')
-      }
-
-
-         this.$store.dispatch('getCategory').then(res =>{
-      this.category = Object.assign({} , res.data)
+    this.$store.dispatch('getCategory').then(res => {
+      this.category = Object.assign({}, res.data)
     })
 
     console.log("this.$cookies.get('name')")
@@ -191,15 +241,21 @@ export default {
     if (this.$cookies.get('name') != undefined) {
       console.log('cookie')
       this.$store.commit('isLoggedIn', 1)
-      this.$store.commit('user_email', this.$cookies.get('email'))
+      this.$store.commit('name', this.$cookies.get('name'))
     } else {
       console.log('cookieNot')
+      this.$store.commit('name', 0)
       this.$store.commit('isLoggedIn', 0)
     }
   },
   methods: {
     goToLogin: function() {
       this.$router.push('/login')
+    },
+    logout: function() {
+      this.$cookies.removeAll()
+      this.$store.commit('name', 0)
+      this.$store.commit('isLoggedIn', 0)
     }
   }
 }
