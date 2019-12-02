@@ -80,7 +80,10 @@
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
-              <div class="logo"><nuxt-link to="/">Ecommerce</nuxt-link></div>
+              <div class="logo"><nuxt-link style="    display: flex;
+    align-items: center;" to="/"><img src="/icons/logo.png" style="  width: 40px;
+    height: 100%;
+    object-fit: contain;"><p style="color:white; font-size:18px;padding-left: 10px">WENSLink Ecommerce</p></nuxt-link></div>
             </div>
           </div>
 

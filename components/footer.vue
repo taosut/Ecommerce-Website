@@ -13,7 +13,8 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">Logo</a></div>
+							<div class="logo"><a href="#"><img src="/icons/logo.png" style="width: 50px;height: 100%;object-fit: contain;"></a></div>
+						<p style="color:black; font-size:18px;">WENSLink Ecommerce</p>
 						</div>
 						<!-- <div class="footer_title">Got Question?</div> -->
 						<div class="footer_phone">1800 121 3578</div>
@@ -29,13 +30,11 @@
 					<div class="footer_column">
 						<div class="footer_title">Get to Know Us</div>
 						<ul class="footer_list">
-							<li><a href="#">About Us</a></li>
-							<li><a href="#">Terms & Conditions</a></li>
-							<li><a href="#">Privacy Policy</a></li>
-						</ul>
-						<div class="footer_subtitle">Gadgets</div>
-						<ul class="footer_list">
-							<li><a href="#">Car Electronics</a></li>
+							<li><a target="_blank" href="/legal/about">About Us</a></li>
+							<li><a target="_blank" href="/legal/selleragreement">Seller Agreement</a></li>
+							<li><a target="_blank" href="/legal/privacy">Privacy Policy</a></li>
+							<li><a target="_blank" href="/legal/returnpolicy">Return Policy</a></li>
+							<li><a target="_blank" href="/legal/buyeragreement">Buyer Agreement</a></li>
 						</ul>
 					</div>
 				</div>

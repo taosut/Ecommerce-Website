@@ -27,18 +27,17 @@
 						<div class="product_name">{{product.product_name}}</div>
 						<div>{{product.brand_name}}</div>
 						<!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->
-						<div class="product_text"><p>{{product.description}}</p></div>
-						<div class="order_info d-flex flex-row">
-							<form action="#">
-
-								<div class="product_price">${{product.price}}</div>
-								<div class="product_mrp">${{product.mrp}}</div>
+						<div class="product_text"><p class="clamp4">{{product.description}}</p></div>
+						<div class="order_info flex-row">
+							<div class="d-flex align-center">
+								<div class="product_price">₹{{product.price}}</div>
+								<div class="product_mrp">₹{{product.mrp}}</div>
+							</div>
 								<div class="button_container">
-									<button type="button" class="button cart_button">Buy Now</button>
+									<button type="button" class="button buy_button">Buy Now</button>
 									<button type="button" class="button cart_button" @click="addToCart(product.id)" style="background-color: transparent;border: 1px solid black;color: black;">Add to Cart</button>
 								</div>
 								
-							</form>
 						</div>
 					</div>
 				</div>
@@ -53,7 +52,45 @@
 				<!-- Description -->
 				<div class="col-lg-5 order-3">
 
+      <div v-if="product.specs != ''">
+          <div v-for="(p, index) in product.specs" :key="p.id" class="input_fields_wrap drag-list" id="h">
+            <h3>{{p.name}}</h3>
+            <div class="row">
+              <div class="col s12">
+                <div class="col s24" v-for="(q, index1) in p['sub']" :key="q.id">
+                  <div class="form-group">
+                    <label>{{q.name}}</label>
 
+                    <div v-if="q.type == 1">
+                      <input class="specs-value" :data-id="q.id" type="text" v-model="q.value" />
+                    </div>
+
+                    <div style="display: flex;" v-if="q.type == 2">
+                      <select class="specs-value" :data-id="q.id" v-model="q.value" style="display: inline-block; width: 100% ">
+                        <option
+                          v-for="r in q.dropdown_items"
+                          :key="r.id"
+                          :value="r.name"
+                        >{{r.name}}</option>
+                      </select>
+                    </div>
+
+                    <div style="display: flex;" v-if="q.type == 3">
+                      <input class="specs-value" type="text" :data-id="q.id" v-model="q.value" />
+                      <select class="specs-value" :data-id="q.id" v-model="q.dropdown" style="display: inline-block; width: 30% ">
+                        <option
+                          v-for="r in q.dropdown_items"
+                          :key="r.id"
+                          :value="r.name"
+                        >{{r.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 				</div>
 
 			</div>
@@ -643,11 +680,27 @@ button[disabled] {
 }
 
 .product_mrp{
-position: relative;
-    font-size: 12px;
+    position: relative;
+    font-size: 15px;
     font-weight: 400;
     color: rgba(0,0,0,0.6);
     margin-left: 8px;
+    text-decoration: line-through
+}
+
+
+.buy_button{
+  background-color: #f5805d;
+  display: inline-block;
+    border: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 48px;
+    color: #FFFFFF;
+    padding-left: 35px;
+    padding-right: 35px;
+    outline: none;
+    cursor: pointer;
 }
 
 </style>

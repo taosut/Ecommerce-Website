@@ -104,7 +104,7 @@
                     ></span
                   >
                   <span style="padding:0 0 0 12px"
-                    ><nuxt-link class="none" to="">REMOVE</nuxt-link></span
+                    ><div @click="deleteCartItem(p.id)">REMOVE</div></span
                   >
                 </div>
               </div>
@@ -220,6 +220,16 @@ export default {
         })
 
       this.$router.push('/address')
+
+    },
+    deleteCartItem: function(id){
+
+      this.$store.dispatch('removeFromCart', id).then(res=>{
+
+        this.getCartByUser()
+
+
+      })
 
     }
 

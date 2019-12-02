@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- <Header v-if="$nuxt.$route.name != 'address'"/> -->
-    <Header/>
+    <Header v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
     <nuxt />
-    <Footer/>
+    <Footer v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
   </div>
 </template>
 

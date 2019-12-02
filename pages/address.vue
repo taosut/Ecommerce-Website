@@ -212,7 +212,7 @@ export default {
         this.alluseraddress = res.data
       })
     },
-    selectedAddress: function() {
+    selectedAddress: function(id) {
 
 
       this.$cookies.set('order_step', '2', {
@@ -222,7 +222,9 @@ export default {
           maxAge: 60 * 60 * 24 * 7
         })
 
-      this.$router.push('/payment')
+        console.log(id)
+
+      // this.$router.push('/payment')
 
 
     },
