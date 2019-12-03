@@ -10,14 +10,13 @@
 				<!-- Images -->
 				<div class="col-lg-1 order-lg-1 order-2">
 					<ul class="image_list">
-						<li v-for="(p, index) in product.images" :key="p.id"><img :src='baseurl + "/media/products/" + p' @error="setFallbackImageUrl"  alt=""></li>
+						<li @click="changeImage(p)" v-for="(p, index) in product.images" :key="p.id"><img :src='baseurl + "/media/products/" + p' @error="setFallbackImageUrl"  alt=""></li>
 					</ul>
 				</div>
 
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
-					<div class="image_selected"><img  :src='baseurl + "/media/products/" + product.images[0]'
-                        @error="setFallbackImageUrl" alt=""></div>
+					<div class="image_selected"><img :src='baseurl + "/media/products/" + product.images[0]' @error="setFallbackImageUrl" alt=""></div>
 				</div>
 
 				<!-- Description -->
@@ -247,6 +246,13 @@ export default {
           })
         }, 100)
       })
+    },
+    changeImage: function(id){
+
+      console.log(id)
+
+      $(".image_selected img").attr('src' , this.baseurl + "/media/products/" + id)
+
     },
     getBidding: function(id) {
 
