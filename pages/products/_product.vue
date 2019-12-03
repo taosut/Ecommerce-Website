@@ -10,7 +10,7 @@
 				<!-- Images -->
 				<div class="col-lg-1 order-lg-1 order-2">
 					<ul class="image_list">
-						<li @click="changeImage(p)" v-for="(p, index) in product.images" :key="p.id"><img :src='baseurl + "/media/products/" + p' @error="setFallbackImageUrl"  alt=""></li>
+						<li @mouseover="changeImage(p)" v-for="(p, index) in product.images" :key="p.id"><img :src='baseurl + "/media/products/" + p' @error="setFallbackImageUrl"  alt=""></li>
 					</ul>
 				</div>
 
