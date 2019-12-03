@@ -35,12 +35,10 @@
 								<div class="button_container">
 									<button type="button" class="button buy_button">Buy Now</button>
 									<button type="button" class="button cart_button" @click="addToCart(product.id)" style="background-color: transparent;border: 1px solid black;color: black;">Add to Cart</button>
-								</div>
-								
+								</div>	
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
