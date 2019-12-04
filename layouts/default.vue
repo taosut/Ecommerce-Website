@@ -1,7 +1,8 @@
 <template>
   <div>
     <!-- <Header v-if="$nuxt.$route.name != 'address'"/> -->
-    <Header v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
+    <Header v-if="$nuxt.$route.name != 'cart' && $nuxt.$route.name != 'address' && $nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
+    <Header2 v-else />
     <nuxt />
     <Footer v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
   </div>
@@ -12,12 +13,14 @@
 // import NavBar from '@/components/NavBar'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
+import Header2 from '@/components/header2'
 
 export default {
   components: {
     // NavBar,
     Footer,
-    Header
+    Header,
+    Header2
   },
   mounted() {
     document.body.classList.add('theme-dark')

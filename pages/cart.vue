@@ -24,7 +24,12 @@
                 </span>
               </div>
             </div>
-            <div class="pad24" v-for="(p, index) in cart" :key="p.id" style="border-top: 1px solid #f0f0f0!important;">
+            <div
+              class="pad24"
+              v-for="(p, index) in cart"
+              :key="p.id"
+              style="border-top: 1px solid #f0f0f0!important;"
+            >
               <div class="row">
                 <div class="col-md-2">
                   <div class="d-flex justify-content-center">
@@ -54,8 +59,8 @@
                       <p class="pad-11 font-12">Seller:Vision Star</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{p.product_info.price}}</p>
-                      <p class="pad-11">₹ {{p.product_info.mrp}}</p>
+                      <p class="pad-11">₹ {{ p.product_info.price }}</p>
+                      <p class="pad-11">₹ {{ p.product_info.mrp }}</p>
                     </div>
                   </div>
                 </div>
@@ -94,7 +99,12 @@
                       pattern=""
                       inputmode=""
                     />
-                    <input type="button" value="+" class="plus" @click="plus(index)" />
+                    <input
+                      type="button"
+                      value="+"
+                      class="plus"
+                      @click="plus(index)"
+                    />
                   </div>
                 </div>
                 <div class="d-flex">
@@ -111,8 +121,8 @@
             </div>
           </div>
           <div class="d-flex justify-content-end pad12">
-           <button @click="startOrder" type="button" class="btn btn-order">
-                        Place Order
+            <button @click="startOrder" type="button" class="btn btn-order">
+              Place Order
             </button>
           </div>
         </div>
@@ -123,8 +133,16 @@
             </div>
             <div style="padding:0 24px">
               <div class="d-flex justify-content-between" style="margin:20px 0">
-                <span><p>Price (2 items)</p></span>
-                <span><p>₹ {{totalSum}}</p></span>
+                <span
+                  ><p>
+                    Price ({{ cart.length }} item<span v-if="cart.length > 1"
+                      >s</span
+                    >)
+                  </p></span
+                >
+                <span
+                  ><p>₹ {{ totalSum }}</p></span
+                >
               </div>
               <div class="d-flex justify-content-between" style="margin:20px 0">
                 <span><p>Delivery</p></span>
@@ -135,11 +153,13 @@
                 style="margin:20px 0"
               >
                 <span><p>Total Payable</p></span>
-                <span><p>₹ {{totalSum}}</p></span>
+                <span
+                  ><p>₹ {{ totalSum }}</p></span
+                >
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
-              <p>You will save ₹{{discountedtotalSum}} on this order</p>
+              <p>You will save ₹{{ discountedtotalSum }} on this order</p>
             </div>
           </div>
         </div>
@@ -147,7 +167,6 @@
     </div>
   </div>
 </template>
-
 
 <script>
 import { mapState } from 'vuex'
@@ -157,7 +176,7 @@ export default {
     totalSum: 0,
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
-    cart: [],
+    cart: []
   }),
 
   //   computed: mapState(['cart_data']),
@@ -182,7 +201,8 @@ export default {
             'product_id'
           ]['product_name']
           this.totalSum += parseInt(element.product_info.price)
-          this.discountedtotalSum += parseInt(element.product_info.mrp) - this.totalSum
+          this.discountedtotalSum +=
+            parseInt(element.product_info.mrp) - this.totalSum
         })
       })
     },
@@ -202,42 +222,44 @@ export default {
 
     minus: function(id) {
       console.log(id)
-      this.cart[id].quantity = this.cart[id].quantity - 1
+      var payload = new FormData()
+
+      // payload.append('quantity', id)
+
+      // this.$store.dispatch('changeCartQuantity', { id, payload } ).then(res => {
+        this.cart[id].quantity = this.cart[id].quantity - 1
+      // })
     },
 
     plus: function(id) {
       console.log(id)
-     this.cart[id].quantity = this.cart[id].quantity + 1
+
+      var payload = new FormData()
+
+      // payload.append('quantity', id)
+
+      // this.$store.dispatch('changeCartQuantity', payload).then(res => {
+        this.cart[id].quantity = this.cart[id].quantity + 1
+      // })
     },
-    startOrder: function(){
-
-
-      this.$cookies.set('order_step', '1', {
-          path: '/',
-          httpOnly : process.env.cookie,
-          secure: process.env.cookie,
-          maxAge: 60 * 60 * 24 * 7
-        })
-
-      this.$router.push('/address')
-
-    },
-    deleteCartItem: function(id){
-
-      this.$store.dispatch('removeFromCart', id).then(res=>{
-
-        this.getCartByUser()
-
-
+    startOrder: function() {
+      this.$cookies.set('cart_price', '1', {
+        path: '/',
+        httpOnly: process.env.cookie,
+        secure: process.env.cookie,
+        maxAge: 60 * 60 * 24 * 7
       })
 
+      this.$router.push('/address')
+    },
+    deleteCartItem: function(id) {
+      this.$store.dispatch('removeFromCart', id).then(res => {
+        this.getCartByUser()
+      })
     }
-
   }
 }
 </script>
-
-
 
 <style scoped>
 .pad24 {
@@ -375,7 +397,6 @@ export default {
     max-width: 1260px;
   }
 }
-
 </style>
 
 <!-- <div>

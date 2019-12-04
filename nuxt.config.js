@@ -43,6 +43,10 @@ export default {
         type: 'text/javascript'
       },
       {
+        src: 'https://checkout.razorpay.com/v1/razorpay.js',
+        type: 'text/javascript'
+      },
+      {
         src:
           'https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js',
         type: 'text/javascript'

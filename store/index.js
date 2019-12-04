@@ -50,7 +50,9 @@ export const state = () => ({
     getAllProducts: [],
     getAllOrder: [],
     getSingleProduct: [],
+
     
+    cart_address: []
 
 
     
@@ -94,6 +96,10 @@ export const mutations = {
     cart_data(state, cart_data) {
         console.log('selecting exercise mutation, ' + cart_data)
         state.cart_data = cart_data
+    },
+    cart_address(state, cart_address) {
+        console.log('selecting exercise mutation, ' + cart_address)
+        state.cart_address = cart_address
     },
 }
 
@@ -188,6 +194,7 @@ export const actions = {
                     console.log(res.data)
                     console.log('response')
                     commit('cart' , res.data.length)
+                    commit('cart_data' , res.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -214,6 +221,7 @@ export const actions = {
                     console.log(res.data)
                     console.log('response')
                     commit('cart' , res.data.length)
+                    commit('cart_data' , res.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -234,6 +242,31 @@ export const actions = {
                 // headers: {
                 //     'Authorization': "bearer " + this.$cookies.get('access_token')
                 // }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    changeCartQuantity({ commit, state }, { id , payload }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'PUT',
+                data: payload,
+                url: state.api.removeFromCart + id,
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': "bearer " + this.$cookies.get('access_token')
+                }
             })
                 .then(res => {
                     console.log(res.data)

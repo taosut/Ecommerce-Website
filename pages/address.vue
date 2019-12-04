@@ -2,7 +2,7 @@
   <div>
     <div class="container">
       <div class="row mt-4 mb-4">
-        <div class="col-md-8">
+        <div class="col-md-8" v-if="order_step == 1">
           <div class="bg-white pb-4">
             <div class="d-flex w-100 justify-content-between border-bottom">
               <div class="cart-header">
@@ -25,14 +25,24 @@
                       </p>
                     </div>
                     <div>
-                      <p class="pad-11 font-12"> {{ p.building }} {{ p.street }}</p>
-                      <p v-if="p.landmark != ''" class="pad-11 font-12"> {{ p.landmark }}</p>
+                      <p class="pad-11 font-12">
+                        {{ p.building }} {{ p.street }}
+                      </p>
+                      <p v-if="p.landmark != ''" class="pad-11 font-12">
+                        {{ p.landmark }}
+                      </p>
                     </div>
                     <div>
-                      <p class="pad-11"> {{ p.city }}, {{ p.state }} {{ p.pincode }} </p>
-                      <p class="pad-11"> {{ p.country }} </p>
+                      <p class="pad-11">
+                        {{ p.city }}, {{ p.state }} {{ p.pincode }}
+                      </p>
+                      <p class="pad-11">{{ p.country }}</p>
                     </div>
-                    <button type="button" @click="selectedAddress(p.id)" class="btn btn-primary btn-sm">
+                    <button
+                      type="button"
+                      @click="selectedAddress(index)"
+                      class="btn btn-primary btn-sm"
+                    >
                       Deliver to this address
                     </button>
                     <button type="button" class="btn btn-danger btn-sm">
@@ -52,19 +62,34 @@
                       <p>Add New Address</p>
                       <div class="form-group">
                         <label for="email">Full Name</label>
-                        <input type="email" v-model="payload.fullname" class="form-control" id="email" />
+                        <input
+                          type="email"
+                          v-model="payload.fullname"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">Mobile Number</label>
-                        <input type="text" v-model="payload.mobilenumber" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.mobilenumber"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">Pincode</label>
-                        <input type="text" v-model="payload.pincode" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.pincode"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
@@ -73,7 +98,12 @@
                         <label for="email"
                           >Flat, House no., Building, Company, Apartment:</label
                         >
-                        <input type="text" v-model="payload.building" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.building"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
@@ -82,35 +112,298 @@
                         <label for="email"
                           >Area, Colony, Street, Sector, Village:</label
                         >
-                        <input type="text" v-model="payload.street" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.street"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">Town/City:</label>
-                        <input type="text" v-model="payload.city" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.city"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Landmark e.g. near apollo hospital: </label>
-                        <input type="text" v-model="payload.landmark" class="form-control" id="email" />
+                        <label for="email"
+                          >Landmark e.g. near apollo hospital:
+                        </label>
+                        <input
+                          type="text"
+                          v-model="payload.landmark"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">State:</label>
-                        <input type="text" v-model="payload.state" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.state"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <button @click="addNewAddress" type="button" class="btn btn-order">
+                      <button
+                        @click="addNewAddress"
+                        type="button"
+                        class="btn btn-order"
+                      >
                         Add Address
                       </button>
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8" v-if="order_step == 2">
+          <div class="bg-white pb-4">
+            <div class="d-flex w-100 justify-content-between border-bottom">
+              <div class="cart-header">
+                <p>Select Payment</p>
+              </div>
+            </div>
+
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12 padding-0">
+                  <div class="d-flex ">
+                    <div class="" style="padding: 16px 25px">
+                      PAYMENTS OPTION
+                    </div>
+                  </div>
+
+                  <div class="payment_options">
+                    <label class="credit-debit payment-li">
+                      <div class="d-flex align-center">
+                        <input
+                          type="radio"
+                          name="payment_methods"
+                          @change="payment_active = 1"
+                          :checked="payment_active == 1"
+                        />
+                        <p class="pl-2">Credit / Debit / ATM Card</p>
+                      </div>
+                      <div class="ml-4" v-if="payment_active == 1">
+                        <div>
+                          <h6 class="mb-4 mt-4">Popular Banks</h6>
+
+                          <div class="d-flex row">
+                            <div class="col-sm-4">
+                              <input
+                                type="radio"
+                                value="HDFC"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
+                                />
+                                HDFC Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-2">
+                              <input
+                                type="radio"
+                                value="ICIC"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
+                                />
+                                ICICI Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-2">
+                              <input
+                                type="radio"
+                                value="SBIN"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjMTZEIiBkPSJNMTIuNiAyN0M1LjQgMjYuNS0uMiAyMC40IDAgMTMgLjIgNiA2LjIgMCAxMy41IDBTMjYuOCA1LjggMjcgMTNjLjIgNy40LTUuNCAxMy41LTEyLjYgMTRWMTZjMS0uNSAxLjctMS42IDEuNS0yLjgtLjQtMS4yLTEuNC0yLTIuNi0ycy0yLjIuOC0yLjQgMmMwIDEuMi41IDIuMyAxLjYgMi43Ii8+PC9nPjwvc3ZnPg=="
+                                />
+                                State Bank of India
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-3">
+                              <input
+                                type="radio"
+                                value="UTIB"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48cGF0aCBmaWxsPSIjQkM0MTcwIiBkPSJNMjggMjRoLTguN0wxNCAxNWg4LjdtLTQuNC03LjZMOC43IDI0SDBMMTQgMCIvPjwvZz48L3N2Zz4="
+                                />
+                                Axis Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-3">
+                              <input
+                                type="radio"
+                                value="KKBK"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNMjggMEgwdjIzLjhoMjhWMHoiLz48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvbWFzaz48cGF0aCBmaWxsPSIjMDAzODc0IiBkPSJNMCAxMkMwIDUuMiA2LjMgMCAxNCAwczE0IDUuMyAxNCAxMmMwIDYuNS02LjMgMTEuOC0xNCAxMS44cy0xNC01LjMtMTQtMTIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRUQxQzI0IiBkPSJNMTIuMyAzLjhsMy4yLTFWMjBsLTMuMiAxLjIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTQuMiAxNC43QzEyLjggMTYuMyAxMS40IDE4IDkgMThjLTMuNyAwLTUuNC0zLjQtNS40LTYuMyAwLTIuOCAxLjMtNiA0LjgtNiAxLjUgMCAzIDEgNCAyVjEwYy0xLS43LTIuNS0xLTMuNi0xLTIuMiAwLTQuMi43LTQgMyAwIDEuNCAxLjQgMi40IDMgMi40IDIuMiAwIDMuNi0yIDQuNy0zLjZMMTQgOWMxLTEuNiAyLjYtMy4yIDUtMy4yIDMgMCA0LjcgMi40IDUuMiA1SDIzYy0uNS0xLTEuNS0xLjQtMi42LTEuNC0yLjMgMC0zLjggMi01IDMuN2wtMS4yIDJ6TTI0LjUgMTNjLS4zIDIuNi0xLjcgNS00LjggNS0xLjggMC0zLjItMS00LjItMi42di0xLjdjMS4zLjYgMi40IDEuMiAzLjggMS4yIDEuNyAwIDMuMi0xIDMuOC0yaDJ6IiBtYXNrPSJ1cmwoI2IpIi8+PC9nPjwvc3ZnPg=="
+                                />
+                                Kotak Bank
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <h6 class="mb-3 mt-4">Other Banks</h6>
+
+                          <select
+                            id="myselect"
+                            class="btn btn-outline-light text-dark"
+                            style="min-width: 180px; border: 1px solid #C0C0C0"
+                          >
+                            <option value="1" selected="selected"
+                              >---Select Bank---</option
+                            >
+                            <option
+                              v-for="(p, key) in methods.netbanking"
+                              :key="p.id"
+                              :value="key"
+                              >{{ p }}</option
+                            >
+                          </select>
+                        </div>
+                        <div class="pt-3 ml-2">
+                          <button class="btn btn-order">PAY ₹ {{totalSum}}</button>
+                        </div>
+                      </div>
+                    </label>
+
+                    <label class="netbanking payment-li">
+                      <div class="d-flex align-center">
+                        <input
+                          type="radio"
+                          name="payment_methods"
+                          @change="payment_active = 2"
+                          :checked="payment_active == 2"
+                        />
+                        <p class="pl-2">Net Banking</p>
+                      </div>
+                      <div class="ml-4" v-if="payment_active == 2">
+                        <div>
+                          <h6 class="mb-4 mt-4">Popular Banks</h6>
+
+                          <div class="d-flex row">
+                            <div class="col-sm-4">
+                              <input
+                                type="radio"
+                                value="HDFC"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
+                                />
+                                HDFC Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-2">
+                              <input
+                                type="radio"
+                                value="ICIC"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
+                                />
+                                ICICI Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-2">
+                              <input
+                                type="radio"
+                                value="SBIN"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjMTZEIiBkPSJNMTIuNiAyN0M1LjQgMjYuNS0uMiAyMC40IDAgMTMgLjIgNiA2LjIgMCAxMy41IDBTMjYuOCA1LjggMjcgMTNjLjIgNy40LTUuNCAxMy41LTEyLjYgMTRWMTZjMS0uNSAxLjctMS42IDEuNS0yLjgtLjQtMS4yLTEuNC0yLTIuNi0ycy0yLjIuOC0yLjQgMmMwIDEuMi41IDIuMyAxLjYgMi43Ii8+PC9nPjwvc3ZnPg=="
+                                />
+                                State Bank of India
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-3">
+                              <input
+                                type="radio"
+                                value="UTIB"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48cGF0aCBmaWxsPSIjQkM0MTcwIiBkPSJNMjggMjRoLTguN0wxNCAxNWg4LjdtLTQuNC03LjZMOC43IDI0SDBMMTQgMCIvPjwvZz48L3N2Zz4="
+                                />
+                                Axis Bank
+                              </span>
+                            </div>
+                            <div class="col-sm-4 mt-3">
+                              <input
+                                type="radio"
+                                value="KKBK"
+                                name="bank_radio"
+                              />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNMjggMEgwdjIzLjhoMjhWMHoiLz48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvbWFzaz48cGF0aCBmaWxsPSIjMDAzODc0IiBkPSJNMCAxMkMwIDUuMiA2LjMgMCAxNCAwczE0IDUuMyAxNCAxMmMwIDYuNS02LjMgMTEuOC0xNCAxMS44cy0xNC01LjMtMTQtMTIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRUQxQzI0IiBkPSJNMTIuMyAzLjhsMy4yLTFWMjBsLTMuMiAxLjIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTQuMiAxNC43QzEyLjggMTYuMyAxMS40IDE4IDkgMThjLTMuNyAwLTUuNC0zLjQtNS40LTYuMyAwLTIuOCAxLjMtNiA0LjgtNiAxLjUgMCAzIDEgNCAyVjEwYy0xLS43LTIuNS0xLTMuNi0xLTIuMiAwLTQuMi43LTQgMyAwIDEuNCAxLjQgMi40IDMgMi40IDIuMiAwIDMuNi0yIDQuNy0zLjZMMTQgOWMxLTEuNiAyLjYtMy4yIDUtMy4yIDMgMCA0LjcgMi40IDUuMiA1SDIzYy0uNS0xLTEuNS0xLjQtMi42LTEuNC0yLjMgMC0zLjggMi01IDMuN2wtMS4yIDJ6TTI0LjUgMTNjLS4zIDIuNi0xLjcgNS00LjggNS0xLjggMC0zLjItMS00LjItMi42di0xLjdjMS4zLjYgMi40IDEuMiAzLjggMS4yIDEuNyAwIDMuMi0xIDMuOC0yaDJ6IiBtYXNrPSJ1cmwoI2IpIi8+PC9nPjwvc3ZnPg=="
+                                />
+                                Kotak Bank
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <h6 class="mb-3 mt-4">Other Banks</h6>
+
+                          <select
+                            id="myselect"
+                            class="btn btn-outline-light text-dark"
+                            style="min-width: 180px; border: 1px solid #C0C0C0"
+                          >
+                            <option value="1" selected="selected"
+                              >---Select Bank---</option
+                            >
+                            <option
+                              v-for="(p, key) in methods.netbanking"
+                              :key="p.id"
+                              :value="key"
+                              >{{ p }}</option
+                            >
+                          </select>
+                        </div>
+                        <div class="pt-3 ml-2">
+                          <button class="btn btn-order">PAY ₹ {{totalSum}}</button>
+                        </div>
+                      </div>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -160,6 +453,8 @@ export default {
   data: () => ({
     totalSum: 0,
     payload: [],
+    payment_active: 1,
+    order_step: 2,
     alluseraddress: [],
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
@@ -170,7 +465,8 @@ export default {
           product_name: ''
         }
       }
-    ]
+    ],
+    methods: {}
   }),
 
   //   computed: mapState(['cart_data']),
@@ -178,6 +474,28 @@ export default {
   mounted() {
     this.getCartByUser()
     this.getAllUserAddress()
+
+    var vm = this
+
+    var razorpay = new Razorpay({
+      key: 'rzp_test_WQij2Xeq6EW9Ty',
+      image: 'https://i.imgur.com/n5tjHFD.png'
+    })
+
+    razorpay.once('ready', function(response) {
+      console.log(response.methods)
+      vm.methods = response.methods
+    })
+
+    razorpay.on('payment.success', function(resp) {
+      alert(resp.razorpay_payment_id),
+        alert(resp.razorpay_order_id),
+        alert(resp.razorpay_signature)
+    })
+
+    razorpay.on('payment.error', function(resp) {
+      alert(resp.error.description)
+    })
   },
   methods: {
     getCartByUser: function() {
@@ -213,41 +531,36 @@ export default {
       })
     },
     selectedAddress: function(id) {
-
-
       this.$cookies.set('order_step', '2', {
-          path: '/',
-          httpOnly : process.env.cookie,
-          secure: process.env.cookie,
-          maxAge: 60 * 60 * 24 * 7
-        })
+        path: '/',
+        httpOnly: process.env.cookie,
+        secure: process.env.cookie,
+        maxAge: 60 * 60 * 24 * 7
+      })
 
-        console.log(id)
+      console.log(this.alluseraddress[id])
 
-      // this.$router.push('/payment')
+      this.$store.commit('cart_address', this.alluseraddress[id])
 
-
+      this.$router.push('/payment')
     },
     addNewAddress: function() {
-
       var payload = new FormData()
 
       console.log(this.payload.fullname)
 
-      payload.append('fullname' , this.payload.fullname)
-      payload.append('pincode' , this.payload.pincode )
-      payload.append('mobilenumber' , this.payload.mobilenumber)
-      payload.append('building' , this.payload.building)
-      payload.append('street' , this.payload.street)
-      payload.append('city' , this.payload.city)
-      payload.append('landmark' , this.payload.landmark)
-      payload.append('state' , this.payload.state)
+      payload.append('fullname', this.payload.fullname)
+      payload.append('pincode', this.payload.pincode)
+      payload.append('mobilenumber', this.payload.mobilenumber)
+      payload.append('building', this.payload.building)
+      payload.append('street', this.payload.street)
+      payload.append('city', this.payload.city)
+      payload.append('landmark', this.payload.landmark)
+      payload.append('state', this.payload.state)
 
       this.$store.dispatch('addNewAddress', payload).then(res => {
-
-          console.log(res)
-          this.alluseraddress = res.data
-
+        console.log(res)
+        this.alluseraddress = res.data
       })
     }
   }
@@ -390,6 +703,19 @@ export default {
     max-width: 1260px;
   }
 }
+
+.payment-li {
+  padding: 16px 25px;
+  border-bottom: 1px solid #f0f0f0;
+  width: 100%;
+  cursor: pointer;
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+
 </style>
 
 <!-- <div>
