@@ -46,6 +46,8 @@ export const state = () => ({
 
     deleteBrand : url + "products/product/brand/delete/",
 
+    createOrder:  url +  "payments/create/order",
+
     addToCart : url + "cart/create",
 
     getCartByUser : url + "cart",
