@@ -46,7 +46,7 @@ export const state = () => ({
 
     deleteBrand : url + "products/product/brand/delete/",
 
-    createOrder:  url +  "payments/create/order",
+    createOrder:  url +  "orders/order_payment",
 
     addToCart : url + "cart/create",
 
@@ -59,6 +59,8 @@ export const state = () => ({
     changeuseraddress : url + "users/changeuseraddress", //id
 
     addnewuseraddress : url + "users/addnewuseraddress",
+
+    getrazorpayapi : url + "payments/getrazorpayapi",
 
 
 

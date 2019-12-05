@@ -522,6 +522,27 @@ export const actions = {
         })
     },
 
+    getrazorpayapi({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'GET',
+                url: state.api.getrazorpayapi,
+                contentType: 'application/json',
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
   
 }
 

@@ -229,7 +229,7 @@
                           </div>
                         </div>
                         <div class="pt-3 ml-2">
-                          <button @click="pay_card" class="btn btn-order">
+                          <button @click="createOrder" class="btn btn-order">
                             PAY ₹ {{ totalSum }}
                           </button>
                         </div>
@@ -396,18 +396,12 @@ export default {
     payload: [],
     payment_active: 1,
     order_step: 2,
+    order_id: '',
     alluseraddress: [],
     razorpay: [],
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
-    cart: [
-      {
-        product_info: {
-          images: [],
-          product_name: ''
-        }
-      }
-    ],
+    cart: [],
     methods: {}
   }),
 
@@ -417,35 +411,31 @@ export default {
     this.getCartByUser()
     this.getAllUserAddress()
 
+    this.init_payment()
+
     var vm = this
-
-    this.razorpay = new Razorpay({
-      key: 'rzp_test_WQij2Xeq6EW9Ty',
-      image: 'https://i.imgur.com/n5tjHFD.png'
-    })
-
-    this.razorpay.once('ready', function(response) {
-      console.log(response.methods)
-      vm.methods = response.methods
-    })
-
-    this.razorpay.on('payment.success', function(resp) {
-      alert(resp.razorpay_payment_id),
-        alert(resp.razorpay_order_id),
-        alert(resp.razorpay_signature)
-    })
-
-    this.razorpay.on('payment.error', function(resp) {
-      alert(resp.error.description)
-    })
   },
   methods: {
+    init_payment: function() {
+      this.$store.dispatch('getrazorpayapi').then(res => {
+        this.razorpay = new Razorpay({
+          key: res.data.api_key,
+          image: 'https://i.imgur.com/n5tjHFD.png'
+        })
+
+        var vm = this
+        this.razorpay.once('ready', function(response) {
+          console.log(response.methods)
+          vm.methods = response.methods
+        })
+      })
+    },
     pay_card: function() {
       var data = {
-        amount: this.totalSum,
+        amount: this.totalSum * 100,
         email: 'gaurav.kumar@example.com',
         contact: '9123456780',
-        order_id: 'order_DoBDreAOre4gcd',
+        order_id: this.order_id,
         method: 'card',
         'card[name]': 'Gaurav Kumar',
         'card[number]': '4111111111111111',
@@ -457,9 +447,8 @@ export default {
       this.razorpay.createPayment(data)
 
       this.razorpay.on('payment.success', function(resp) {
-        alert(resp.razorpay_payment_id),
-          alert(resp.razorpay_order_id),
-          alert(resp.razorpay_signature)
+        console.log('yeyhxdsdnsmdnm')
+        console.log(resp)
       }) // will pass payment ID, order ID, and Razorpay signature to success handler.
 
       this.razorpay.on('payment.error', function(resp) {
@@ -469,8 +458,30 @@ export default {
     createOrder: function() {
       var payload = new FormData()
 
+      var cart_simplified = []
+
+      this.cart.forEach((food, index) => {
+        var single_cart = {}
+
+        single_cart['id'] = index + 1
+
+        single_cart['product_name'] = food['product_name']
+        single_cart['product_id'] = food.product_info.product_id['id']
+        single_cart['product_price'] = food.product_info['price']
+
+        single_cart['seller_name'] = food.seller_id['name']
+        single_cart['seller_id'] = food.seller_id['id']
+
+        single_cart['quantity'] = food['quantity']
+        single_cart['cart_id'] = food['cart_key']
+
+        cart_simplified.push(single_cart)
+      })
+
+      console.log(cart_simplified)
+
       payload.append('amount', this.totalSum * 100)
-      payload.append('capture', 1)
+      payload.append('cart', JSON.stringify(cart_simplified))
 
       axios({
         method: 'POST',
@@ -486,9 +497,7 @@ export default {
           console.log('response')
           this.order_id = res.data.order_id
           console.log(this.order_id)
-          setTimeout(function() {
-            $('#payment_form').submit()
-          }, 500)
+          this.pay_card()
         })
         .catch(err => {
           console.log('error in request', err)
@@ -497,9 +506,6 @@ export default {
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
         this.cart = JSON.parse(JSON.stringify(res.data))
-
-        
-        this.createOrder()
 
         this.cart.filter(
           v =>
