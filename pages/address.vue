@@ -13,41 +13,25 @@
             <div class="container">
               <div class="row">
                 <!-- <div class="pad24" > -->
-                <div
-                  class="col-12 col-sm-6"
-                  v-for="(p, index) in alluseraddress"
-                  :key="p.id"
-                >
+                <div class="col-12 col-sm-6" v-for="(p, index) in alluseraddress" :key="p.id">
                   <div>
                     <div>
-                      <p class="pad-9" style="font-size:16px">
-                        {{ p.fullname }}
-                      </p>
+                      <p class="pad-9" style="font-size:16px">{{ p.fullname }}</p>
                     </div>
                     <div>
-                      <p class="pad-11 font-12">
-                        {{ p.building }} {{ p.street }}
-                      </p>
-                      <p v-if="p.landmark != ''" class="pad-11 font-12">
-                        {{ p.landmark }}
-                      </p>
+                      <p class="pad-11 font-12">{{ p.building }} {{ p.street }}</p>
+                      <p v-if="p.landmark != ''" class="pad-11 font-12">{{ p.landmark }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">
-                        {{ p.city }}, {{ p.state }} {{ p.pincode }}
-                      </p>
+                      <p class="pad-11">{{ p.city }}, {{ p.state }} {{ p.pincode }}</p>
                       <p class="pad-11">{{ p.country }}</p>
                     </div>
                     <button
                       type="button"
                       @click="selectedAddress(index)"
                       class="btn btn-primary btn-sm"
-                    >
-                      Deliver to this address
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm">
-                      Delete
-                    </button>
+                    >Deliver to this address</button>
+                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
                   </div>
                 </div>
                 <!-- </div> -->
@@ -95,9 +79,7 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
-                          >Flat, House no., Building, Company, Apartment:</label
-                        >
+                        <label for="email">Flat, House no., Building, Company, Apartment:</label>
                         <input
                           type="text"
                           v-model="payload.building"
@@ -109,34 +91,20 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
-                          >Area, Colony, Street, Sector, Village:</label
-                        >
-                        <input
-                          type="text"
-                          v-model="payload.street"
-                          class="form-control"
-                          id="email"
-                        />
+                        <label for="email">Area, Colony, Street, Sector, Village:</label>
+                        <input type="text" v-model="payload.street" class="form-control" id="email" />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">Town/City:</label>
-                        <input
-                          type="text"
-                          v-model="payload.city"
-                          class="form-control"
-                          id="email"
-                        />
+                        <input type="text" v-model="payload.city" class="form-control" id="email" />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
-                          >Landmark e.g. near apollo hospital:
-                        </label>
+                        <label for="email">Landmark e.g. near apollo hospital:</label>
                         <input
                           type="text"
                           v-model="payload.landmark"
@@ -149,23 +117,12 @@
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">State:</label>
-                        <input
-                          type="text"
-                          v-model="payload.state"
-                          class="form-control"
-                          id="email"
-                        />
+                        <input type="text" v-model="payload.state" class="form-control" id="email" />
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <button
-                        @click="addNewAddress"
-                        type="button"
-                        class="btn btn-order"
-                      >
-                        Add Address
-                      </button>
+                      <button @click="addNewAddress" type="button" class="btn btn-order">Add Address</button>
                     </div>
                   </div>
                 </div>
@@ -184,10 +141,8 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-12 padding-0">
-                  <div class="d-flex ">
-                    <div class="" style="padding: 16px 25px">
-                      PAYMENTS OPTION
-                    </div>
+                  <div class="d-flex">
+                    <div class style="padding: 16px 25px">PAYMENTS OPTION</div>
                   </div>
 
                   <div class="payment_options">
@@ -203,35 +158,50 @@
                       </div>
                       <div class="ml-4" v-if="payment_active == 1">
                         <div>
-                          <div style="display:flex;flex-direction:column">
+                          <div style="display:flex;flex-direction:column" class="pb-4">
                             <label>Card Number</label>
-                            <input type="text" class="form-control" />
+                            <input
+                              v-model="card_number"
+                              type="text"
+                              maxlength="16"
+                              class="form-control"
+                            />
                           </div>
-                          <div style="display:flex;flex-direction:column">
+                          <div style="display:flex;flex-direction:column" class="pb-4">
                             <label>Card Holder</label>
-                            <input type="text" class="form-control" />
+                            <input v-model="card_holder" type="text" class="form-control" />
                           </div>
-                          <div style="display:flex;flex-direction:column">
-                            <label>Expiration Date</label>
-                            <select class="">
-                              <option v-for="p in 12" :key="p" :value="p">{{
-                                p
-                              }}</option>
-                            </select>
-                            <select class="">
-                              <option
-                                v-for="p in 50"
-                                :key="p + 19"
-                                :value="p"
-                                >{{ p + 18 }}</option
-                              >
-                            </select>
+                          <div class="row pb-4">
+                            <div class="form-group col-2">
+                              <label>Valid Thru</label>
+                              <select id="inputState" class="form-control" v-model="valid_month">
+                                <option selected>MM</option>
+                                <option v-for="p in 12" :key="p" :value="p">
+                                  {{
+                                  p
+                                  }}
+                                </option>
+                              </select>
+                            </div>
+                            <div class="form-group col-2">
+                              <label>Year</label>
+                              <select id="inputState" class="form-control" v-model="valid_year">
+                                <option selected>YY</option>
+                                <option v-for="p in 50" :key="p + 19" :value="p + 18">{{ p + 18 }}</option>
+                              </select>
+                            </div>
+                            <div class="form-group col-2">
+                              <label>CVV</label>
+                              <input type="text" class="form-control" v-model="cvv" />
+                            </div>
+                            <div class="form-group col-2">
+                              <label>Pay</label>
+                              <button
+                                @click="createOrder(1)"
+                                class="btn btn-order"
+                              >PAY ₹ {{ totalSum }}</button>
+                            </div>
                           </div>
-                        </div>
-                        <div class="pt-3 ml-2">
-                          <button @click="createOrder" class="btn btn-order">
-                            PAY ₹ {{ totalSum }}
-                          </button>
                         </div>
                       </div>
                     </label>
@@ -252,11 +222,7 @@
 
                           <div class="d-flex row">
                             <div class="col-sm-4">
-                              <input
-                                type="radio"
-                                value="HDFC"
-                                name="bank_radio"
-                              />
+                              <input type="radio" v-model="bank" value="HDFC" name="bank_radio" />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
@@ -265,11 +231,7 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-2">
-                              <input
-                                type="radio"
-                                value="ICIC"
-                                name="bank_radio"
-                              />
+                              <input type="radio" v-model="bank" value="ICIC" name="bank_radio" />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
@@ -278,11 +240,7 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-2">
-                              <input
-                                type="radio"
-                                value="SBIN"
-                                name="bank_radio"
-                              />
+                              <input type="radio" v-model="bank" value="SBIN" name="bank_radio" />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjMTZEIiBkPSJNMTIuNiAyN0M1LjQgMjYuNS0uMiAyMC40IDAgMTMgLjIgNiA2LjIgMCAxMy41IDBTMjYuOCA1LjggMjcgMTNjLjIgNy40LTUuNCAxMy41LTEyLjYgMTRWMTZjMS0uNSAxLjctMS42IDEuNS0yLjgtLjQtMS4yLTEuNC0yLTIuNi0ycy0yLjIuOC0yLjQgMmMwIDEuMi41IDIuMyAxLjYgMi43Ii8+PC9nPjwvc3ZnPg=="
@@ -291,11 +249,7 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-3">
-                              <input
-                                type="radio"
-                                value="UTIB"
-                                name="bank_radio"
-                              />
+                              <input type="radio" v-model="bank" value="UTIB" name="bank_radio" />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48cGF0aCBmaWxsPSIjQkM0MTcwIiBkPSJNMjggMjRoLTguN0wxNCAxNWg4LjdtLTQuNC03LjZMOC43IDI0SDBMMTQgMCIvPjwvZz48L3N2Zz4="
@@ -304,11 +258,7 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-3">
-                              <input
-                                type="radio"
-                                value="KKBK"
-                                name="bank_radio"
-                              />
+                              <input type="radio" v-model="bank" value="KKBK" name="bank_radio" />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNMjggMEgwdjIzLjhoMjhWMHoiLz48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvbWFzaz48cGF0aCBmaWxsPSIjMDAzODc0IiBkPSJNMCAxMkMwIDUuMiA2LjMgMCAxNCAwczE0IDUuMyAxNCAxMmMwIDYuNS02LjMgMTEuOC0xNCAxMS44cy0xNC01LjMtMTQtMTIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRUQxQzI0IiBkPSJNMTIuMyAzLjhsMy4yLTFWMjBsLTMuMiAxLjIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTQuMiAxNC43QzEyLjggMTYuMyAxMS40IDE4IDkgMThjLTMuNyAwLTUuNC0zLjQtNS40LTYuMyAwLTIuOCAxLjMtNiA0LjgtNiAxLjUgMCAzIDEgNCAyVjEwYy0xLS43LTIuNS0xLTMuNi0xLTIuMiAwLTQuMi43LTQgMyAwIDEuNCAxLjQgMi40IDMgMi40IDIuMiAwIDMuNi0yIDQuNy0zLjZMMTQgOWMxLTEuNiAyLjYtMy4yIDUtMy4yIDMgMCA0LjcgMi40IDUuMiA1SDIzYy0uNS0xLTEuNS0xLjQtMi42LTEuNC0yLjMgMC0zLjggMi01IDMuN2wtMS4yIDJ6TTI0LjUgMTNjLS4zIDIuNi0xLjcgNS00LjggNS0xLjggMC0zLjItMS00LjItMi42di0xLjdjMS4zLjYgMi40IDEuMiAzLjggMS4yIDEuNyAwIDMuMi0xIDMuOC0yaDJ6IiBtYXNrPSJ1cmwoI2IpIi8+PC9nPjwvc3ZnPg=="
@@ -325,22 +275,85 @@
                             id="myselect"
                             class="btn btn-outline-light text-dark"
                             style="min-width: 180px; border: 1px solid #C0C0C0"
+                            v-model="bank"
                           >
-                            <option value="1" selected="selected"
-                              >---Select Bank---</option
-                            >
+                            <option value="1" selected="selected">---Select Bank---</option>
                             <option
+                              name="bank_radio"
                               v-for="(p, key) in methods.netbanking"
                               :key="p.id"
                               :value="key"
-                              >{{ p }}</option
-                            >
+                            >{{ p }}</option>
                           </select>
                         </div>
                         <div class="pt-3 ml-2">
-                          <button class="btn btn-order">
-                            PAY ₹ {{ totalSum }}
-                          </button>
+                          <button @click="createOrder(2)" class="btn btn-order">PAY ₹ {{ totalSum }}</button>
+                        </div>
+                      </div>
+                    </label>
+
+                    <label class="wallet payment-li">
+                      <div class="d-flex align-center">
+                        <input
+                          type="radio"
+                          name="payment_methods"
+                          @change="payment_active = 3"
+                          :checked="payment_active == 3"
+                        />
+                        <p class="pl-2">Wallet / UPI</p>
+                      </div>
+                      <div class="ml-4" v-if="payment_active == 3">
+                        <div>
+                          <h6 class="mb-4 mt-4">Wallet</h6>
+
+                          <div class="d-flex row">
+                            <div class="col-sm-4">
+                              <input type="radio" v-model="selected_wallet" value="freecharge" name="wallet" />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
+                                />
+                                FreeCharge
+                              </span>
+                            </div>
+                            <div class="col-sm-4">
+                              <input type="radio" v-model="selected_wallet" value="payzapp" name="wallet" />
+                              <span class="ml-2">
+                                <img
+                                  src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
+                                />
+                                PayZapp
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                         <div class="pt-3 ml-2">
+                          <button @click="createOrder(2)" class="btn btn-order">PAY ₹ {{ totalSum }}</button>3
+                        </div>
+                      </div>
+                    </label>
+
+                    <label class="cod payment-li">
+                      <div class="d-flex align-center">
+                        <input
+                          type="radio"
+                          name="payment_methods"
+                          @change="payment_active = 4"
+                          :checked="payment_active == 4"
+                        />
+                        <p class="pl-2">Cash on Delivery</p>
+                      </div>
+                      <div class="ml-4" v-if="payment_active == 4">
+                        <div>
+                          <div class="row pb-4"> 
+                            <div class="form-group col-2">
+                              <label>Pay</label>
+                              <button
+                                @click="createOrder(4)"
+                                class="btn btn-order"
+                              >PAY ₹ {{ totalSum }}</button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </label>
@@ -357,23 +370,31 @@
             </div>
             <div style="padding:0 24px">
               <div class="d-flex justify-content-between" style="margin:20px 0">
-                <span><p>Price (2 items)</p></span>
-                <span
-                  ><p>₹ {{ totalSum }}</p></span
-                >
+                <span>
+                  <p>Price (2 items)</p>
+                </span>
+                <span>
+                  <p>₹ {{ totalSum }}</p>
+                </span>
               </div>
               <div class="d-flex justify-content-between" style="margin:20px 0">
-                <span><p>Delivery</p></span>
-                <span><p>FREE</p></span>
+                <span>
+                  <p>Delivery</p>
+                </span>
+                <span>
+                  <p>FREE</p>
+                </span>
               </div>
               <div
                 class="d-flex justify-content-between border-top-dotted f600"
                 style="margin:20px 0"
               >
-                <span><p>Total Payable</p></span>
-                <span
-                  ><p>₹ {{ totalSum }}</p></span
-                >
+                <span>
+                  <p>Total Payable</p>
+                </span>
+                <span>
+                  <p>₹ {{ totalSum }}</p>
+                </span>
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
@@ -402,7 +423,14 @@ export default {
     discountedtotalSum: 0,
     baseurl: process.env.baseUrl,
     cart: [],
-    methods: {}
+    methods: {},
+    card_number: '',
+    card_holder: '',
+    cvv: '',
+    valid_month: '',
+    valid_year: '',
+    bank: '',
+    selected_wallet: 'freecharge'
   }),
 
   //   computed: mapState(['cart_data']),
@@ -433,15 +461,15 @@ export default {
     pay_card: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: 'gaurav.kumar@example.com',
-        contact: '9123456780',
+        email: this.cart[0].seller_id.email,
+        contact: this.cart[0].seller_id.phone_number,
         order_id: this.order_id,
         method: 'card',
-        'card[name]': 'Gaurav Kumar',
-        'card[number]': '4111111111111111',
-        'card[cvv]': '566',
-        'card[expiry_month]': '10',
-        'card[expiry_year]': '20'
+        'card[name]': this.card_holder,
+        'card[number]': this.card_number,
+        'card[cvv]': this.cvv,
+        'card[expiry_month]': this.valid_month,
+        'card[expiry_year]': '20' + this.valid_year
       }
 
       this.razorpay.createPayment(data)
@@ -455,7 +483,49 @@ export default {
         alert(resp.error.description)
       }) // will pass error object to error handler
     },
-    createOrder: function() {
+    pay_net: function() {
+      var data = {
+        amount: this.totalSum * 100,
+        email: this.cart[0].seller_id.email,
+        contact: this.cart[0].seller_id.phone_number,
+        order_id: this.order_id,
+        method: 'netbanking',
+        bank: this.bank
+      }
+
+      this.razorpay.createPayment(data)
+
+      this.razorpay.on('payment.success', function(resp) {
+        console.log('yeyhxdsdnsmdnm')
+        console.log(resp)
+      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
+
+      this.razorpay.on('payment.error', function(resp) {
+        alert(resp.error.description)
+      }) // will pass error object to error handler
+    },
+    pay_wallet: function() {
+      var data = {
+        amount: this.totalSum * 100,
+        email: this.cart[0].seller_id.email,
+        contact: this.cart[0].seller_id.phone_number,
+        order_id: this.order_id,
+        method: 'wallet',
+        wallet: this.selected_wallet
+      }
+
+      this.razorpay.createPayment(data)
+
+      this.razorpay.on('payment.success', function(resp) {
+        console.log('yeyhxdsdnsmdnm')
+        console.log(resp)
+      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
+
+      this.razorpay.on('payment.error', function(resp) {
+        alert(resp.error.description)
+      }) // will pass error object to error handler
+    },
+    createOrder: function(method) {
       var payload = new FormData()
 
       var cart_simplified = []
@@ -497,7 +567,17 @@ export default {
           console.log('response')
           this.order_id = res.data.order_id
           console.log(this.order_id)
-          this.pay_card()
+          switch (method) {
+            case 1:
+              this.pay_card()
+              break
+            case 2:
+              this.pay_net()
+              break
+            case 3:
+              this.pay_wallet()
+              break
+          }
         })
         .catch(err => {
           console.log('error in request', err)
@@ -637,7 +717,7 @@ export default {
   font-size: 12px;
 }
 .form-group option {
-  color: #b3adad3b;
+  /* color: #b3adad3b; */
   font-size: 13px;
 }
 .quantity {

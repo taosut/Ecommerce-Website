@@ -171,7 +171,7 @@
               <div class="main_nav_menu m-auto">
                 <ul class="standard_dropdown main_nav_dropdown">
                   <li v-for="p in category" :key="p.id">
-                    <a href="shop.html"
+                    <a
                       >{{ p.name }}<i class="fas fa-chevron-down"></i
                     ></a>
                   </li>

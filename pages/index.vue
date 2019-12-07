@@ -1,5 +1,5 @@
 <template>
-  <div style="    margin-top: 20px;">
+  <div style="margin-top: 20px;">
     <div class="container">
         <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
           <div class="item"><img src="images/hero3.jpg"></div>
@@ -73,7 +73,7 @@
                             </div>
                           </div>
                           <ul class="item_marks">
-                            <li class="item_mark item_discount" v-if="q.price < q.mrp">{{ Math.round(((q.mrp - q.price) / q.mrp ) * 100 ) }} %</li>
+                            <li class="item_mark item_discount" v-if="q.price < q.mrp">{{ Math.round(((q.mrp - q.price) / q.mrp ) * 100 ) }}%</li>
                             <li class="item_mark item_new">new</li>
                           </ul>
                         </div>
