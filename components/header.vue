@@ -62,7 +62,8 @@
                   <div class="user_icon">
                     <img src="~static/images/user.svg" alt="" />
                   </div>
-                  <div><a target="_blank" href="https://seller.wenslink.com/">Register</a></div>
+                  <div><a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a></div>
+                  <div><nuxt-link to="/register">Register as Customer</nuxt-link></div>
                   <div><nuxt-link to="/login">Sign In</nuxt-link></div>
                 </div>
               </div>

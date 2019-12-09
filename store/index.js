@@ -176,6 +176,32 @@ export const actions = {
     },
 
 
+    customer_signup({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'POST',
+                url: state.api.customer_signup,
+                data : payload,
+                contentType: 'application/json',
+                // headers: {
+                //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                // }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+
     addToCart({ commit, state }, payload) {
 
 
