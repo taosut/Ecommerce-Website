@@ -569,6 +569,50 @@ export const actions = {
         })
     },
 
+    order_payment_success({ commit, state },  payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'POST',
+                data: payload,
+                url: state.api.order_payment_success,
+                contentType: 'application/json',
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    order_payment_failed({ commit, state },payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'PUT',
+                data: payload,
+                url: state.api.order_payment_failed,
+                contentType: 'application/json',
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
   
 }
 

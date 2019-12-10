@@ -26,23 +26,14 @@
               <button type="button" @click="login" class="btn btn-primary">Login</button>
             </div>
           </div>
-          <div class="col-sm-12 login-section border rounded text-secondary">
-            <label for="usr" class="my-text">Name</label>
+          <!-- <div class="col-sm-12 login-section border rounded text-secondary">
+            <label for="usr" class="my-text">Enter OTP</label>
             <input type="text" class="form-control" id="name" name="name" />
-
-            <label for="usr" class="my-text">Email</label>
-            <input type="email" class="form-control" id="email" name="email" />
-
-            <label for="usr" class="my-text">Phone Number</label>
-            <input type="text" class="form-control" id="usr" name="username" />
-
-            <label for="pwd" class="my-text">Password</label>
-            <input type="password" class="form-control" id="pwd" name="password" />
 
             <div class="d-flex mt-3 align-items-center">
               <button type="button" @click="login" class="btn btn-primary">Login</button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

@@ -64,6 +64,10 @@ export const state = () => ({
 
     getrazorpayapi : url + "payments/getrazorpayapi",
 
+    order_payment_success: url + 'orders/order_payment_success',
+
+    order_payment_failed: url + 'orders/order_payment_failed/' //razor_order_id
+
 
 
 

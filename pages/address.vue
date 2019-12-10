@@ -438,7 +438,7 @@
                           </div>
                         </div>
                         <div class="pt-3 ml-2">
-                          <button @click="createOrder(2)" class="btn btn-order">
+                          <button @click="createOrder(3)" class="btn btn-order">
                             PAY ₹ {{ totalSum }}
                           </button>
                         </div>
@@ -609,13 +609,30 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
+       var vm = this
+
+      this.razorpay.on('payment.success', function(res) {
         console.log('yeyhxdsdnsmdnm')
+        var payload = new FormData()
+
+        payload.append('razorpay_order_id', res.razorpay_order_id)
+        payload.append('razorpay_payment_id', res.razorpay_payment_id)
+        payload.append('razorpay_signature', res.razorpay_signature)
+
+            console.log('success____')
+
+        vm.$store
+          .dispatch('order_payment_success', payload )
+          .then(res => {
+            console.log('success')
+          })
+
         console.log(resp)
       }) // will pass payment ID, order ID, and Razorpay signature to success handler.
 
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
+        console.log(resp)
       }) // will pass error object to error handler
     },
     pay_wallet: function() {
@@ -630,13 +647,25 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
-        console.log('yeyhxdsdnsmdnm')
+      this.razorpay.on('payment.success', function(res) {
+        var order_id = res.razorpay_order_id
+        var payload = {
+          razorpay_payment_id: res.razorpay_payment_id,
+          razorpay_signature: res.razorpay_signature
+        }
+
+        this.$store
+          .dispatch('order_payment_success', { order_id, payload })
+          .then(res => {
+            console.log('success')
+          })
+
         console.log(resp)
       }) // will pass payment ID, order ID, and Razorpay signature to success handler.
 
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
+        console.log(resp)
       }) // will pass error object to error handler
     },
     createOrder: function(method) {
@@ -667,7 +696,10 @@ export default {
       switch (method) {
         case 1:
           payload.append('payment_method', 1)
-          payload.append('payment_detail', this.card_number.replace(/.(?=.{4})/g, ''))
+          payload.append(
+            'payment_detail',
+            this.card_number.replace(/.(?=.{4})/g, '')
+          )
           break
         case 2:
           payload.append('payment_method', 2)
