@@ -239,10 +239,10 @@ p {
   position: relative;
 }
 
-.owl-carousel .owl-nav.disabled,
+/* .owl-carousel .owl-nav.disabled,
 .owl-carousel .owl-dots.disabled {
   display: block !important;
-}
+} */
 
 .quoteMark {
   width: 60px;
