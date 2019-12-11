@@ -48,7 +48,7 @@
                     <a v-if="name" href="#"
                       >{{ name }}<i class="fas fa-chevron-down"></i
                     ></a>
-                    <ul>
+                    <ul class=user_dropdown>
                       <li><a href="#">Your Account</a></li>
                       <li><a href="#">Your Orders</a></li>
                       <li><a href="#" @click="logout">Logout</a></li>
@@ -57,8 +57,8 @@
                 </ul>
               </div>
 
-              <div class="top_bar_user">
-                <div v-if="!name">
+              <div v-if="!name" class="top_bar_user">
+                <div>
                   <div class="user_icon">
                     <img src="~static/images/user.svg" alt="" />
                   </div>

@@ -340,7 +340,7 @@ section
 .top_bar_dropdown li
 {
 	padding-left: 13px;
-	padding-right: 13px;
+	padding-right: 0;
 }
 .standard_dropdown li
 {
@@ -384,9 +384,21 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
+
+.user_dropdown li a{
+
+	color: #000000;
+
+}
+
+.user_dropdown li a:hover{
+
+	color: #105e62;
+
+}
 .standard_dropdown li a:hover
 {
-	color: #105e62;
+	/* color: #105e62; */
 }
 .standard_dropdown li a i
 {
@@ -403,8 +415,8 @@ section
 	display: block;
 	position: absolute;
 	top: 120%;
-	left: 0;
-	width: auto;
+	right: 0;
+    width: 130px;
 	visibility: hidden;
 	opacity: 0;
 	background: #FFFFFF;
