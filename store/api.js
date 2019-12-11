@@ -22,6 +22,8 @@ export const state = () => ({
 
     signup: url + "users/create/",
 
+    otp_verify: url + 'users/otp_verify/',
+
     customer_signup: url + "users/create/customer",
 
     allProducts : url + "products/getAllActiveProducts",

@@ -1,16 +1,22 @@
 <template>
   <div>
-    <div style="background-color:#dcdcdc;color:DodgerBlue;padding:20px;" align="center">
+    <div
+      style="background-color:#dcdcdc;color:DodgerBlue;padding:20px;"
+      align="center"
+    >
       <h4 class="no-mar" style="font-weight: bold">MY ACCOUNT</h4>
     </div>
     <div class="container mt-5">
       <div class="row">
         <div class="col-sm-12">
           <div class="d-flex w-100 text-secondary justify-content-center">
-            <h3>Login</h3>
+            <h3>Register</h3>
           </div>
 
-          <div class="col-sm-12 login-section border rounded text-secondary" v-if="isLogin == 0">
+          <div
+            class="col-sm-12 login-section border rounded text-secondary"
+            v-if="isLogin == 0"
+          >
             <label for="usr" class="my-text">Name</label>
             <input type="text" class="form-control" id="name" name="name" />
 
@@ -21,35 +27,47 @@
             <input type="text" class="form-control" id="usr" name="username" />
 
             <label for="pwd" class="my-text">Password</label>
-            <input type="password" class="form-control" id="pwd" name="password" />
+            <input
+              type="password"
+              class="form-control"
+              id="pwd"
+              name="password"
+            />
 
             <div class="d-flex mt-3 align-items-center">
-              <button type="button" @click="login" class="btn btn-primary">Login</button>
+              <button type="button" @click="login" class="btn btn-primary">
+                Login
+              </button>
             </div>
           </div>
 
-          <div class="col-sm-12 login-section border rounded text-secondary" v-if="isLogin == 1">
-            <label for="usr" class="my-text">Enter OTP</label>
-            <input type="text" class="form-control" id="name" name="name" />
+          <div
+            class="col-sm-12 login-section border rounded text-secondary"
+            v-if="isLogin == 1"
+          >
+            <label>Enter OTP</label>
+            <input type="text" v-model="otp" class="form-control" />
 
             <div class="d-flex mt-3 align-items-center">
-              <button type="button" @click="login" class="btn btn-primary">Submit OTP</button>
+              <button type="button" @click="verify_otp" class="btn btn-primary">
+                Submit OTP
+              </button>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </div>
 </template>
 
-
-
 <script>
+import axios from 'axios'
+
 export default {
-  data(){
-    return{
-        isLogin: 0
+  data() {
+    return {
+      isLogin: 0,
+      otp: ''
     }
   },
   mounted() {},
@@ -64,14 +82,50 @@ export default {
 
       this.$store.dispatch('customer_signup', payload).then(res => {
         console.log(res)
-
-        this.$router.push('/')
+        if (res.status == 201) {
+          this.isLogin = 1
+          localStorage.setItem('reg', document.getElementById('usr').value)
+        } else {
+          alert('User Already Registered. Please Login')
+        }
       })
+    },
+    verify_otp: function() {
+      if (this.otp != '') {
+        this.is_otp_sent = false
+
+        var payload = new FormData()
+
+        payload.append('phone_number', localStorage.getItem('reg'))
+        payload.append('OTP', this.otp)
+
+        axios({
+          method: 'PUT',
+          data: payload,
+          url: this.$store.state.api.otp_verify,
+          contentType: 'application/json',
+          data: payload
+        })
+          .then(res => {
+            console.log(res.data)
+            console.log('response')
+            if (res.data.status == 200) {
+
+              this.$store.commit('isLoggedIn', 1)
+
+              this.$router.push('/')
+            }
+          })
+          .catch(err => {
+            console.log('error in request', err)
+            this.error = true
+            this.message = err.response.data.message
+          })
+      }
     }
   }
 }
 </script>
-
 
 <style scoped>
 input[type='text'] {
