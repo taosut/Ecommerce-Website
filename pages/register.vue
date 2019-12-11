@@ -9,7 +9,8 @@
           <div class="d-flex w-100 text-secondary justify-content-center">
             <h3>Login</h3>
           </div>
-          <div class="col-sm-12 login-section border rounded text-secondary">
+
+          <div class="col-sm-12 login-section border rounded text-secondary" v-if="isLogin == 0">
             <label for="usr" class="my-text">Name</label>
             <input type="text" class="form-control" id="name" name="name" />
 
@@ -26,14 +27,16 @@
               <button type="button" @click="login" class="btn btn-primary">Login</button>
             </div>
           </div>
-          <!-- <div class="col-sm-12 login-section border rounded text-secondary">
+
+          <div class="col-sm-12 login-section border rounded text-secondary" v-if="isLogin == 1">
             <label for="usr" class="my-text">Enter OTP</label>
             <input type="text" class="form-control" id="name" name="name" />
 
             <div class="d-flex mt-3 align-items-center">
-              <button type="button" @click="login" class="btn btn-primary">Login</button>
+              <button type="button" @click="login" class="btn btn-primary">Submit OTP</button>
             </div>
-          </div> -->
+          </div>
+
         </div>
       </div>
     </div>
@@ -44,6 +47,11 @@
 
 <script>
 export default {
+  data(){
+    return{
+        isLogin: 0
+    }
+  },
   mounted() {},
   methods: {
     login: function() {

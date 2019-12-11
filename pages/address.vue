@@ -477,7 +477,50 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-12" v-if="order_step == 3">
+          <div class="bg-white pb-4">
+            <div class="confirmation center">
+              <div class="container">
+                <div class="white box pt-3">
+                  <div class="container section">
+                    <svg
+                      class="checkmark"
+                      id="this"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        class="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        class="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
+                    <p class="pt-3">
+                      Your Order has been Confirmed. <br />
+                      It is being processed by the seller
+                    </p>
+                    <p class="approval-text">
+                      You will receive an SMS when the order is approved
+                    </p>
+                  </div>
+                </div>
+                <div class="confirmation-action mt-3">
+                  <nuxt-link to="/" class="btn btn-primary white-text"
+                    >Continue Shopping</nuxt-link
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" v-if="order_step != 3">
           <div class="bg-white shadow border-rad">
             <div class="border-bottom f600" style="padding:13px 24px">
               <p style="color:#878787">PRICE DETAILS</p>
@@ -530,7 +573,7 @@ export default {
     totalSum: 0,
     payload: [],
     payment_active: 1,
-    order_step: 2,
+    order_step: 1,
     order_id: '',
     alluseraddress: [],
     razorpay: [],
@@ -575,8 +618,8 @@ export default {
     pay_card: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
         order_id: this.order_id,
         method: 'card',
         'card[name]': this.card_holder,
@@ -588,28 +631,7 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
-        console.log('yeyhxdsdnsmdnm')
-        console.log(resp)
-      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
-
-      this.razorpay.on('payment.error', function(resp) {
-        alert(resp.error.description)
-      }) // will pass error object to error handler
-    },
-    pay_net: function() {
-      var data = {
-        amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
-        order_id: this.order_id,
-        method: 'netbanking',
-        bank: this.bank
-      }
-
-      this.razorpay.createPayment(data)
-
-       var vm = this
+      var vm = this
 
       this.razorpay.on('payment.success', function(res) {
         console.log('yeyhxdsdnsmdnm')
@@ -619,16 +641,73 @@ export default {
         payload.append('razorpay_payment_id', res.razorpay_payment_id)
         payload.append('razorpay_signature', res.razorpay_signature)
 
-            console.log('success____')
+        console.log('success____')
 
-        vm.$store
-          .dispatch('order_payment_success', payload )
-          .then(res => {
-            console.log('success')
-          })
+        vm.$store.dispatch('order_payment_success', payload).then(res => {
+          console.log('success')
+          vm.order_step = 3
+        })
 
         console.log(resp)
-      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
+      })
+      this.razorpay.on('payment.error', function(resp) {
+        alert(resp.error.description)
+      }) // will pass error object to error handler
+    },
+    pay_net: function() {
+      var data = {
+        amount: this.totalSum * 100,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
+        order_id: this.order_id,
+        method: 'netbanking',
+        bank: this.bank
+      }
+
+      this.razorpay.createPayment(data)
+
+      var vm = this
+
+      this.razorpay.on('payment.success', function(res) {
+        console.log('yeyhxdsdnsmdnm')
+        var payload = new FormData()
+
+        var cart_simplified = []
+
+        vm.cart.forEach((food, index) => {
+          var single_cart = {}
+
+          single_cart['id'] = index + 1
+
+          single_cart['product_name'] = food.product_name
+          single_cart['product_id'] = food.product_id
+          single_cart['product_price'] = food.product_price
+
+          single_cart['seller_name'] = food.store_name
+          single_cart['seller_id'] = food.seller_id
+
+          single_cart['quantity'] = food.quantity
+          single_cart['cart_id'] = food.cart_key
+
+          cart_simplified.push(single_cart)
+        })
+
+        console.log(cart_simplified)
+
+        payload.append('razorpay_order_id', res.razorpay_order_id)
+        payload.append('razorpay_payment_id', res.razorpay_payment_id)
+        payload.append('razorpay_signature', res.razorpay_signature)
+        payload.append('cart', JSON.stringify(cart_simplified))
+
+        console.log('success____')
+
+        vm.$store.dispatch('order_payment_success', payload).then(res => {
+          console.log('success')
+          vm.order_step = 3
+        })
+
+        console.log(resp)
+      })
 
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
@@ -638,8 +717,8 @@ export default {
     pay_wallet: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
         order_id: this.order_id,
         method: 'wallet',
         wallet: this.selected_wallet
@@ -658,6 +737,7 @@ export default {
           .dispatch('order_payment_success', { order_id, payload })
           .then(res => {
             console.log('success')
+            vm.order_step = 3
           })
 
         console.log(resp)
@@ -678,15 +758,15 @@ export default {
 
         single_cart['id'] = index + 1
 
-        single_cart['product_name'] = food['product_name']
-        single_cart['product_id'] = food.product_info.product_id['id']
-        single_cart['product_price'] = food.product_info['price']
+        single_cart['product_name'] = food.product_name
+        single_cart['product_id'] = food.product_id
+        single_cart['product_price'] = food.product_price
 
-        single_cart['seller_name'] = food.seller_id['name']
-        single_cart['seller_id'] = food.seller_id['id']
+        single_cart['seller_name'] = food.store_name
+        single_cart['seller_id'] = food.seller_id
 
-        single_cart['quantity'] = food['quantity']
-        single_cart['cart_id'] = food['cart_key']
+        single_cart['quantity'] = food.quantity
+        single_cart['cart_id'] = food.cart_key
 
         cart_simplified.push(single_cart)
       })
@@ -753,20 +833,12 @@ export default {
       this.$store.dispatch('getCartByUser').then(res => {
         this.cart = JSON.parse(JSON.stringify(res.data))
 
-        this.cart.filter(
-          v =>
-            (v.product_info.images = JSON.parse(
-              v.product_info.product_id.images
-            ))
-        )
+        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.cart[index]['product_name'] = this.cart[index].product_info[
-            'product_id'
-          ]['product_name']
-          this.totalSum += parseInt(element.product_info.price)
+          this.totalSum += parseInt(element.product_price)
           this.discountedtotalSum +=
-            parseInt(element.product_info.mrp) - this.totalSum
+            parseInt(element.product_mrp) - this.totalSum
         })
       })
     },
@@ -793,7 +865,7 @@ export default {
 
       this.$store.commit('cart_address', this.alluseraddress[id])
 
-      this.$router.push('/payment')
+      this.order_step = 2
     },
     addNewAddress: function() {
       var payload = new FormData()
@@ -965,85 +1037,54 @@ export default {
 .padding-0 {
   padding: 0;
 }
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
 </style>
-
-<!-- <div>
-    <div style="background-color:#dcdcdc;color:DodgerBlue;padding:20px;" align="center">
-      <h4 class="no-mar" style="font-weight: bold">CART</h4>
-    </div>
-    <div class="container mt-5 mb-5">
-      <div class="row">
- 
-
-        <div class="col-lg-8 col-md-12">
-          <div class="row">
-            <div class="col-12 mt-3 no-padd">
-              <div>
-                <div class="border">
-                  <div class="w-100" style="border-bottom:1px solid #dee2e6 ">
-                    <p
-                      class="m-0 padding-right-10 my-text-custom2"
-                      style="padding: 15px 20px;font-size: 16px;font-weight: bold;"
-                    >My Cart ( {{cart.length}} )</p>
-                  </div>
-                  <div class="container">
-                    <div class="row">
-                      <div class="container-fluid h-100 mb-4">
-                        <div class="row mb-5 mt-3" v-for="p in cart" :key="p.id">
-                          <div class="col-md-3">
-                            <img
-                              :src='baseurl + "/media/products/" + p.product_info["images"][0]'
-                              style="width: 100%;height: 120px;object-fit: contain;"
-                              @error="setFallbackImageUrl"
-                            />
-                          </div>
-                          <div class="col-md-9">
-                              <p class="clamp1" style="font-size:14px;color:#545454;font-weight:bold">{{p.product_info['product_name']}}</p>
-                              <p class="clamp1" style="font-size:18px">$ {{p.product_info['price']}}</p>    
-                              <p class="clamp1 pointer" @click="removeFromCart(p.id)" style="font-size:14px;color:red;padding-top: 25px">REMOVE</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    
-        <div class="col-lg-4 col-md-12">
-          <div class="row">
-            <div class="col-12 mt-3 no-padd">
-              <div>
-                <div class="border">
-                  <div class="w-100" style="border-bottom:1px solid #dee2e6 ">
-                    <p
-                      class="m-0 padding-right-10 my-text-custom2"
-                      style="padding: 15px 20px;font-size: 16px;font-weight: bold;"
-                    >Price Details</p>
-                  </div>
-                  <div class="container">
-                    <div class="row">
-                      <div class="container-fluid h-100 mb-4">
-                        <div style="display:flex; justify-content: space-between;padding-top:10px">
-                          <div>Price ({{cart.length}} items)</div>
-                          <div>$ {{totalSum}}</div>
-                        </div>
-                      </div>
-                      <div class="container-fluid h-100 mb-3" style="border-top:1px solid rgb(222, 226, 230)">
-                        <div style="display:flex; justify-content: space-between;padding-top:10px">
-                          <button type="button" class="btn btn-danger" style="font-size:12px">PLACE ORDER</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->

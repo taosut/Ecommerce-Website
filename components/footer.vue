@@ -44,7 +44,7 @@
 						<div class="footer_title">Let Us Help</div>
 						<ul class="footer_list">
 							<li><a href="#">Your Account</a></li>
-							<li><a href="#">Return Center</a></li>
+							<li><a target="_blank" href="https://seller.wenslink.com/">Sell on WENSLink</a></li>
 							<li><a href="#">100% Purchase Help</a></li>
 						</ul>
 					</div>
