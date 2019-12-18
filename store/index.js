@@ -401,9 +401,9 @@ export const actions = {
                 method: 'GET',
                 url: state.api.getSingleProduct + payload,
                 contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
             })
                 .then(res => {
                     console.log(res.data)

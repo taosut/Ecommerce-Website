@@ -464,7 +464,7 @@
                                 @click="createOrder(4)"
                                 class="btn btn-order"
                               >
-                                PAY ₹ {{ totalSum }}
+                                Place Order
                               </button>
                             </div>
                           </div>
@@ -789,7 +789,7 @@ export default {
           payload.append('payment_method', 3)
           payload.append('payment_detail', this.selected_wallet)
           break
-        case 3:
+        case 4:
           payload.append('payment_method', 4)
           payload.append('payment_detail', 'COD')
           break
