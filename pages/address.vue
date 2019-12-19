@@ -13,25 +13,41 @@
             <div class="container">
               <div class="row">
                 <!-- <div class="pad24" > -->
-                <div class="col-12 col-sm-6" v-for="(p, index) in alluseraddress" :key="p.id">
+                <div
+                  class="col-12 col-sm-6"
+                  v-for="(p, index) in alluseraddress"
+                  :key="p.id"
+                >
                   <div>
                     <div>
-                      <p class="pad-9" style="font-size:16px">{{ p.fullname }}</p>
+                      <p class="pad-9" style="font-size:16px">
+                        {{ p.fullname }}
+                      </p>
                     </div>
                     <div>
-                      <p class="pad-11 font-12">{{ p.building }} {{ p.street }}</p>
-                      <p v-if="p.landmark != ''" class="pad-11 font-12">{{ p.landmark }}</p>
+                      <p class="pad-11 font-12">
+                        {{ p.building }} {{ p.street }}
+                      </p>
+                      <p v-if="p.landmark != ''" class="pad-11 font-12">
+                        {{ p.landmark }}
+                      </p>
                     </div>
                     <div>
-                      <p class="pad-11">{{ p.city }}, {{ p.state }} {{ p.pincode }}</p>
+                      <p class="pad-11">
+                        {{ p.city }}, {{ p.state }} {{ p.pincode }}
+                      </p>
                       <p class="pad-11">{{ p.country }}</p>
                     </div>
                     <button
                       type="button"
                       @click="selectedAddress(index)"
                       class="btn btn-primary btn-sm"
-                    >Deliver to this address</button>
-                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                    >
+                      Deliver to this address
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm">
+                      Delete
+                    </button>
                   </div>
                 </div>
                 <!-- </div> -->
@@ -79,7 +95,9 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Flat, House no., Building, Company, Apartment:</label>
+                        <label for="email"
+                          >Flat, House no., Building, Company, Apartment:</label
+                        >
                         <input
                           type="text"
                           v-model="payload.building"
@@ -91,20 +109,34 @@
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Area, Colony, Street, Sector, Village:</label>
-                        <input type="text" v-model="payload.street" class="form-control" id="email" />
+                        <label for="email"
+                          >Area, Colony, Street, Sector, Village:</label
+                        >
+                        <input
+                          type="text"
+                          v-model="payload.street"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">Town/City:</label>
-                        <input type="text" v-model="payload.city" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.city"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Landmark e.g. near apollo hospital:</label>
+                        <label for="email"
+                          >Landmark e.g. near apollo hospital:</label
+                        >
                         <input
                           type="text"
                           v-model="payload.landmark"
@@ -117,12 +149,23 @@
                     <div class="col-12">
                       <div class="form-group">
                         <label for="email">State:</label>
-                        <input type="text" v-model="payload.state" class="form-control" id="email" />
+                        <input
+                          type="text"
+                          v-model="payload.state"
+                          class="form-control"
+                          id="email"
+                        />
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <button @click="addNewAddress" type="button" class="btn btn-order">Add Address</button>
+                      <button
+                        @click="addNewAddress"
+                        type="button"
+                        class="btn btn-order"
+                      >
+                        Add Address
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -158,7 +201,10 @@
                       </div>
                       <div class="ml-4" v-if="payment_active == 1">
                         <div>
-                          <div style="display:flex;flex-direction:column" class="pb-4">
+                          <div
+                            style="display:flex;flex-direction:column"
+                            class="pb-4"
+                          >
                             <label>Card Number</label>
                             <input
                               v-model="card_number"
@@ -167,39 +213,63 @@
                               class="form-control"
                             />
                           </div>
-                          <div style="display:flex;flex-direction:column" class="pb-4">
+                          <div
+                            style="display:flex;flex-direction:column"
+                            class="pb-4"
+                          >
                             <label>Card Holder</label>
-                            <input v-model="card_holder" type="text" class="form-control" />
+                            <input
+                              v-model="card_holder"
+                              type="text"
+                              class="form-control"
+                            />
                           </div>
                           <div class="row pb-4">
                             <div class="form-group col-2">
                               <label>Valid Thru</label>
-                              <select id="inputState" class="form-control" v-model="valid_month">
+                              <select
+                                id="inputState"
+                                class="form-control"
+                                v-model="valid_month"
+                              >
                                 <option selected>MM</option>
                                 <option v-for="p in 12" :key="p" :value="p">
-                                  {{
-                                  p
-                                  }}
+                                  {{ p }}
                                 </option>
                               </select>
                             </div>
                             <div class="form-group col-2">
                               <label>Year</label>
-                              <select id="inputState" class="form-control" v-model="valid_year">
+                              <select
+                                id="inputState"
+                                class="form-control"
+                                v-model="valid_year"
+                              >
                                 <option selected>YY</option>
-                                <option v-for="p in 50" :key="p + 19" :value="p + 18">{{ p + 18 }}</option>
+                                <option
+                                  v-for="p in 50"
+                                  :key="p + 19"
+                                  :value="p + 18"
+                                  >{{ p + 18 }}</option
+                                >
                               </select>
                             </div>
                             <div class="form-group col-2">
                               <label>CVV</label>
-                              <input type="text" class="form-control" v-model="cvv" />
+                              <input
+                                type="text"
+                                class="form-control"
+                                v-model="cvv"
+                              />
                             </div>
                             <div class="form-group col-2">
                               <label>Pay</label>
                               <button
                                 @click="createOrder(1)"
                                 class="btn btn-order"
-                              >PAY ₹ {{ totalSum }}</button>
+                              >
+                                PAY ₹ {{ totalSum }}
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -222,7 +292,12 @@
 
                           <div class="d-flex row">
                             <div class="col-sm-4">
-                              <input type="radio" v-model="bank" value="HDFC" name="bank_radio" />
+                              <input
+                                type="radio"
+                                v-model="bank"
+                                value="HDFC"
+                                name="bank_radio"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
@@ -231,7 +306,12 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-2">
-                              <input type="radio" v-model="bank" value="ICIC" name="bank_radio" />
+                              <input
+                                type="radio"
+                                v-model="bank"
+                                value="ICIC"
+                                name="bank_radio"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
@@ -240,7 +320,12 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-2">
-                              <input type="radio" v-model="bank" value="SBIN" name="bank_radio" />
+                              <input
+                                type="radio"
+                                v-model="bank"
+                                value="SBIN"
+                                name="bank_radio"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNyIgaGVpZ2h0PSIyNyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjMTZEIiBkPSJNMTIuNiAyN0M1LjQgMjYuNS0uMiAyMC40IDAgMTMgLjIgNiA2LjIgMCAxMy41IDBTMjYuOCA1LjggMjcgMTNjLjIgNy40LTUuNCAxMy41LTEyLjYgMTRWMTZjMS0uNSAxLjctMS42IDEuNS0yLjgtLjQtMS4yLTEuNC0yLTIuNi0ycy0yLjIuOC0yLjQgMmMwIDEuMi41IDIuMyAxLjYgMi43Ii8+PC9nPjwvc3ZnPg=="
@@ -249,7 +334,12 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-3">
-                              <input type="radio" v-model="bank" value="UTIB" name="bank_radio" />
+                              <input
+                                type="radio"
+                                v-model="bank"
+                                value="UTIB"
+                                name="bank_radio"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48cGF0aCBmaWxsPSIjQkM0MTcwIiBkPSJNMjggMjRoLTguN0wxNCAxNWg4LjdtLTQuNC03LjZMOC43IDI0SDBMMTQgMCIvPjwvZz48L3N2Zz4="
@@ -258,7 +348,12 @@
                               </span>
                             </div>
                             <div class="col-sm-4 mt-3">
-                              <input type="radio" v-model="bank" value="KKBK" name="bank_radio" />
+                              <input
+                                type="radio"
+                                v-model="bank"
+                                value="KKBK"
+                                name="bank_radio"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyOCIgaGVpZ2h0PSIyNCIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxwYXRoIGlkPSJhIiBkPSJNMjggMEgwdjIzLjhoMjhWMHoiLz48L2RlZnM+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTYtOGg0MHY0MEgtNnoiLz48bWFzayBpZD0iYiIgZmlsbD0iI2ZmZiI+PHVzZSB4bGluazpocmVmPSIjYSIvPjwvbWFzaz48cGF0aCBmaWxsPSIjMDAzODc0IiBkPSJNMCAxMkMwIDUuMiA2LjMgMCAxNCAwczE0IDUuMyAxNCAxMmMwIDYuNS02LjMgMTEuOC0xNCAxMS44cy0xNC01LjMtMTQtMTIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRUQxQzI0IiBkPSJNMTIuMyAzLjhsMy4yLTFWMjBsLTMuMiAxLjIiIG1hc2s9InVybCgjYikiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTQuMiAxNC43QzEyLjggMTYuMyAxMS40IDE4IDkgMThjLTMuNyAwLTUuNC0zLjQtNS40LTYuMyAwLTIuOCAxLjMtNiA0LjgtNiAxLjUgMCAzIDEgNCAyVjEwYy0xLS43LTIuNS0xLTMuNi0xLTIuMiAwLTQuMi43LTQgMyAwIDEuNCAxLjQgMi40IDMgMi40IDIuMiAwIDMuNi0yIDQuNy0zLjZMMTQgOWMxLTEuNiAyLjYtMy4yIDUtMy4yIDMgMCA0LjcgMi40IDUuMiA1SDIzYy0uNS0xLTEuNS0xLjQtMi42LTEuNC0yLjMgMC0zLjggMi01IDMuN2wtMS4yIDJ6TTI0LjUgMTNjLS4zIDIuNi0xLjcgNS00LjggNS0xLjggMC0zLjItMS00LjItMi42di0xLjdjMS4zLjYgMi40IDEuMiAzLjggMS4yIDEuNyAwIDMuMi0xIDMuOC0yaDJ6IiBtYXNrPSJ1cmwoI2IpIi8+PC9nPjwvc3ZnPg=="
@@ -277,17 +372,22 @@
                             style="min-width: 180px; border: 1px solid #C0C0C0"
                             v-model="bank"
                           >
-                            <option value="1" selected="selected">---Select Bank---</option>
+                            <option value="1" selected="selected"
+                              >---Select Bank---</option
+                            >
                             <option
                               name="bank_radio"
                               v-for="(p, key) in methods.netbanking"
                               :key="p.id"
                               :value="key"
-                            >{{ p }}</option>
+                              >{{ p }}</option
+                            >
                           </select>
                         </div>
                         <div class="pt-3 ml-2">
-                          <button @click="createOrder(2)" class="btn btn-order">PAY ₹ {{ totalSum }}</button>
+                          <button @click="createOrder(2)" class="btn btn-order">
+                            PAY ₹ {{ totalSum }}
+                          </button>
                         </div>
                       </div>
                     </label>
@@ -308,7 +408,12 @@
 
                           <div class="d-flex row">
                             <div class="col-sm-4">
-                              <input type="radio" v-model="selected_wallet" value="freecharge" name="wallet" />
+                              <input
+                                type="radio"
+                                v-model="selected_wallet"
+                                value="freecharge"
+                                name="wallet"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyNiI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctN2g0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRUQyMzJBIiBkPSJNMCAwaDI2djI2SDAiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNNC42IDQuNmgxNi44djE2LjhINC42Ii8+PHBhdGggZmlsbD0iI0ZGRiIgZD0iTTExLjcgMGgyLjZ2MjZoLTIuNiIvPjxwYXRoIGZpbGw9IiNGRkYiIGQ9Ik0wIDExLjdoMjZ2Mi42SDAiLz48cGF0aCBmaWxsPSIjMDA0QzhGIiBkPSJNOSA5aDh2OEg5Ii8+PC9nPjwvc3ZnPg=="
@@ -317,7 +422,12 @@
                               </span>
                             </div>
                             <div class="col-sm-4">
-                              <input type="radio" v-model="selected_wallet" value="payzapp" name="wallet" />
+                              <input
+                                type="radio"
+                                v-model="selected_wallet"
+                                value="payzapp"
+                                name="wallet"
+                              />
                               <span class="ml-2">
                                 <img
                                   src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNiIgaGVpZ2h0PSIyOCI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNLTctNmg0MHY0MEgtN3oiLz48cGF0aCBmaWxsPSIjRjk5RDI3IiBkPSJNNy41IDZjNi4zLTYuMiAxNC04IDE3LTMuNiAzIDQuMy40IDEzLTYgMTkuMi02LjIgNi4zLTE0IDgtMTcgMy42LTMtNC4zLS4zLTEzIDYtMTkuMiIvPjxwYXRoIGZpbGw9IiNCMDJBMzAiIGQ9Ik0xMS43IDIuN2MtLjcuNS0xLjQgMS0yIDEuOC01LjYgNS41LTggMTMtNS4yIDE2LjcgMi44IDMuOCA5LjYgMi40IDE1LjMtMyAzLTMgNS02LjUgNi05LjcgMC0yLjQtLjItNC41LTEuMy02QzIyLTEgMTctLjUgMTEuNyAyLjUiLz48cGF0aCBmaWxsPSIjRkZGIiBkPSJNMTkuMyAyLjVjLjcuNy4zIDIuNC0xIDMuNi0xLjMgMS43LTMgMi0zLjYgMS0uOC0uMy0uMy0yIDEtMy4yIDEuMi0xLjMgMy0xLjcgMy42LTF6bS00LjUgMjIuMmMtMyAyLjItNiAzLjMtOSAzIDEuMyAwIDIuMy0xLjQgMy0zLjMgMS0yIDEuNS0zLjcgMi01LjQuNS0yLjYuNS00LjUuMi01LS41LS42LTEuNy0uNC0zIC40LS42LjMtMS40IDAtLjQtMSAxLTEuMyA1LTQuMiA2LjMtNC42IDEuMi0uNSAzIDAgMi4zIDEuOC0uNCAxLjMtNS44IDE1LjYtMS44IDE0eiIvPjwvZz48L3N2Zz4="
@@ -327,8 +437,10 @@
                             </div>
                           </div>
                         </div>
-                         <div class="pt-3 ml-2">
-                          <button @click="createOrder(2)" class="btn btn-order">PAY ₹ {{ totalSum }}</button>3
+                        <div class="pt-3 ml-2">
+                          <button @click="createOrder(3)" class="btn btn-order">
+                            PAY ₹ {{ totalSum }}
+                          </button>
                         </div>
                       </div>
                     </label>
@@ -345,13 +457,15 @@
                       </div>
                       <div class="ml-4" v-if="payment_active == 4">
                         <div>
-                          <div class="row pb-4"> 
+                          <div class="row pb-4">
                             <div class="form-group col-2">
                               <label>Pay</label>
                               <button
                                 @click="createOrder(4)"
                                 class="btn btn-order"
-                              >PAY ₹ {{ totalSum }}</button>
+                              >
+                                Place Order
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -363,7 +477,50 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-12" v-if="order_step == 3">
+          <div class="bg-white pb-4">
+            <div class="confirmation center">
+              <div class="container">
+                <div class="white box pt-3">
+                  <div class="container section">
+                    <svg
+                      class="checkmark"
+                      id="this"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 52 52"
+                    >
+                      <circle
+                        class="checkmark__circle"
+                        cx="26"
+                        cy="26"
+                        r="25"
+                        fill="none"
+                      />
+                      <path
+                        class="checkmark__check"
+                        fill="none"
+                        d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                      />
+                    </svg>
+                    <p class="pt-3">
+                      Your Order has been Confirmed. <br />
+                      It is being processed by the seller
+                    </p>
+                    <p class="approval-text">
+                      You will receive an SMS when the order is approved
+                    </p>
+                  </div>
+                </div>
+                <div class="confirmation-action mt-3">
+                  <nuxt-link to="/" class="btn btn-primary white-text"
+                    >Continue Shopping</nuxt-link
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" v-if="order_step != 3">
           <div class="bg-white shadow border-rad">
             <div class="border-bottom f600" style="padding:13px 24px">
               <p style="color:#878787">PRICE DETAILS</p>
@@ -416,7 +573,7 @@ export default {
     totalSum: 0,
     payload: [],
     payment_active: 1,
-    order_step: 2,
+    order_step: 1,
     order_id: '',
     alluseraddress: [],
     razorpay: [],
@@ -461,8 +618,8 @@ export default {
     pay_card: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
         order_id: this.order_id,
         method: 'card',
         'card[name]': this.card_holder,
@@ -474,11 +631,25 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
-        console.log('yeyhxdsdnsmdnm')
-        console.log(resp)
-      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
+      var vm = this
 
+      this.razorpay.on('payment.success', function(res) {
+        console.log('yeyhxdsdnsmdnm')
+        var payload = new FormData()
+
+        payload.append('razorpay_order_id', res.razorpay_order_id)
+        payload.append('razorpay_payment_id', res.razorpay_payment_id)
+        payload.append('razorpay_signature', res.razorpay_signature)
+
+        console.log('success____')
+
+        vm.$store.dispatch('order_payment_success', payload).then(res => {
+          console.log('success')
+          vm.order_step = 3
+        })
+
+        console.log(resp)
+      })
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
       }) // will pass error object to error handler
@@ -486,8 +657,8 @@ export default {
     pay_net: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
         order_id: this.order_id,
         method: 'netbanking',
         bank: this.bank
@@ -495,20 +666,59 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
+      var vm = this
+
+      this.razorpay.on('payment.success', function(res) {
         console.log('yeyhxdsdnsmdnm')
+        var payload = new FormData()
+
+        var cart_simplified = []
+
+        vm.cart.forEach((food, index) => {
+          var single_cart = {}
+
+          single_cart['id'] = index + 1
+
+          single_cart['product_name'] = food.product_name
+          single_cart['product_id'] = food.product_id
+          single_cart['product_price'] = food.product_price
+
+          single_cart['seller_name'] = food.store_name
+          single_cart['seller_id'] = food.seller_id
+
+          single_cart['quantity'] = food.quantity
+          single_cart['cart_id'] = food.cart_key
+
+          cart_simplified.push(single_cart)
+        })
+
+        console.log(cart_simplified)
+
+        payload.append('razorpay_order_id', res.razorpay_order_id)
+        payload.append('razorpay_payment_id', res.razorpay_payment_id)
+        payload.append('razorpay_signature', res.razorpay_signature)
+        payload.append('cart', JSON.stringify(cart_simplified))
+
+        console.log('success____')
+
+        vm.$store.dispatch('order_payment_success', payload).then(res => {
+          console.log('success')
+          vm.order_step = 3
+        })
+
         console.log(resp)
-      }) // will pass payment ID, order ID, and Razorpay signature to success handler.
+      })
 
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
+        console.log(resp)
       }) // will pass error object to error handler
     },
     pay_wallet: function() {
       var data = {
         amount: this.totalSum * 100,
-        email: this.cart[0].seller_id.email,
-        contact: this.cart[0].seller_id.phone_number,
+        email: this.cart[0].customer_email,
+        contact: this.cart[0].customer_phone_number,
         order_id: this.order_id,
         method: 'wallet',
         wallet: this.selected_wallet
@@ -516,13 +726,26 @@ export default {
 
       this.razorpay.createPayment(data)
 
-      this.razorpay.on('payment.success', function(resp) {
-        console.log('yeyhxdsdnsmdnm')
+      this.razorpay.on('payment.success', function(res) {
+        var order_id = res.razorpay_order_id
+        var payload = {
+          razorpay_payment_id: res.razorpay_payment_id,
+          razorpay_signature: res.razorpay_signature
+        }
+
+        this.$store
+          .dispatch('order_payment_success', { order_id, payload })
+          .then(res => {
+            console.log('success')
+            vm.order_step = 3
+          })
+
         console.log(resp)
       }) // will pass payment ID, order ID, and Razorpay signature to success handler.
 
       this.razorpay.on('payment.error', function(resp) {
         alert(resp.error.description)
+        console.log(resp)
       }) // will pass error object to error handler
     },
     createOrder: function(method) {
@@ -535,20 +758,42 @@ export default {
 
         single_cart['id'] = index + 1
 
-        single_cart['product_name'] = food['product_name']
-        single_cart['product_id'] = food.product_info.product_id['id']
-        single_cart['product_price'] = food.product_info['price']
+        single_cart['product_name'] = food.product_name
+        single_cart['product_id'] = food.product_id
+        single_cart['product_price'] = food.product_price
 
-        single_cart['seller_name'] = food.seller_id['name']
-        single_cart['seller_id'] = food.seller_id['id']
+        single_cart['seller_name'] = food.store_name
+        single_cart['seller_id'] = food.seller_id
 
-        single_cart['quantity'] = food['quantity']
-        single_cart['cart_id'] = food['cart_key']
+        single_cart['quantity'] = food.quantity
+        single_cart['cart_id'] = food.cart_key
 
         cart_simplified.push(single_cart)
       })
 
       console.log(cart_simplified)
+
+      switch (method) {
+        case 1:
+          payload.append('payment_method', 1)
+          payload.append(
+            'payment_detail',
+            this.card_number.replace(/.(?=.{4})/g, '')
+          )
+          break
+        case 2:
+          payload.append('payment_method', 2)
+          payload.append('payment_detail', this.methods.netbanking[this.bank])
+          break
+        case 3:
+          payload.append('payment_method', 3)
+          payload.append('payment_detail', this.selected_wallet)
+          break
+        case 4:
+          payload.append('payment_method', 4)
+          payload.append('payment_detail', 'COD')
+          break
+      }
 
       payload.append('amount', this.totalSum * 100)
       payload.append('cart', JSON.stringify(cart_simplified))
@@ -564,6 +809,7 @@ export default {
       })
         .then(res => {
           console.log(res.data)
+          console.log(method)
           console.log('response')
           this.order_id = res.data.order_id
           console.log(this.order_id)
@@ -587,20 +833,12 @@ export default {
       this.$store.dispatch('getCartByUser').then(res => {
         this.cart = JSON.parse(JSON.stringify(res.data))
 
-        this.cart.filter(
-          v =>
-            (v.product_info.images = JSON.parse(
-              v.product_info.product_id.images
-            ))
-        )
+        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.cart[index]['product_name'] = this.cart[index].product_info[
-            'product_id'
-          ]['product_name']
-          this.totalSum += parseInt(element.product_info.price)
+          this.totalSum += parseInt(element.product_price)
           this.discountedtotalSum +=
-            parseInt(element.product_info.mrp) - this.totalSum
+            parseInt(element.product_mrp) - this.totalSum
         })
       })
     },
@@ -627,7 +865,7 @@ export default {
 
       this.$store.commit('cart_address', this.alluseraddress[id])
 
-      this.$router.push('/payment')
+      this.order_step = 2
     },
     addNewAddress: function() {
       var payload = new FormData()
@@ -799,85 +1037,54 @@ export default {
 .padding-0 {
   padding: 0;
 }
+
+.checkmark__circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 2;
+  stroke-miterlimit: 10;
+  stroke: #7ac142;
+  fill: none;
+  animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  margin: auto;
+  box-shadow: inset 0px 0px 0px #7ac142;
+  animation: fill 0.4s ease-in-out 0.4s forwards,
+    scale 0.3s ease-in-out 0.9s both;
+}
+.checkmark__check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes scale {
+  0%,
+  100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.1, 1.1, 1);
+  }
+}
+@keyframes fill {
+  100% {
+    box-shadow: inset 0px 0px 0px 30px #7ac142;
+  }
+}
 </style>
-
-<!-- <div>
-    <div style="background-color:#dcdcdc;color:DodgerBlue;padding:20px;" align="center">
-      <h4 class="no-mar" style="font-weight: bold">CART</h4>
-    </div>
-    <div class="container mt-5 mb-5">
-      <div class="row">
- 
-
-        <div class="col-lg-8 col-md-12">
-          <div class="row">
-            <div class="col-12 mt-3 no-padd">
-              <div>
-                <div class="border">
-                  <div class="w-100" style="border-bottom:1px solid #dee2e6 ">
-                    <p
-                      class="m-0 padding-right-10 my-text-custom2"
-                      style="padding: 15px 20px;font-size: 16px;font-weight: bold;"
-                    >My Cart ( {{cart.length}} )</p>
-                  </div>
-                  <div class="container">
-                    <div class="row">
-                      <div class="container-fluid h-100 mb-4">
-                        <div class="row mb-5 mt-3" v-for="p in cart" :key="p.id">
-                          <div class="col-md-3">
-                            <img
-                              :src='baseurl + "/media/products/" + p.product_info["images"][0]'
-                              style="width: 100%;height: 120px;object-fit: contain;"
-                              @error="setFallbackImageUrl"
-                            />
-                          </div>
-                          <div class="col-md-9">
-                              <p class="clamp1" style="font-size:14px;color:#545454;font-weight:bold">{{p.product_info['product_name']}}</p>
-                              <p class="clamp1" style="font-size:18px">$ {{p.product_info['price']}}</p>    
-                              <p class="clamp1 pointer" @click="removeFromCart(p.id)" style="font-size:14px;color:red;padding-top: 25px">REMOVE</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-    
-        <div class="col-lg-4 col-md-12">
-          <div class="row">
-            <div class="col-12 mt-3 no-padd">
-              <div>
-                <div class="border">
-                  <div class="w-100" style="border-bottom:1px solid #dee2e6 ">
-                    <p
-                      class="m-0 padding-right-10 my-text-custom2"
-                      style="padding: 15px 20px;font-size: 16px;font-weight: bold;"
-                    >Price Details</p>
-                  </div>
-                  <div class="container">
-                    <div class="row">
-                      <div class="container-fluid h-100 mb-4">
-                        <div style="display:flex; justify-content: space-between;padding-top:10px">
-                          <div>Price ({{cart.length}} items)</div>
-                          <div>$ {{totalSum}}</div>
-                        </div>
-                      </div>
-                      <div class="container-fluid h-100 mb-3" style="border-top:1px solid rgb(222, 226, 230)">
-                        <div style="display:flex; justify-content: space-between;padding-top:10px">
-                          <button type="button" class="btn btn-danger" style="font-size:12px">PLACE ORDER</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> -->

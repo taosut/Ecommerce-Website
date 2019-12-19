@@ -38,7 +38,7 @@
                       :src="
                         baseurl +
                           '/media/products/' +
-                          p.product_info['images'][0]
+                          p.product_images[0]
                       "
                       @error="setFallbackImageUrl"
                       alt
@@ -52,15 +52,12 @@
                         {{ p.product_name }}
                       </p>
                     </div>
-                    <!-- <div>
-                                    <p class="pad-11 font-12">4GB Ram</p>
-                                </div> -->
                     <div>
-                      <p class="pad-11 font-12">Seller:Vision Star</p>
+                      <p class="pad-11 font-12">Seller: {{p.store_name}}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{ p.product_info.price }}</p>
-                      <p class="pad-11">₹ {{ p.product_info.mrp }}</p>
+                      <p class="pad-11">₹ {{ p.product_price }}</p>
+                      <p class="pad-11" style="text-decoration: line-through;">₹ {{ p.product_mrp }}</p>
                     </div>
                   </div>
                 </div>
@@ -70,8 +67,8 @@
                       Delivery by Tue Oct 22 | Free₹40
                     </p>
                   </div>
-                  <div>
-                    <p class="font-12">10 Days Replacement Policy</p>
+                  <div v-if="p.product_return_days > 0">
+                    <p class="font-12">{{p.product_return_days}} Days Replacement Policy</p>
                   </div>
                 </div>
               </div>
@@ -109,9 +106,11 @@
                 </div>
                 <div class="d-flex">
                   <span style="padding:0 0 0 36px"
-                    ><nuxt-link class="none" to=""
+                    >
+                    <!-- <nuxt-link class="none" to=""
                       >SAVE FOR LATER</nuxt-link
-                    ></span
+                    > -->
+                    </span
                   >
                   <span style="padding:0 0 0 12px"
                     ><div @click="deleteCartItem(p.id)">REMOVE</div></span
@@ -191,18 +190,15 @@ export default {
 
         this.cart.filter(
           v =>
-            (v.product_info.images = JSON.parse(
-              v.product_info.product_id.images
+            (v.product_images = JSON.parse(
+              v.product_images
             ))
         )
 
         this.cart.forEach((element, index) => {
-          this.cart[index]['product_name'] = this.cart[index].product_info[
-            'product_id'
-          ]['product_name']
-          this.totalSum += parseInt(element.product_info.price)
+          this.totalSum += parseInt(element.product_price)
           this.discountedtotalSum +=
-            parseInt(element.product_info.mrp) - this.totalSum
+            parseInt(element.product_mrp) - this.totalSum
         })
       })
     },

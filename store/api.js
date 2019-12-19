@@ -22,6 +22,10 @@ export const state = () => ({
 
     signup: url + "users/create/",
 
+    otp_verify: url + 'users/otp_verify/',
+
+    customer_signup: url + "users/create/customer",
+
     allProducts : url + "products/getAllActiveProducts",
 
     eachCategoryProducts : url + "products/eachCategoryProducts",
@@ -61,6 +65,10 @@ export const state = () => ({
     addnewuseraddress : url + "users/addnewuseraddress",
 
     getrazorpayapi : url + "payments/getrazorpayapi",
+
+    order_payment_success: url + 'orders/order_payment_success',
+
+    order_payment_failed: url + 'orders/order_payment_failed/' //razor_order_id
 
 
 

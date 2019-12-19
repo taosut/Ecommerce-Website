@@ -10,13 +10,13 @@
           <div class="col d-flex flex-row">
             <div class="top_bar_contact_item">
               <div class="top_bar_icon">
-                <img src="~static/images/phone.png" alt="" />
+                <img src="~static/images/phone.png" alt />
               </div>
               <a href="tel:1800 121 3578">1800 121 3578</a>
             </div>
             <div class="top_bar_contact_item">
               <div class="top_bar_icon">
-                <img src="~static/images/mail.png" alt="" />
+                <img src="~static/images/mail.png" alt />
               </div>
               <a href="mailto:ecom@gmail.com">info@wenslink.com</a>
             </div>
@@ -30,14 +30,17 @@
 											<li><a href="#">Spanish</a></li>
 											<li><a href="#">Japanese</a></li>
 										</ul>
-									</li> -->
+                  </li>-->
                   <li>
-                    <a href="#">₹ Rupee<i class="fas fa-chevron-down"></i></a>
+                    <a href="#">
+                      ₹ Rupee
+                      <i class="fas fa-chevron-down"></i>
+                    </a>
                     <!-- <ul>
 											<li><a href="#">EUR Euro</a></li>
 											<li><a href="#">GBP British Pound</a></li>
 											<li><a href="#">JPY Japanese Yen</a></li>
-										</ul> -->
+                    </ul>-->
                   </li>
                 </ul>
               </div>
@@ -45,25 +48,39 @@
               <div class="top_bar_menu">
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
-                    <a v-if="name" href="#"
-                      >{{ name }}<i class="fas fa-chevron-down"></i
-                    ></a>
-                    <ul>
-                      <li><a href="#">Your Account</a></li>
-                      <li><a href="#">Your Orders</a></li>
-                      <li><a href="#" @click="logout">Logout</a></li>
+                    <a v-if="name" href="#">
+                      {{ name }}
+                      <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="user_dropdown">
+                      <li>
+                        <a href="#">Your Account</a>
+                      </li>
+                      <li>
+                        <a href="#">Your Orders</a>
+                      </li>
+                      <li>
+                        <a href="#" @click="logout">Logout</a>
+                      </li>
                     </ul>
                   </li>
                 </ul>
               </div>
 
-              <div class="top_bar_user">
-                <div v-if="!name">
+              <div v-if="!name" class="top_bar_user">
+                <div>
                   <div class="user_icon">
-                    <img src="~static/images/user.svg" alt="" />
+                    <img src="~static/images/user.svg" alt />
                   </div>
-                  <div><a target="_blank" href="https://seller.wenslink.com/">Register</a></div>
-                  <div><nuxt-link to="/login">Sign In</nuxt-link></div>
+                  <div>
+                    <a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a>
+                  </div>
+                  <div>
+                    <nuxt-link to="/register">Register as Customer</nuxt-link>
+                  </div>
+                  <div>
+                    <nuxt-link to="/login">Sign In</nuxt-link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -80,17 +97,23 @@
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
-              <div class="logo"><nuxt-link style="    display: flex;
-    align-items: center;" to="/"><img src="/icons/logo.png" style="  width: 40px;
+              <div class="logo">
+                <nuxt-link style="    display: flex;
+    align-items: center;" to="/">
+                  <img
+                    src="/icons/logo.png"
+                    style="  width: 40px;
     height: 100%;
-    object-fit: contain;"><p style="color:white; font-size:18px;padding-left: 10px">WENSLink Ecommerce</p></nuxt-link></div>
+    object-fit: contain;"
+                  />
+                  <p style="color:white; font-size:18px;padding-left: 10px">WENSLink India</p>
+                </nuxt-link>
+              </div>
             </div>
           </div>
 
           <!-- Search -->
-          <div
-            class="col-lg-5 col-6 text-lg-left text-right"
-          >
+          <div class="col-lg-5 col-6 text-lg-left text-right">
             <div class="header_search">
               <div class="header_search_content">
                 <div class="header_search_form_container">
@@ -102,12 +125,8 @@
                       placeholder="Search for products..."
                     />
 
-                    <button
-                      type="submit"
-                      class="header_search_button trans_300"
-                      value="Submit"
-                    >
-                      <img src="~static/images/search.png" alt="" />
+                    <button type="submit" class="header_search_button trans_300" value="Submit">
+                      <img src="~static/images/search.png" alt />
                     </button>
                   </form>
                 </div>
@@ -116,36 +135,32 @@
           </div>
 
           <!-- Wishlist -->
-          <div
-            class="col-lg-5 col-3 text-lg-left text-right"
-          >
-            <div
-              class="wishlist_cart d-flex flex-row align-items-center justify-content-end"
-            >
-              <div
-                class="wishlist d-flex flex-row align-items-center justify-content-end"
-              >
+          <div class="col-lg-5 col-3 text-lg-left text-right">
+            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+              <div class="wishlist d-flex flex-row align-items-center justify-content-end">
                 <div class="wishlist_icon">
-                  <img src="~static/images/heart.png" alt="" />
+                  <img src="~static/images/heart.png" alt />
                 </div>
                 <div class="wishlist_content">
-                  <div class="wishlist_text"><a href="#">Wishlist</a></div>
+                  <div class="wishlist_text">
+                    <a href="#">Wishlist</a>
+                  </div>
                 </div>
               </div>
 
               <!-- Cart -->
               <div class="cart">
-                <div
-                  class="cart_container d-flex flex-row align-items-center justify-content-end"
-                >
+                <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                   <div class="cart_icon">
-                    <img src="~static/images/cart.png" alt="" />
+                    <img src="~static/images/cart.png" alt />
                     <div class="cart_count">
                       <span>{{ cart }}</span>
                     </div>
                   </div>
                   <div class="cart_content">
-                    <div class="cart_text"><nuxt-link to="/cart">Cart</nuxt-link></div>
+                    <div class="cart_text">
+                      <nuxt-link to="/cart">Cart</nuxt-link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -161,19 +176,51 @@
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="main_nav_content d-flex flex-row">
-              <!-- Categories Menu -->
-
-              <div class=""></div>
-
-              <!-- Main Nav Menu -->
-
-              <div class="main_nav_menu m-auto">
+              <div class="main_nav_menu">
                 <ul class="standard_dropdown main_nav_dropdown">
-                  <li v-for="p in category" :key="p.id">
-                    <a
-                      >{{ p.name }}<i class="fas fa-chevron-down"></i
-                    ></a>
+                  <li
+                    v-for="p in category"
+                    :key="p.id"
+                    @mouseover="showCategoryTree(p.name)"
+                    @mouseout="removemenu"
+                  >
+                    <a>
+                      {{ p.name }}
+                      <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <div
+                      class="category-tree row"
+                      style="width:650px;margin:auto;left:0;right:0;position:absolute"
+                    >
+                      <div
+                        class="cat-row hide col-3"
+                        v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()"
+                        style="background-color:white;height: 270px;"
+                      >
+                        <p v-for="q in 4" :key="q">{{ p.name }}</p>
+                      </div>
+                      <div
+                        class="cat-row hide col-3"
+                        v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()"
+                        style="background-color:white;height: 270px;"
+                      >
+                        <p v-for="q in 4" :key="q">{{ p.name }}</p>
+                      </div>
+                      <div
+                        class="cat-row hide col-3"
+                        v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()"
+                        style="background-color:white;height: 270px;"
+                      >
+                        <p v-for="q in 4" :key="q">{{ p.name }}</p>
+                      </div>
+                      <div
+                        class="cat-row hide col-3"
+                        v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()"
+                        style="background-color:white;height: 270px;"
+                      >
+                        <p v-for="q in 4" :key="q">{{ p.name }}</p>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -181,18 +228,17 @@
               <!-- Menu Trigger -->
 
               <div class="menu_trigger_container ml-auto">
-                <div
-                  class="menu_trigger d-flex flex-row align-items-center justify-content-end"
-                >
+                <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
                   <div class="menu_burger">
                     <div class="menu_trigger_text">menu</div>
                     <div class="cat_burger menu_burger_inner">
-                      <span></span><span></span><span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>
@@ -259,6 +305,15 @@ export default {
       this.$cookies.removeAll()
       this.$store.commit('name', 0)
       this.$store.commit('isLoggedIn', 0)
+    },
+    showCategoryTree: function(id) {
+      console.log('.cat-row.' + id)
+      $('.cat-row').addClass('hide')
+      $('.cat-row.' + id.replace(/\s+/g, '-').toLowerCase()).removeClass('hide')
+    },
+    removemenu: function(id) {
+      // console.log()
+      $('.cat-row').addClass('hide')
     }
   }
 }
@@ -615,5 +670,27 @@ li.dropdown {
   to {
     transform: rotate(360deg);
   }
+}
+
+.category-ul {
+}
+
+.category-ul li {
+  line-height: 30px;
+}
+
+.main_nav_menu {
+  margin: 0 auto;
+  padding: 0 16px;
+  max-width: 1248px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  position: relative;
+  text-align: left;
+  white-space: nowrap;
 }
 </style>

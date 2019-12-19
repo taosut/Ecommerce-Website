@@ -213,7 +213,7 @@ p {
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
-  border-radius: 80px;
+  border-radius: 5px 0px 0px 5px!important;
   width: 50px;
   height: 50px;
   display: flex;
@@ -227,7 +227,7 @@ p {
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
-  border-radius: 80px;
+  border-radius: 0px 5px 5px 0px!important;
   width: 50px;
   height: 50px;
   display: flex;
@@ -239,10 +239,10 @@ p {
   position: relative;
 }
 
-.owl-carousel .owl-nav.disabled,
+/* .owl-carousel .owl-nav.disabled,
 .owl-carousel .owl-dots.disabled {
   display: block !important;
-}
+} */
 
 .quoteMark {
   width: 60px;

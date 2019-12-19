@@ -340,13 +340,13 @@ section
 .top_bar_dropdown li
 {
 	padding-left: 13px;
-	padding-right: 13px;
+	padding-right: 0;
 }
 .standard_dropdown li
 {
 	display: inline-block;
-	position: relative;
-	height: 45px;
+	/* position: relative; */
+	height: 50px;
 }
 .standard_dropdown li li
 {
@@ -384,9 +384,21 @@ section
 	-o-transition: all 200ms ease;
 	transition: all 200ms ease;
 }
+
+.user_dropdown li a{
+
+	color: #000000;
+
+}
+
+.user_dropdown li a:hover{
+
+	color: #105e62;
+
+}
 .standard_dropdown li a:hover
 {
-	color: #105e62;
+	/* color: #105e62; */
 }
 .standard_dropdown li a i
 {
@@ -403,8 +415,8 @@ section
 	display: block;
 	position: absolute;
 	top: 120%;
-	left: 0;
-	width: auto;
+	right: 0;
+    width: 130px;
 	visibility: hidden;
 	opacity: 0;
 	background: #FFFFFF;
@@ -455,7 +467,7 @@ section
 {
 	margin-right: 21px;
 }
-.top_bar_user div:nth-child(2)::after
+.top_bar_user div:nth-child(3)::after
 {
 	display: block;
 	position: absolute;
@@ -3210,7 +3222,7 @@ select option
 	display: block;
 	max-width: 100%;
 	height: 100%;
-	object-fit: contain
+	object-fit: contain!important
 }
 .viewed_content
 {

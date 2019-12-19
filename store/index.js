@@ -45,17 +45,17 @@ export const state = () => ({
     user_id: 0,
     cart: 0,
     cart_data: [],
-    isLoggedIn : 0,
+    isLoggedIn: 0,
     getCategory: [],
     getAllProducts: [],
     getAllOrder: [],
     getSingleProduct: [],
 
-    
+
     cart_address: []
 
 
-    
+
 
 })
 
@@ -84,7 +84,7 @@ export const mutations = {
         console.log('selecting exercise mutation, ' + getAllOrder)
         state.getAllOrder = getAllOrder
     },
-   
+
     getSingleProduct(state, getSingleProduct) {
         console.log('selecting exercise mutation, ' + getSingleProduct)
         state.getSingleProduct = getSingleProduct
@@ -106,7 +106,7 @@ export const mutations = {
 
 export const getters = {
 
- }
+}
 
 
 
@@ -156,7 +156,7 @@ export const actions = {
             axios({
                 method: 'POST',
                 url: state.api.login,
-                data : payload,
+                data: payload,
                 contentType: 'application/json',
                 // headers: {
                 //     'Authorization': "bearer " + this.$cookies.get('access_token')
@@ -165,8 +165,40 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('name' , res.data.user_info.name )
-                    commit('isLoggedIn' , 1)
+                    if (res.data.status == 200) {
+                        commit('name', res.data.user_info.name)
+                        commit('isLoggedIn', 1)
+                    } else {
+                        alert(res.data.message)
+                    }
+
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                    alert(err.data.message)
+                })
+        })
+    },
+
+
+    customer_signup({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'POST',
+                url: state.api.customer_signup,
+                data: payload,
+                contentType: 'application/json',
+                // headers: {
+                //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                // }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
                     resolve(res)
                 })
                 .catch(err => {
@@ -184,7 +216,7 @@ export const actions = {
             axios({
                 method: 'POST',
                 url: state.api.addToCart,
-                data : payload,
+                data: payload,
                 contentType: 'application/json',
                 headers: {
                     'Authorization': "Bearer " + this.$cookies.get('access_token')
@@ -193,8 +225,8 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('cart' , res.data.length)
-                    commit('cart_data' , res.data)
+                    commit('cart', res.data.length)
+                    commit('cart_data', res.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -211,7 +243,7 @@ export const actions = {
             axios({
                 method: 'GET',
                 url: state.api.getCartByUser,
-                data : payload,
+                data: payload,
                 contentType: 'application/json',
                 headers: {
                     'Authorization': "Bearer " + this.$cookies.get('access_token')
@@ -220,8 +252,8 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('cart' , res.data.length)
-                    commit('cart_data' , res.data)
+                    commit('cart', res.data.length)
+                    commit('cart_data', res.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -254,7 +286,7 @@ export const actions = {
         })
     },
 
-    changeCartQuantity({ commit, state }, { id , payload }) {
+    changeCartQuantity({ commit, state }, { id, payload }) {
 
 
         return new Promise((resolve, reject) => {
@@ -280,7 +312,7 @@ export const actions = {
     },
 
 
-    
+
     createBid({ commit, state }, payload) {
 
 
@@ -317,7 +349,7 @@ export const actions = {
             axios({
                 method: 'POST',
                 url: state.api.signup,
-                data : payload,
+                data: payload,
                 contentType: 'application/json',
                 // headers: {
                 //     'Authorization': "bearer " + this.$cookies.get('access_token')
@@ -369,9 +401,9 @@ export const actions = {
                 method: 'GET',
                 url: state.api.getSingleProduct + payload,
                 contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
+                headers: {
+                    'Authorization': "Bearer " + this.$cookies.get('access_token')
+                }
             })
                 .then(res => {
                     console.log(res.data)
@@ -392,7 +424,7 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
 
-            if(payload == 0){
+            if (payload == 0) {
                 payload = "all"
             }
 
@@ -423,8 +455,8 @@ export const actions = {
 
         return new Promise((resolve, reject) => {
 
-            
-            if(payload == 0){
+
+            if (payload == 0) {
                 payload = "all"
             }
 
@@ -497,7 +529,7 @@ export const actions = {
         })
     },
 
-    addNewAddress({ commit, state } , payload) {
+    addNewAddress({ commit, state }, payload) {
 
 
         return new Promise((resolve, reject) => {
@@ -543,6 +575,50 @@ export const actions = {
         })
     },
 
-  
+    order_payment_success({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'POST',
+                data: payload,
+                url: state.api.order_payment_success,
+                contentType: 'application/json',
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    order_payment_failed({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'PUT',
+                data: payload,
+                url: state.api.order_payment_failed,
+                contentType: 'application/json',
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+
 }
 
