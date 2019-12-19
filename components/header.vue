@@ -48,6 +48,7 @@
               <div class="top_bar_menu">
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
+<<<<<<< HEAD
                     <a v-if="name" href="#">
                       {{ name }}
                       <i class="fas fa-chevron-down"></i>
@@ -62,6 +63,15 @@
                       <li>
                         <a href="#" @click="logout">Logout</a>
                       </li>
+=======
+                    <a v-if="name" href="#"
+                      >{{ name }}<i class="fas fa-chevron-down"></i
+                    ></a>
+                    <ul class=user_dropdown>
+                      <li><a href="#">Your Account</a></li>
+                      <li><a href="#">Your Orders</a></li>
+                      <li><a href="#" @click="logout">Logout</a></li>
+>>>>>>> e09ff9cde95d64e25617b5d6f7e5b860c11ef250
                     </ul>
                   </li>
                 </ul>
@@ -81,6 +91,12 @@
                   <div>
                     <nuxt-link to="/login">Sign In</nuxt-link>
                   </div>
+<<<<<<< HEAD
+=======
+                  <div><a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a></div>
+                  <div><nuxt-link to="/register">Register as Customer</nuxt-link></div>
+                  <div><nuxt-link to="/login">Sign In</nuxt-link></div>
+>>>>>>> e09ff9cde95d64e25617b5d6f7e5b860c11ef250
                 </div>
               </div>
             </div>

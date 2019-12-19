@@ -464,7 +464,11 @@
                                 @click="createOrder(4)"
                                 class="btn btn-order"
                               >
+<<<<<<< HEAD
                                 Place Order
+=======
+                                PAY ₹ {{ totalSum }}
+>>>>>>> e09ff9cde95d64e25617b5d6f7e5b860c11ef250
                               </button>
                             </div>
                           </div>
@@ -789,7 +793,11 @@ export default {
           payload.append('payment_method', 3)
           payload.append('payment_detail', this.selected_wallet)
           break
+<<<<<<< HEAD
         case 4:
+=======
+        case 3:
+>>>>>>> e09ff9cde95d64e25617b5d6f7e5b860c11ef250
           payload.append('payment_method', 4)
           payload.append('payment_detail', 'COD')
           break

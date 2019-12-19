@@ -36,7 +36,11 @@
           <!-- Description -->
           <div class="col-lg-5 order-3">
             <div class="product_description">
+<<<<<<< HEAD
               <div class="product_category">{{ product.category_name }} > {{ product.subcategory_name }}</div>
+=======
+              <div class="product_category">{{ product.category_name }}</div>
+>>>>>>> e09ff9cde95d64e25617b5d6f7e5b860c11ef250
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
               <!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->
