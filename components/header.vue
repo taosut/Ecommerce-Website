@@ -48,6 +48,7 @@
               <div class="top_bar_menu">
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
+
                     <a v-if="name" href="#">
                       {{ name }}
                       <i class="fas fa-chevron-down"></i>
@@ -62,6 +63,14 @@
                       <li>
                         <a href="#" @click="logout">Logout</a>
                       </li>
+
+                    <a v-if="name" href="#"
+                      >{{ name }}<i class="fas fa-chevron-down"></i
+                    ></a>
+                    <ul class=user_dropdown>
+                      <li><a href="#">Your Account</a></li>
+                      <li><a href="#">Your Orders</a></li>
+                      <li><a href="#" @click="logout">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -71,11 +80,23 @@
                 <div>
                   <div class="user_icon">
                     <img src="~static/images/user.svg" alt />
+
                   </div>
                   <div>
                     <a target="_blank" href="https://seller.wenslink.com/"
                       >Register as Seller</a
                     >
+                  </div>
+                  <div>
+                    <nuxt-link to="/register">Register as Customer</nuxt-link>
+                  </div>
+                  <div>
+                    <nuxt-link to="/login">Sign In</nuxt-link>
+                  </div>
+
+                  </div>
+                  <div>
+                    <a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a>
                   </div>
                   <div>
                     <nuxt-link to="/register">Register as Customer</nuxt-link>
@@ -89,7 +110,6 @@
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Header Main -->
 
@@ -159,9 +179,7 @@
 
               <!-- Cart -->
               <div class="cart">
-                <div
-                  class="cart_container d-flex flex-row align-items-center justify-content-end"
-                >
+                <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                   <div class="cart_icon">
                     <img src="~static/images/cart.png" alt />
                     <div class="cart_count">
@@ -230,7 +248,6 @@
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

@@ -463,8 +463,7 @@
                               <button
                                 @click="createOrder(4)"
                                 class="btn btn-order"
-                              >
-                                Place Order
+                              > Place Order
                               </button>
                             </div>
                           </div>
