@@ -147,7 +147,7 @@ h6::selection
 }
 .form-control
 {
-	color: #db5246;
+	/* color: #db5246; */
 }
 section
 {
@@ -345,8 +345,7 @@ section
 .standard_dropdown li
 {
 	display: inline-block;
-	position: relative;
-	height: 45px;
+	height: 50px;
 }
 .standard_dropdown li li
 {
@@ -994,7 +993,8 @@ select option
 }
 .main_nav_dropdown li
 {
-	margin-right: 35px;
+	margin-right: 0;
+    padding: 0 15px;
 }
 .main_nav_dropdown li:last-child
 {
