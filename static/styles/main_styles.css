@@ -462,7 +462,7 @@ section
 {
 	display: inline-block;
 }
-.top_bar_user div:nth-child(2)
+.top_bar_user div:nth-child(1), .top_bar_user div:nth-child(2)
 {
 	margin-right: 21px;
 }
