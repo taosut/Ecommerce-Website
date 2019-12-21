@@ -49,21 +49,6 @@
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
 
-                    <a v-if="name" href="#">
-                      {{ name }}
-                      <i class="fas fa-chevron-down"></i>
-                    </a>
-                    <ul class="user_dropdown">
-                      <li>
-                        <a href="#">Your Account</a>
-                      </li>
-                      <li>
-                        <a href="#">Your Orders</a>
-                      </li>
-                      <li>
-                        <a href="#" @click="logout">Logout</a>
-                      </li>
-
                     <a v-if="name" href="#"
                       >{{ name }}<i class="fas fa-chevron-down"></i
                     ></a>
@@ -250,6 +235,7 @@
               </div>
           </div>
         </div>
+      </div>
       </div>
     </nav>
   </header>

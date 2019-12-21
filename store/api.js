@@ -68,7 +68,9 @@ export const state = () => ({
 
     order_payment_success: url + 'orders/order_payment_success',
 
-    order_payment_failed: url + 'orders/order_payment_failed/' //razor_order_id
+    order_payment_failed: url + 'orders/order_payment_failed/', //razor_order_id
+    
+    getallbanner : url + "admin_app/mainslider/all",
 
 
 

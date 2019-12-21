@@ -1,11 +1,14 @@
 <template>
   <div style="margin-top: 20px;">
     <div class="container">
-        <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
-          <div class="item"><img src="images/hero3.jpg"></div>
-          <div class="item"><img src="images/hero2.jpg"></div>
-          <div class="item"><img src="images/hero1.jpg"></div>
+      <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
+        <div class="item" v-for="p in allBanners" :key="p.id">
+          <img
+            :src="baseurl + '/media/banners/' + p.image"
+            @error="setFallbackImageUrl"
+          />
         </div>
+      </div>
     </div>
 
     <!-- Characteristics -->
@@ -15,7 +18,12 @@
         <div class="container">
           <div class="row">
             <!-- Char. Item -->
-            <div class="col-lg-3 col-md-6 char_col" v-for="p in 4" :key="p" style="display: none">
+            <div
+              class="col-lg-3 col-md-6 char_col"
+              v-for="p in 4"
+              :key="p"
+              style="display: none"
+            >
               <div
                 class="viewed_item discount d-flex flex-column justify-content-center"
               >
@@ -73,7 +81,14 @@
                             </div>
                           </div>
                           <ul class="item_marks">
-                            <li class="item_mark item_discount" v-if="q.price < q.mrp">{{ Math.round(((q.mrp - q.price) / q.mrp ) * 100 ) }}%</li>
+                            <li
+                              class="item_mark item_discount"
+                              v-if="q.price < q.mrp"
+                            >
+                              {{
+                                Math.round(((q.mrp - q.price) / q.mrp) * 100)
+                              }}%
+                            </li>
                             <li class="item_mark item_new">new</li>
                           </ul>
                         </div>
@@ -101,10 +116,13 @@ export default {
       }
     ],
     carousel: [],
+    allBanners: [],
     baseurl: process.env.baseUrl
   }),
   mounted() {
-    this.getAllProducts()
+    this.getAllBanner()
+    
+        this.getAllProducts()
 
     $('.cat_menu').css({
       visibility: 'visible',
@@ -202,6 +220,32 @@ export default {
       console.log(id)
 
       this.$router.push('/product')
+    },
+    getAllBanner: function() {
+      this.$store.dispatch('getAllBanner').then(res => {
+        console.log(res)
+        this.allBanners = JSON.parse(JSON.stringify(res.data))
+
+        setTimeout(function() {
+          $('.hero-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            navText: [
+              "<img class='rotate180' src='icons/arrow.svg'>",
+              "<img src='icons/arrow.svg'>"
+            ],
+            center: true,
+            responsiveClass: true,
+            responsive: {
+              0: {
+                items: 1
+              }
+            }
+          })
+        }, 100)
+
+      })
     }
   }
 }
@@ -242,37 +286,36 @@ export default {
   width: 100%;
 }
 
-.owl-item .item{
+.owl-item .item {
   height: 100%;
-  object-fit: cover
+  object-fit: cover;
 }
 
 .owl-carousel .owl-item img {
-    display: block;
-    width: 100%;
-    object-fit: cover;
-    height: 100%;
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  height: 100%;
 }
 
-.viewed_item:hover{
-  box-shadow: 0 7px 17px 0 rgba(23,84,116,0.18);
-  border: solid 0.9px #f3f3f3
+.viewed_item:hover {
+  box-shadow: 0 7px 17px 0 rgba(23, 84, 116, 0.18);
+  border: solid 0.9px #f3f3f3;
 }
 
-.viewed_item{
-  border: solid 0.9px  rgba(243, 243, 243, 0);
+.viewed_item {
+  border: solid 0.9px rgba(243, 243, 243, 0);
 }
 
-.product_section{
+.product_section {
   background-color: #fff;
   border-radius: 2px;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,.08);
-  margin: 0px 0px 10px
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+  margin: 0px 0px 10px;
 }
 
-
-.product_section_title{
+.product_section_title {
   padding: 15px 20px;
-  border-bottom: 1px solid rgba(0,0,0,.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 </style>
