@@ -1,14 +1,29 @@
 <template>
   <div style="margin-top: 20px;">
     <div class="container">
-      <div class="owl-carousel owl-theme hero-carousel" style="height:280px">
-        <div class="item" v-for="p in allBanners" :key="p.id">
-          <img
-            :src="baseurl + '/media/banners/' + p.image"
-            @error="setFallbackImageUrl"
-          />
-        </div>
-      </div>
+      <client-only>
+        <carousel
+          class="hero-carousel"
+          :nav="false"
+          :items="1"
+          :dots="false"
+          v-if="allBanners.length > 0"
+        >
+          <template slot="prev"
+            ><span class="carousel-prev"
+              ><img class="rotate180" src="icons/arrow.svg"/></span
+          ></template>
+          <div class="item" v-for="p in allBanners" :key="p.id">
+            <img
+              :src="baseurl + '/media/banners/' + p.image"
+              @error="setFallbackImageUrl"
+            />
+          </div>
+          <template slot="next"
+            ><span class="carousel-next"><img src="icons/arrow.svg"/></span
+          ></template>
+        </carousel>
+      </client-only>
     </div>
 
     <!-- Characteristics -->
@@ -121,8 +136,8 @@ export default {
   }),
   mounted() {
     this.getAllBanner()
-    
-        this.getAllProducts()
+
+    this.getAllProducts()
 
     $('.cat_menu').css({
       visibility: 'visible',
@@ -149,22 +164,6 @@ export default {
           },
           1000: {
             items: 5
-          }
-        }
-      })
-      $('.hero-carousel, .testimonial').owlCarousel({
-        loop: true,
-        margin: 10,
-        nav: true,
-        navText: [
-          "<img class='rotate180' src='icons/arrow.svg'>",
-          "<img src='icons/arrow.svg'>"
-        ],
-        center: true,
-        responsiveClass: true,
-        responsive: {
-          0: {
-            items: 1
           }
         }
       })
@@ -221,30 +220,13 @@ export default {
 
       this.$router.push('/product')
     },
+    updated: function() {
+      console.log('ssss')
+    },
     getAllBanner: function() {
       this.$store.dispatch('getAllBanner').then(res => {
         console.log(res)
         this.allBanners = JSON.parse(JSON.stringify(res.data))
-
-        setTimeout(function() {
-          $('.hero-carousel').owlCarousel({
-            loop: true,
-            margin: 10,
-            nav: true,
-            navText: [
-              "<img class='rotate180' src='icons/arrow.svg'>",
-              "<img src='icons/arrow.svg'>"
-            ],
-            center: true,
-            responsiveClass: true,
-            responsive: {
-              0: {
-                items: 1
-              }
-            }
-          })
-        }, 100)
-
       })
     }
   }
@@ -252,6 +234,53 @@ export default {
 </script>
 
 <style scoped>
+.hero-carousel {
+  height: 280px;
+  position: relative;
+}
+
+.carousel-prev {
+  position: absolute;
+  left: 0px;
+  top: 90px;
+  background-color: white !important;
+  box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.16863);
+  border-radius: 0px 5px 5px 0px !important;
+  width: 50px;
+  height: 100px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  z-index: 2;
+  align-items: center;
+}
+
+.carousel-prev img,
+.carousel-next img {
+  width: 23px;
+  height: 100%;
+}
+
+.carousel-next {
+  position: absolute;
+  right: 0px;
+  top: 90px;
+  background-color: white !important;
+  box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.16863);
+  border-radius: 5px 0px 0px 5px !important;
+  width: 50px;
+  height: 100px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  z-index: 2;
+  align-items: center;
+}
+
 .cat_menu_container ul {
   background-color: red;
 }
