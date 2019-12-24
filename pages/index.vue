@@ -173,7 +173,7 @@ export default {
     getAllProducts: function() {
       this.$store.dispatch('allProducts').then(res => {
         console.log(res)
-        this.allProducts = JSON.parse(JSON.stringify(res.data))
+        this.allProducts = JSON.parse(JSON.stringify(res.data.body))
 
         for (let key1 in this.allProducts) {
           if (this.allProducts.hasOwnProperty(key1)) {
