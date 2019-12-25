@@ -5,6 +5,9 @@
         <carousel
           class="hero-carousel"
           :nav="false"
+          :autoplay="true"
+          :autoplayTimeout = 3000
+          :loop = "true"
           :items="1"
           :dots="false"
           v-if="allBanners.length > 0"

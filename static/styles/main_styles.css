@@ -3284,19 +3284,19 @@ select option
 }
 .item_mark
 {
-	display: none;
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	color: #FFFFFF;
-	font-size: 10px;
-	font-weight: 500;
-	line-height: 36px;
-	text-align: center;
+    display: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    color: #FFFFFF;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 28px;
+    text-align: center;
 }
 .item_discount
 {
-	background: #df3b3b;
+	background: #4CAF50;
 	margin-right: 5px;
 }
 .item_new
