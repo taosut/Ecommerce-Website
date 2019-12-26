@@ -688,6 +688,7 @@ li.dropdown {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  overflow: auto;
 }
 
 .dark-color{
