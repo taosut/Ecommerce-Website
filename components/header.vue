@@ -191,9 +191,14 @@
                   >
                     <div
                       class="cat-row col-3"
+                      :class="{ 'dark-color' : index % 2 != 0, '' : index % 2 == 0 }"
+                      v-for="(r, index) in p.submenu" :key="index"
                     >
-                      <h6 class="category-header">Mobiles</h6>
-                      <a v-for="q in 4" :key="q">{{ p.name }}</a>
+                    <div v-for="(q, index1) in r" :key="index1">
+                        <a v-if="q.type=='1'" class="category-header" :href="'/search' +q.url">{{ q.title }}</a>
+                        <a v-else :href="'/search' + q.url">{{ q.title }}</a>
+                    </div>
+                    
                     </div>
                   </div>
                 </li>
@@ -259,7 +264,14 @@ export default {
     }
 
     this.$store.dispatch('getCategory').then(res => {
-      this.category = Object.assign({}, res.data)
+      this.category = JSON.parse(JSON.stringify(res.data))
+      console.log(this.category.length)
+
+        for (var i = 0; i < this.category.length; i++) {
+            this.category[i].submenu = JSON.parse(
+              this.category[i].submenu
+            );
+          }
     })
 
     console.log("this.$cookies.get('name')")
@@ -619,9 +631,7 @@ li.dropdown {
 }
 
 .category-header {
-  font-family: MaisonNeueBook;
-  color: #333;
-  text-transform: uppercase;
+  color: #333!important;
 }
 
 .subcategory .subsection:not(:last-child) {
