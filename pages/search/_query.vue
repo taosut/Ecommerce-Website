@@ -55,7 +55,8 @@ export default {
     return {
       query_string: this.$route.params,
       search_result: [],
-      subcategory: ''
+      subcategory: '',
+      baseurl: process.env.baseUrl,
     }
   },
   methods: {},
@@ -68,7 +69,14 @@ export default {
     this.$store.dispatch('productsearch', this.$route.fullPath).then(res => {
       console.log(res)
       this.search_result = res.data.products
+      // this.search_result = Object.assign([] , res.data.products)
       this.subcategory = res.data.subcategory
+      for (let key1 in this.search_result) {
+        console.log(this.search_result[key1])
+          if (this.search_result.hasOwnProperty(key1)) {
+            this.search_result[key1].images = JSON.parse(this.search_result[key1].images)
+          }
+        }
     })
   }
 }
