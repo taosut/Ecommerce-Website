@@ -55,7 +55,8 @@ export default {
     return {
       query_string: this.$route.params,
       search_result: [],
-      subcategory: '',
+      subcategory: "",
+      filters: {},
       baseurl: process.env.baseUrl,
     }
   },
@@ -71,6 +72,7 @@ export default {
       this.search_result = res.data.products
       // this.search_result = Object.assign([] , res.data.products)
       this.subcategory = res.data.subcategory
+      this.filters = JSON.parse(res.data['subcategory_data']['specs'])
       for (let key1 in this.search_result) {
         console.log(this.search_result[key1])
           if (this.search_result.hasOwnProperty(key1)) {
