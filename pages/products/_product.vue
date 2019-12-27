@@ -39,8 +39,6 @@
 
               <div class="product_category">{{ product.category_name }} > {{ product.subcategory_name }}</div>
 
-              <div class="product_category">{{ product.category_name }} > {{ product.subcategory_name }}</div>
-
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
               <!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->

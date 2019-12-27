@@ -72,6 +72,8 @@ export const state = () => ({
     
     getallbanner : url + "admin_app/mainslider/all",
 
+    productsearch: url + "products"
+
 
 
 

@@ -640,5 +640,26 @@ export const actions = {
         })
     },
 
+    productsearch({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'GET',
+                url: state.api.productsearch + payload,
+                contentType: 'application/json'
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
 }
 
