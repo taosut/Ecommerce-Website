@@ -82,7 +82,7 @@
 
     <div class="header_main">
       <div class="container">
-        <div class="row">
+        <div class="row no-mar">
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
@@ -118,7 +118,7 @@
                       class="header_search_button trans_300"
                       value="Submit"
                     >
-                      <img src="~static/images/search.png" alt />
+                      <img style="width: 15px;" src="~static/images/search.png" alt />
                     </button>
                   </form>
                 </div>
@@ -168,9 +168,9 @@
 
     <!-- Main Navigation -->
 
-    <nav class="main_nav">
+    <nav class="main_nav hide-on-small-and-down">
       <div class="container">
-        <div class="row">
+        <div class="row no-mar">
           <div class="col">
             <div class="main_nav_menu">
               <ul class="standard_dropdown main_nav_dropdown">
@@ -180,13 +180,13 @@
                   @mouseover="showCategoryTree(p.name)"
                   @mouseout="removemenu"
                 >
-                  <a class="cat-name"  v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()">
+                  <a class="cat-name"  v-bind:class="p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()">
                     {{ p.name }}
                     <i class="fas fa-chevron-down"></i>
                   </a>
                   <div
                     class="category-tree hide row"
-                    v-bind:class="p.name.replace(/\s+/g, '-').toLowerCase()"
+                    v-bind:class="p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()"
                     style="width:100%;margin:auto;left:0;right:0;position:absolute;background-color:white;box-shadow: 0px 11px 14px 5px #00000017;"
                   >
                     <div
@@ -207,7 +207,7 @@
 
             <!-- Menu Trigger -->
 
-            <div class="menu_trigger_container ml-auto">
+            <div class="menu_trigger_container ml-auto hide">
               <div
                 class="menu_trigger d-flex flex-row align-items-center justify-content-end"
               >
@@ -298,10 +298,10 @@ export default {
     showCategoryTree: function(id) {
       console.log('.category-tree.' + id)
       $('.category-tree').addClass('hide')
-      $('.category-tree.' + id.replace(/\s+/g, '-').toLowerCase()).removeClass(
+      $('.category-tree.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()).removeClass(
         'hide'
       )
-      $('.cat-name.' + id.replace(/\s+/g, '-').toLowerCase()).addClass('active')
+      $('.cat-name.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()).addClass('active')
     },
     removemenu: function(id) {
       // console.log()

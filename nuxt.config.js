@@ -76,6 +76,7 @@ export default {
    */
   css: [
     "~/static/framework/styles.css",
+    "~/static/styles/framework.css",
     "~/static/styles/bootstrap4/bootstrap.min.css",
     "~/static/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css",
     "~/static/plugins/OwlCarousel2-2.2.1/owl.carousel.css",

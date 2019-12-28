@@ -1,19 +1,19 @@
 <template>
   <div style="margin-top: 20px;">
-    <div class="container">
+    <div class="container hero-carousel">
       <client-only>
         <carousel
           class="hero-carousel"
           :nav="false"
           :autoplay="true"
-          :autoplayTimeout = 3000
-          :loop = "true"
+          :autoplayTimeout="3000"
+          :loop="true"
           :items="1"
           :dots="false"
           v-if="allBanners.length > 0"
         >
-          <template slot="prev"
-            ><span class="carousel-prev"
+          <template class="hide-on-small-only" slot="prev"
+            ><span class="carousel-prev hide-on-small-only"
               ><img class="rotate180" src="icons/arrow.svg"/></span
           ></template>
           <div class="item" v-for="p in allBanners" :key="p.id">
@@ -22,8 +22,8 @@
               @error="setFallbackImageUrl"
             />
           </div>
-          <template slot="next"
-            ><span class="carousel-next"><img src="icons/arrow.svg"/></span
+          <template class="hide-on-small-only" slot="next"
+            ><span class="carousel-next hide-on-small-only"><img src="icons/arrow.svg"/></span
           ></template>
         </carousel>
       </client-only>
@@ -240,6 +240,15 @@ export default {
 .hero-carousel {
   height: 280px;
   position: relative;
+}
+
+@media only screen and (max-width: 768px) {
+  .hero-carousel {
+    height: 140px;
+  }
+  .container.hero-carousel {
+    padding: 0
+  }
 }
 
 .carousel-prev {
