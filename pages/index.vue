@@ -84,7 +84,7 @@
                         >
                           <div class="viewed_image">
                             <img
-                              :src="baseurl + '/media/products/' + q.images[0]"
+                              :src="baseurl + '/backend/api/products/image/200/40/' + q.images[0]"
                               @error="setFallbackImageUrl"
                               alt
                             />
