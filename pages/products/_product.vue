@@ -14,7 +14,7 @@
                 :key="p.id"
               >
                 <img
-                  :src="baseurl + '/backend/api/products/image/100/40/' + + p"
+                  :src="baseurl + '/backend/api/products/image/100/40/' + p"
                   @error="setFallbackImageUrl"
                   alt=""
                 />
@@ -26,7 +26,7 @@
           <div class="col-lg-5 order-lg-2 order-1">
             <div class="image_selected">
               <img
-                :src="baseurl + '/backend/api/products/image/200/40/' + + product.images[0]"
+                :src="baseurl + '/backend/api/products/image/200/40/' + product.images[0]"
                 @error="setFallbackImageUrl"
                 alt=""
               />
