@@ -28,8 +28,8 @@
                     @change="refresh_result(index, q, $event.target.checked)"
                     type="checkbox"
                     class="_3uUUD5"
-                    :name="index.toLowerCase()"
-                    :value="q.toLowerCase()"
+                    :name="slugify(index)"
+                    :value="slugify(q)"
                   />
                   <div class="filter_name">{{ q }}</div></label
                 >
@@ -38,7 +38,7 @@
           </div>
         </div>
         <div class="col-md-9">
-          <div class="row">
+          <div class="row bg-white">
             <div class="col-md-3" v-for="q in search_result" :key="q.id">
               <nuxt-link :to="'/products/' + q.slug">
                 <div
@@ -96,21 +96,31 @@ export default {
       var searchParams = new URLSearchParams(paramsString)
       console.log(paramsString)
       if (state == true) {
-        searchParams.append('filters', attr + '=' + value.toLowerCase())
+        searchParams.append('filters', attr + '=' + this.slugify(value))
+        var final_url = decodeURIComponent(searchParams.toString())
+        window.location.href = final_url
       } else {
-        console.log(attr + '=' + value.toLowerCase())
-        searchParams.delete('filters', attr + '=' + value.toLowerCase())
-        // var temp = searchParams.toString()
-        // console.log(temp)
-        // temp.replace("&" + attr + '=' + value.toLowerCase(), "");
+        console.log(attr + '=' + this.slugify(value))
+        // searchParams.delete('filters', attr + '=' + this.slugify(value))
+        var temp = searchParams.toString()
+        var replace = "&filters=" + encodeURIComponent(attr + '=' + this.slugify(value.toLowerCase()))
+        console.log(replace)
+        temp = temp.replace(replace, "");
+        console.log(temp)
+        window.location.href = decodeURIComponent(temp)
 
       }
 
-      var final_url = decodeURIComponent(searchParams.toString())
 
       console.log(final_url)
-      window.location.href = final_url
-    }
+    },
+    slugify: function(string) {
+    return string.trim() // Remove surrounding whitespace.
+    .toLowerCase() // Lowercase.
+    .replace(/[^a-z0-9]+/g,'-') // Find everything that is not a lowercase letter or number, one or more times, globally, and replace it with a dash.
+    .replace(/^-+/, '') // Remove all dashes from the beginning of the string.
+    .replace(/-+$/, ''); // Remove all dashes from the end of the string.
+}
   },
   mounted() {
     console.log('sssssssssssss')
@@ -162,32 +172,32 @@ export default {
 
               $(
                 'input[name="' +
-                  vm.$route.query.filters[i].split('=')[0].toLowerCase() +
+                  vm.slugify(vm.$route.query.filters[i].split('=')[0]) +
                   '"][value="' +
-                  vm.$route.query.filters[i].split('=')[1].toLowerCase() +
+                  vm.slugify(vm.$route.query.filters[i].split('=')[1]) +
                   '"]'
               ).attr('checked', true)
               console.log(
                 'input[name="' +
-                  vm.$route.query.filters[i].split('=')[0].toLowerCase() +
+                  vm.slugify(vm.$route.query.filters[i].split('=')[0]) +
                   '"][value="' +
-                  vm.$route.query.filters[i].split('=')[1].toLowerCase() +
+                  vm.slugify(vm.$route.query.filters[i].split('=')[1]) +
                   '"]'
               )
             }
           } else {
             $(
               'input[name="' +
-                vm.$route.query.filters.split('=')[0].toLowerCase() +
+               vm.slugify( vm.$route.query.filters.split('=')[0]) +
                 '"][value="' +
-                vm.$route.query.filters.split('=')[1].toLowerCase() +
+                vm.slugify(vm.$route.query.filters.split('=')[1]) +
                 '"]'
             ).attr('checked', true)
             console.log(
               'input[name="' +
-                vm.$route.query.filters.split('=')[0].toLowerCase() +
+               vm.slugify( vm.$route.query.filters.split('=')[0]) +
                 '"][value="' +
-                vm.$route.query.filters.split('=')[1].toLowerCase() +
+                vm.slugify(vm.$route.query.filters.split('=')[1]) +
                 '"]'
             )
           }
@@ -214,6 +224,7 @@ export default {
 .account-info label {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .account-info input[type='checkbox'] {
