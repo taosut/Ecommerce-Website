@@ -74,7 +74,7 @@
 	}
 	.main_nav_dropdown li a
 	{
-		font-size: 16px;
+		font-size: 13px;
 	}
 	.char_item
 	{
@@ -99,7 +99,7 @@
 	}
 	.product_price
 	{
-		margin-top: 60px;
+		/* margin-top: 60px; */
 	}
 	.button_container
 	{

@@ -47,8 +47,50 @@ export default {
 </script>
 
 <style>
+
+@font-face {
+font-family: 'Regular';
+src: url('~static/fonts/Inter-Regular.woff2') format('truetype');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Light';
+src: url('~static/fonts/Inter-Light.woff2') format('truetype');
+font-weight: lighter;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Medium';
+src: url('~static/fonts/Inter-Medium.woff2') format('truetype');
+font-weight: lighter;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Bold';
+src: url('~static/fonts/Inter-Bold.woff2') format('truetype');
+font-weight: bold;
+font-style: normal;
+}
+
+
+.no-padd{
+  padding: 0
+}
+
+.no-mar{
+  margin: 0
+}
+
+th{
+  font-family: 'Light';
+}
+
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family: 'Regular' ,'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
@@ -67,6 +109,8 @@ html {
 }
 
 body{
+  font-family: 'Regular' ,'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
   background-color: #f1f3f6
 }
 

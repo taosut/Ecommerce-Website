@@ -35,6 +35,11 @@ export default {
         rel: 'stylesheet',
         href:
           'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
+      },
+      {
+        rel: 'stylesheet',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css'
       }
     ],
     script: [
@@ -44,6 +49,10 @@ export default {
       },
       {
         src: 'https://checkout.razorpay.com/v1/razorpay.js',
+        type: 'text/javascript'
+      },
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js',
         type: 'text/javascript'
       },
       {

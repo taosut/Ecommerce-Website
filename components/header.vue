@@ -53,7 +53,7 @@
                       >{{ name }}<i class="fas fa-chevron-down"></i
                     ></a>
                     <ul class=user_dropdown>
-                      <li><a href="#">Your Account</a></li>
+                      <li><nuxt-link to="/account/profile">Your Account</nuxt-link></li>
                       <li><a href="#">Your Orders</a></li>
                       <li><a href="#" @click="logout">Logout</a></li>
                     </ul>
@@ -105,14 +105,14 @@
             <div class="header_search">
               <div class="header_search_content">
                 <div class="header_search_form_container">
-                  <form action="#" class="header_search_form clearfix">
                     <input
                       type="search"
                       required="required"
                       class="header_search_input"
+                      v-model="search_query"
                       placeholder="Search for products..."
+                      v-on:keyup.enter="search"
                     />
-
                     <button
                       type="submit"
                       class="header_search_button trans_300"
@@ -120,7 +120,6 @@
                     >
                       <img style="width: 15px;" src="~static/images/search.png" alt />
                     </button>
-                  </form>
                 </div>
               </div>
             </div>
@@ -187,7 +186,7 @@
                   <div
                     class="category-tree hide row"
                     v-bind:class="p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()"
-                    style="width:100%;margin:auto;left:0;right:0;position:absolute;background-color:white;box-shadow: 0px 11px 14px 5px #00000017;"
+                    style="width:100%;z-index:9999;margin:auto;left:0;right:0;position:absolute;background-color:white;box-shadow: 0px 11px 14px 5px #00000017;"
                   >
                     <div
                       class="cat-row col-3"
@@ -232,7 +231,8 @@
 export default {
   data() {
     return {
-      category: []
+      category: [],
+      search_query: ""
     }
   },
 
@@ -307,6 +307,12 @@ export default {
       // console.log()
       $('.cat-name').removeClass('active')
       $('.category-tree').addClass('hide')
+    },
+    search: function(){
+    
+      this.$router.push('/search?q=' + this.search_query + '&limit=10&offset=0')
+
+
     }
   }
 }
@@ -631,6 +637,7 @@ li.dropdown {
 }
 
 .category-header {
+  font-family: 'Bold';
   color: #333!important;
 }
 
@@ -712,9 +719,22 @@ li.dropdown {
 }
 
 .cat-name{
-  font-weight: bold
+  font-weight: 'medium'
 }
 .cat-name.active{
   color: #41aaa8!important
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-size: 10px
+}
+::-moz-placeholder { /* Firefox 19+ */
+ font-size: 10px
+}
+:-ms-input-placeholder { /* IE 10+ */
+  font-size: 10px
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-size: 10px
 }
 </style>

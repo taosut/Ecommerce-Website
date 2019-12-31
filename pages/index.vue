@@ -23,7 +23,8 @@
             />
           </div>
           <template class="hide-on-small-only" slot="next"
-            ><span class="carousel-next hide-on-small-only"><img src="icons/arrow.svg"/></span
+            ><span class="carousel-next hide-on-small-only"
+              ><img src="icons/arrow.svg"/></span
           ></template>
         </carousel>
       </client-only>
@@ -84,7 +85,11 @@
                         >
                           <div class="viewed_image">
                             <img
-                              :src="baseurl + '/backend/api/products/image/200/40/' + q.images[0]"
+                              :src="
+                                baseurl +
+                                  '/backend/api/products/image/200/40/' +
+                                  q.images[0]
+                              "
                               @error="setFallbackImageUrl"
                               alt
                             />
@@ -123,6 +128,7 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 export default {
   data: () => ({
     allProducts: [
@@ -146,6 +152,10 @@ export default {
       visibility: 'visible',
       opacity: '1'
     })
+
+    Vue.config.errorHandler = function(err) {
+      alert(err)
+    }
 
     // $('body').css('background-color', '#eff6fa')
 
@@ -180,9 +190,11 @@ export default {
 
         for (let key1 in this.allProducts) {
           if (this.allProducts.hasOwnProperty(key1)) {
-            this.allProducts[key1].filter(
-              v => (v.images = JSON.parse(v.images))
-            )
+            try {
+              this.allProducts[key1].filter(
+                v => (v.images = JSON.parse(v.images))
+              )
+            } catch (error) {}
 
             var products = {}
             products['title'] = key1
@@ -247,8 +259,13 @@ export default {
     height: 140px;
   }
   .container.hero-carousel {
-    padding: 0
+    padding: 0;
   }
+}
+
+
+.hero-carousel > span{
+  display:block!important;
 }
 
 .carousel-prev {

@@ -4,8 +4,6 @@
   <header class="header">
     <!-- Top Bar -->
 
-  
-
     <!-- Header Main -->
 
     <div class="header_main">
@@ -14,23 +12,83 @@
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
-              <div class="logo"><nuxt-link style="    display: flex;
-    align-items: center;" to="/"><img src="/icons/logo.png" style="  width: 40px;
+              <div class="logo">
+                <nuxt-link
+                  style="    display: flex;
+    align-items: center;"
+                  to="/"
+                  ><img
+                    src="/icons/logo.png"
+                    style="  width: 40px;
     height: 100%;
-    object-fit: contain;"><p style="color:white; font-size:18px;padding-left: 10px">WENSLink Ecommerce</p></nuxt-link></div>
+    object-fit: contain;"
+                  />
+                  <p style="color:white; font-size:18px;padding-left: 10px">
+                    WENSLink India
+                  </p></nuxt-link
+                >
+              </div>
             </div>
           </div>
-
-   
         </div>
       </div>
     </div>
 
     <!-- Main Navigation -->
-
   </header>
 </template>
 
+<script>
+export default {
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.isLoggedIn
+    },
+    cart() {
+      return this.$store.state.cart
+    },
+    name() {
+      console.log(this.$cookies.get('name'))
+      if (this.$cookies.get('name') != undefined) {
+        console.log('cookie')
+        this.$store.commit('isLoggedIn', 1)
+        this.$store.commit('name', this.$cookies.get('name'))
+      } else {
+        console.log('cookieNot')
+        this.$store.commit('isLoggedIn', 0)
+      }
+
+      return this.$store.state.name
+    }
+  },
+  mounted() {
+    if (this.$cookies.get('name') != undefined) {
+      this.$store.dispatch('getCartByUser')
+    }
+
+    this.$store.dispatch('getCategory').then(res => {
+      this.category = JSON.parse(JSON.stringify(res.data))
+      console.log(this.category.length)
+
+      for (var i = 0; i < this.category.length; i++) {
+        this.category[i].submenu = JSON.parse(this.category[i].submenu)
+      }
+    })
+
+    console.log("this.$cookies.get('name')")
+    console.log(this.$cookies.get('name'))
+    if (this.$cookies.get('name') != undefined) {
+      console.log('cookie')
+      this.$store.commit('isLoggedIn', 1)
+      this.$store.commit('name', this.$cookies.get('name'))
+    } else {
+      console.log('cookieNot')
+      this.$store.commit('name', 0)
+      this.$store.commit('isLoggedIn', 0)
+    }
+  }
+}
+</script>
 
 <style scoped>
 input[type='text'] {

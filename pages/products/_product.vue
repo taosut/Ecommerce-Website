@@ -10,11 +10,11 @@
             <ul class="image_list">
               <li
                 @mouseover="changeImage(p)"
-                v-for="(p, index) in product.images"
+                v-for="(p, index) in productimages"
                 :key="p.id"
               >
                 <img
-                  :src="baseurl + '/backend/api/products/image/100/40/' + p"
+                  :src="baseurl + '/backend/api/products/image/50/90/' + p"
                   @error="setFallbackImageUrl"
                   alt=""
                 />
@@ -26,7 +26,11 @@
           <div class="col-lg-5 order-lg-2 order-1">
             <div class="image_selected">
               <img
-                :src="baseurl + '/backend/api/products/image/200/40/' + product.images[0]"
+                :src="
+                  baseurl +
+                    '/backend/api/products/image/500/90/' +
+                    productimages[0]
+                "
                 @error="setFallbackImageUrl"
                 alt=""
               />
@@ -36,8 +40,9 @@
           <!-- Description -->
           <div class="col-lg-5 order-3">
             <div class="product_description">
-
-              <div class="product_category">{{ product.category_name }} > {{ product.subcategory_name }}</div>
+              <div class="product_category">
+                {{ product.category_name }} > {{ product.subcategory_name }}
+              </div>
 
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
@@ -58,7 +63,7 @@
                     type="button"
                     class="button cart_button"
                     @click="addToCart(product.id)"
-                    style="background-color: transparent;border: 1px solid black;color: black;"
+                    style="background-color: transparent;border: 1px solid black;color: black;margin-left: 20px"
                   >
                     Add to Cart
                   </button>
@@ -72,60 +77,99 @@
 
     <div class="container">
       <div class="single_product">
-        <h3>Highlights</h3>
-        <div>
-          <ul class="row" style="list-style: disc;padding:20px 30px 50px">
-            <li
-              class="col-4"
-              v-for="(p, index) in product.bullet_points"
-              :key="p.id"
-            >
-              {{ p.value }}
-            </li>
-          </ul>
+        <div v-if="product_description != ''">
+          <h4>Product Description</h4>
+          <div class="pb-2 pt-2">
+            <p class="clamp4">{{ product.description }}</p>
+          </div>
+          <hr  style="border: 0;border-bottom: 1px dashed #80808030;" />
         </div>
 
-        <h3>Specification</h3>
-        <div class="row">
-          <!-- Description -->
-          <div class="col-12 order-3">
-            <div v-if="product.specs != ''">
-              <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                <tbody>
-                  <tr v-for="(p, index) in product.specs" :key="p.id">
-                    <td>
-                      <table
-                        width="100%"
-                        border="0"
-                        cellspacing="2"
-                        cellpadding="0"
-                        class="product-spec"
-                      >
-                        <tbody>
-                          <tr>
-                            <th colspan="2">{{ p.name }}</th>
-                          </tr>
-                          <tr v-for="(q, index1) in p['sub']" :key="q.id">
-                            <td width="20%">{{ q.name }}</td>
-                            <td> <div v-if="q.type == 1">
-                          <p class="specs-value" type="text">{{ q.value }}</p>
-                        </div>
+          <div v-if="product_bullet_points.length != 0">
+            <h4 class="pt-2">Highlights</h4>
+            <div>
+              <ul class="row" style="padding:20px 10px">
+                <li
+                  class="col-4 no-padd"
+                  v-for="(p, index) in product_bullet_points"
+                  :key="p.id"
+                >
+                  <span class="list-circle"></span>
+                  <span class="hightlist-li">{{ p.value }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-                        <div style="display: flex;" v-if="q.type == 2">
-                          <p class="specs-value" type="text">{{ q.value }}</p>
-                        </div>
+        <hr style="border: 0;border-bottom: 1px dashed #80808030;" v-if="product_bullet_points.length != 0"/>
 
-                        <div style="display: flex;" v-if="q.type == 3">
-                          <p class="specs-value" type="text">{{ q.value }} {{ q.dropdown }}</p>
-                        </div></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+        <div>
+          <h4 class="pt-2">Specification</h4>
+          <div class="row">
+            <!-- Description -->
+            <div class="col-12 order-3">
+              <div v-if="product.specs != ''">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr v-for="(p, index) in product.specs" :key="p.id">
+                      <td>
+                        <table
+                          width="100%"
+                          border="0"
+                          cellspacing="2"
+                          cellpadding="0"
+                          class="product-spec"
+                        >
+                          <tbody>
+                            <tr>
+                              <th colspan="2">{{ p.name.toUpperCase() }}</th>
+                            </tr>
+                            <tr
+                              v-for="(q, index1) in p['sub']"
+                              :key="q.id"
+                              v-if="q.value && q.value != undefined"
+                            >
+                              <td width="20%">
+                                <p class="specification-header-p">
+                                  {{ q.name }}
+                                </p>
+                              </td>
+                              <td>
+                                <div v-if="q.type == 1">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }}
+                                  </p>
+                                </div>
 
+                                <div style="display: flex;" v-if="q.type == 2">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }}
+                                  </p>
+                                </div>
+
+                                <div style="display: flex;" v-if="q.type == 3">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }} {{ q.dropdown }}
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
@@ -134,7 +178,7 @@
 
     <!-- Recently Viewed -->
 
-    <div class="viewed">
+    <!-- <div class="viewed">
       <div class="container">
         <div class="row">
           <div class="col">
@@ -143,17 +187,16 @@
             </div>
 
             <div>
-              <!-- Recently Viewed Slider -->
 
               <div class="owl-carousel owl-theme viewed_slider">
-                <!-- Recently Viewed Item -->
+             
                 <div class="" v-for="p in product" :key="p.id">
                   <div
                     class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
                   >
                     <div class="viewed_image">
                       <img
-                        :src="'/media/products/'"
+                        :src="baseurl + '/backend/api/products/image/100/40/'"
                         @error="setFallbackImageUrl"
                         alt
                       />
@@ -178,32 +221,17 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    ongoingAuction: [
-      {
-        id: '',
-        images: []
-      }
-    ],
-    product: {
-      category: {
-        name: ''
-      },
-      subcategory: {
-        name: ''
-      },
-      brand: {
-        name: ''
-      },
-      images: {}
-    },
-    images: {},
+    product: [],
+    product_description: "",
+    product_bullet_points: [],
+    productimages: {},
     auction_data: [],
     auction_timer: [],
     variations: [],
@@ -231,8 +259,9 @@ export default {
         this.variations = res.data.variations
         this.product['price'] = res.data.variations[0]['price']
         this.product['mrp'] = res.data.variations[0]['mrp']
-        this.product.images = JSON.parse(this.product.images)
-        this.product.bullet_points = JSON.parse(this.product.bullet_points)
+        this.productimages = JSON.parse(this.product.images)
+        this.product_bullet_points = JSON.parse(this.product.bullet_points)
+        this.product_description = JSON.parse(this.product.bullet_points)
         this.product.specs = JSON.parse(this.product.specs)
       })
   },
@@ -275,7 +304,7 @@ export default {
 
       $('.image_selected img').attr(
         'src',
-        this.baseurl + '/media/products/' + id
+        this.baseurl + '/backend/api/products/image/500/90/' + id
       )
     },
     getBidding: function(id) {
@@ -285,13 +314,32 @@ export default {
     },
 
     addToCart: function() {
-      var payload = new FormData()
+      if (this.$store.state.isLoggedIn) {
+        var payload = new FormData()
 
-      payload.append('product_info', this.variations[0].id)
-      payload.append('quantity', 1)
-      payload.append('seller_id', 100)
+        payload.append('product_info', this.variations[0].id)
+        payload.append('quantity', 1)
+        payload.append('seller_id', 100)
 
-      this.$store.dispatch('addToCart', payload)
+        this.$store.dispatch('addToCart', payload)
+        this.getCartByUser()
+      } else {
+
+        
+      }
+    },
+    getCartByUser: function() {
+      this.$store.dispatch('getCartByUser').then(res => {
+        this.cart = JSON.parse(JSON.stringify(res.data))
+
+        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
+
+        this.cart.forEach((element, index) => {
+          this.totalSum += parseInt(element.product_price)
+          this.discountedtotalSum +=
+            parseInt(element.product_mrp) - this.totalSum
+        })
+      })
     },
     createBid: function() {
       console.log(this.auction_data.auction_id)
@@ -522,6 +570,10 @@ body {
   color: black;
 }
 
+.hightlist-li {
+  font-size: 13px;
+}
+
 /* li {
   float: left;
 }
@@ -703,11 +755,30 @@ button[disabled] {
   cursor: pointer;
 }
 
-.product-spec th{
-  padding: 18px 0 9px
+.product-spec th {
+  padding: 18px 0 9px;
 }
 
-.product-spec td{
+.product-spec td {
   line-height: 40px;
+}
+.specification-header-p {
+  color: #b2b2b2;
+  line-height: 35px;
+}
+.specification-value-p {
+  line-height: 35px;
+  color: #000;
+}
+
+.list-circle {
+  width: 6px;
+  height: 6px;
+  background-color: #cccccc;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: 2px;
+  margin-right: 8px;
+  margin-left: 3px;
 }
 </style>

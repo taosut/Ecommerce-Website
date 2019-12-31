@@ -591,6 +591,7 @@ export default {
 
   //   computed: mapState(['cart_data']),
 
+  middleware: 'auth',
   mounted() {
     this.getCartByUser()
     this.getAllUserAddress()
