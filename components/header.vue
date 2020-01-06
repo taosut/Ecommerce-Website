@@ -263,7 +263,7 @@ export default {
       this.$store.dispatch('getCartByUser')
     }
 
-    this.$store.dispatch('getCategory').then(res => {
+    this.$store.dispatch('getCategoryForMenu').then(res => {
       this.category = JSON.parse(JSON.stringify(res.data))
       console.log(this.category.length)
 

@@ -392,6 +392,32 @@ export const actions = {
         })
     },
 
+
+    getCategoryForMenu({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                method: 'GET',
+                url: state.api.getCategoryForMenu,
+                contentType: 'application/json',
+                // headers: {
+                //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                // }
+            })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    commit('getCategory', res.data);
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
     getSingleProduct({ commit, state }, payload) {
 
 
