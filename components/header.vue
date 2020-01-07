@@ -267,11 +267,19 @@ export default {
       this.category = JSON.parse(JSON.stringify(res.data))
       console.log(this.category.length)
 
-        for (var i = 0; i < this.category.length; i++) {
+      try {
+
+               for (var i = 0; i < this.category.length; i++) {
             this.category[i].submenu = JSON.parse(
               this.category[i].submenu
             );
           }
+        
+      } catch (error) {
+        
+      }
+
+ 
     })
 
     console.log("this.$cookies.get('name')")

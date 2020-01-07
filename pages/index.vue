@@ -17,10 +17,22 @@
               ><img class="rotate180" src="icons/arrow.svg"/></span
           ></template>
           <div class="item" v-for="p in allBanners" :key="p.id">
-            <img
-              :src="baseurl + '/media/banners/' + p.image"
-              @error="setFallbackImageUrl"
-            />
+     
+              <nuxt-link :to="p.url" v-if="p.url != null && p.url != '' && p.url != undefined">
+                <img
+                  @click="get"
+                  class="carousel-image"
+                  :data-url="p.url"
+                  :src="baseurl + '/media/banners/' + p.image"
+                  @error="setFallbackImageUrl"
+                />
+              </nuxt-link>
+
+              <img v-else
+                @click="get"
+                :src="baseurl + '/media/banners/' + p.image"
+                @error="setFallbackImageUrl"
+              />
           </div>
           <template class="hide-on-small-only" slot="next"
             ><span class="carousel-next hide-on-small-only"
@@ -241,8 +253,11 @@ export default {
     getAllBanner: function() {
       this.$store.dispatch('getAllBanner').then(res => {
         console.log(res)
-        this.allBanners = JSON.parse(JSON.stringify(res.data))
+        this.allBanners = JSON.parse(JSON.stringify(res.data.body))
       })
+    },
+    get: function() {
+      console.log('sss')
     }
   }
 }
@@ -263,9 +278,8 @@ export default {
   }
 }
 
-
-.hero-carousel > span{
-  display:block!important;
+.hero-carousel > span {
+  display: block !important;
 }
 
 .carousel-prev {
@@ -375,5 +389,9 @@ export default {
 .product_section_title {
   padding: 15px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.carousel-image {
+  cursor: pointer;
 }
 </style>

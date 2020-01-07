@@ -16,7 +16,12 @@ export default {
       {
         hid: 'description',
         name: 'description',
-        content: process.env.npm_package_description || ''
+        content: process.env.npm_package_description || "wenslink.com: web based shopping india - purchase mobiles, PCs, cameras, books, watches, clothing, shoes and e-gift vouchers. free dispatching and money down accessible. and that's just the beginning, WENSLink will be your most loved of all web based shopping destinations."
+      },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: "beauty, best multi vendor marketplace platform, best multi vendor marketplace platform, best online shopping sites in india for clothes, buy books online, buy movie dvd's online, buy online, buy mobiles online, computers, ebooks, fashion jewellery, fitness & outdoors, free multi vendor ecommerce software, free multi vendor ecommerce software, free multi vendor marketplace, free multi vendor marketplace, free multi vendor marketplace, home, india shopping online, kindle e-readers, kindle fire hd, kindle, kitchen, laptop, multi vendor ecommerce open source, multi vendor ecommerce open source, multi vendor ecommerce platform india, multi vendor ecommerce platform india, multi vendor ecommerce project, multi vendor ecommerce theme, multi vendor marketplace magento, multi vendor marketplace open source, multi vendor marketplace open source, multi vendor marketplace saas, multi vendor marketplace script, multi vendor marketplace wordpress, multi vendor marketplace wordpress, online shopping apps, online shopping, online shopping india cash on delivery, online shopping india, online shopping sites for clothes, online shopping sites in india, online shopping, open source multi-vendor ecommerce platform, Page navigation, shopify multi vendor marketplace theme, small appliances, sports, top 10 online shopping sites, toys, trimmers, watches, wenslink india, wenslink, wenslink.com, multi vendor, wenslink multi vendor, seller.wenslink.com"
       }
     ],
     link: [
