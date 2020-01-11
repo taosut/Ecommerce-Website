@@ -225,8 +225,8 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('cart', res.data.length)
-                    commit('cart_data', res.data)
+                    commit('cart', res.data.body.length)
+                    commit('cart_data', res.body.data)
                     resolve(res)
                 })
                 .catch(err => {
@@ -252,8 +252,8 @@ export const actions = {
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
-                    commit('cart', res.data.length)
-                    commit('cart_data', res.data)
+                    commit('cart', res.data.body.length)
+                    commit('cart_data', res.data.body)
                     resolve(res)
                 })
                 .catch(err => {

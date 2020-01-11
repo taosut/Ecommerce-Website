@@ -570,15 +570,19 @@ export default {
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
-        this.cart = JSON.parse(JSON.stringify(res.data))
+        try {
+          this.cart = JSON.parse(JSON.stringify(res.data.body))
 
-        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
+          this.cart.filter(
+            v => (v.product_images = JSON.parse(v.product_images))
+          )
 
-        this.cart.forEach((element, index) => {
-          this.totalSum += parseInt(element.product_price)
-          this.discountedtotalSum +=
-            parseInt(element.product_mrp) - this.totalSum
-        })
+          this.cart.forEach((element, index) => {
+            this.totalSum += parseInt(element.product_price)
+            this.discountedtotalSum +=
+              parseInt(element.product_mrp) - this.totalSum
+          })
+        } catch {}
       })
     },
     removeFromCart: function(id) {
@@ -917,11 +921,11 @@ h3 {
   font-weight: 600;
 }
 p {
-    color: rgba(0, 0, 0, 0.5);
-    font-size: 14px;
-    line-height: 24px;
-    max-width: 80%;
-    margin: 0.25rem auto 0 auto;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  line-height: 24px;
+  max-width: 80%;
+  margin: 0.25rem auto 0 auto;
 }
 body {
   background: #f2f2f2;

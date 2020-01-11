@@ -831,7 +831,8 @@ export default {
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
-        this.cart = JSON.parse(JSON.stringify(res.data))
+        try{
+        this.cart = JSON.parse(JSON.stringify(res.data.body))
 
         this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
@@ -840,6 +841,9 @@ export default {
           this.discountedtotalSum +=
             parseInt(element.product_mrp) - this.totalSum
         })
+        }catch{
+
+        }
       })
     },
     removeFromCart: function(id) {
