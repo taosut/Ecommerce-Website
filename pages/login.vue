@@ -46,7 +46,7 @@ export default {
 
         this.$cookies.set('access_token', res.data.access, {
           path: '/',
-          httpOnly : process.env.cookie,
+          // httpOnly : process.env.cookie,
           // secure: process.env.cookie,
           maxAge: 60 * 60 * 24 * 7
         })

@@ -624,7 +624,7 @@ export default {
     startOrder: function() {
       this.$cookies.set('cart_price', '1', {
         path: '/',
-        httpOnly: process.env.cookie,
+        // httpOnly: process.env.cookie,
         // secure: process.env.cookie,
         maxAge: 60 * 60 * 24 * 7
       })

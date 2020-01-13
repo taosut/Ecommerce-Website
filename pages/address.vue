@@ -860,7 +860,7 @@ export default {
     selectedAddress: function(id) {
       this.$cookies.set('order_step', '2', {
         path: '/',
-        httpOnly: process.env.cookie,
+        // httpOnly: process.env.cookie,
         // secure: process.env.cookie,
         maxAge: 60 * 60 * 24 * 7
       })
