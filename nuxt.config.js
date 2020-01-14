@@ -117,7 +117,8 @@ export default {
   plugins: [
     '~/plugins/main',
     '~/plugins/global_components',
-    {src: '~/plugins/carousel.js', ssr: false}
+    {src: '~/plugins/carousel.js', ssr: false},
+    {src: '~/plugins/star.js', ssr: false}
   ],
   /*
    ** Nuxt.js dev-modules

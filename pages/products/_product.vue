@@ -46,6 +46,7 @@
 
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
+              <star-rating :star-size="15" v-model="rating" :read-only="true"></star-rating>
               <!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->
               <div class="product_text">
                 <p class="clamp4">{{ product.description }}</p>
@@ -80,7 +81,7 @@
         <div v-if="product_description != ''">
           <h4>Product Description</h4>
           <div class="pb-2 pt-2">
-            <p class="clamp4">{{ product.description }}</p>
+            <p style="line-height: 28px">{{ product.description }}</p>
           </div>
           <hr  style="border: 0;border-bottom: 1px dashed #80808030;" />
         </div>
@@ -105,6 +106,81 @@
 
         <div>
           <h4 class="pt-2">Specification</h4>
+          <div class="row">
+            <!-- Description -->
+            <div class="col-12 order-3">
+              <div v-if="product.specs != ''">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr v-for="(p, index) in product.specs" :key="p.id">
+                      <td>
+                        <table
+                          width="100%"
+                          border="0"
+                          cellspacing="2"
+                          cellpadding="0"
+                          class="product-spec"
+                        >
+                          <tbody>
+                            <tr>
+                              <th colspan="2">{{ p.name.toUpperCase() }}</th>
+                            </tr>
+                            <tr
+                              v-for="(q, index1) in p['sub']"
+                              :key="q.id"
+                              v-if="q.value && q.value != undefined"
+                            >
+                              <td width="20%">
+                                <p class="specification-header-p">
+                                  {{ q.name }}
+                                </p>
+                              </td>
+                              <td>
+                                <div v-if="q.type == 1">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }}
+                                  </p>
+                                </div>
+
+                                <div style="display: flex;" v-if="q.type == 2">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }}
+                                  </p>
+                                </div>
+
+                                <div style="display: flex;" v-if="q.type == 3">
+                                  <p
+                                    class="specs-value specification-value-p"
+                                    type="text"
+                                  >
+                                    {{ q.value }} {{ q.dropdown }}
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="single_product">
+        <div>
+          <h4 class="pt-2">Reviews</h4>
           <div class="row">
             <!-- Description -->
             <div class="col-12 order-3">
@@ -239,7 +315,9 @@ export default {
     auction_status: 0,
     bidding_list: {
       user_id: ''
-    }
+    },
+    rating: 0,
+    reviews: ""
   }),
 
   components: {},
@@ -259,9 +337,11 @@ export default {
         this.variations = res.data.variations
         this.product['price'] = res.data.variations[0]['price']
         this.product['mrp'] = res.data.variations[0]['mrp']
+        this.rating = res.data.rating_avg
+        this.reviews = res.data.reviews
         this.productimages = JSON.parse(this.product.images)
         this.product_bullet_points = JSON.parse(this.product.bullet_points)
-        this.product_description = JSON.parse(this.product.bullet_points)
+        this.product_description = res.data.description
         this.product.specs = JSON.parse(this.product.specs)
       })
   },
