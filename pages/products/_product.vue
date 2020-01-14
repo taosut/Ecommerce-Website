@@ -46,16 +46,19 @@
 
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
-              <star-rating :star-size="15" v-model="rating" :read-only="true"></star-rating>
-              <!-- <div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div> -->
+              <star-rating
+                :star-size="15"
+                v-model="rating"
+                :read-only="true"
+              ></star-rating>
+              <div class="d-flex align-center">
+                <div class="product_price">₹{{ product.price }}</div>
+                <div class="product_mrp">₹{{ product.mrp }}</div>
+              </div>
               <div class="product_text">
                 <p class="clamp4">{{ product.description }}</p>
               </div>
               <div class="order_info flex-row">
-                <div class="d-flex align-center">
-                  <div class="product_price">₹{{ product.price }}</div>
-                  <div class="product_mrp">₹{{ product.mrp }}</div>
-                </div>
                 <div class="button_container">
                   <button type="button" class="button buy_button">
                     Buy Now
@@ -83,26 +86,29 @@
           <div class="pb-2 pt-2">
             <p style="line-height: 28px">{{ product.description }}</p>
           </div>
-          <hr  style="border: 0;border-bottom: 1px dashed #80808030;" />
+          <hr style="border: 0;border-bottom: 1px dashed #80808030;" />
         </div>
 
-          <div v-if="product_bullet_points.length != 0">
-            <h4 class="pt-2">Highlights</h4>
-            <div>
-              <ul class="row" style="padding:20px 10px">
-                <li
-                  class="col-4 no-padd"
-                  v-for="(p, index) in product_bullet_points"
-                  :key="p.id"
-                >
-                  <span class="list-circle"></span>
-                  <span class="hightlist-li">{{ p.value }}</span>
-                </li>
-              </ul>
-            </div>
+        <div v-if="product_bullet_points.length != 0">
+          <h4 class="pt-2">Highlights</h4>
+          <div>
+            <ul class="row" style="padding:20px 10px">
+              <li
+                class="col-4 no-padd"
+                v-for="(p, index) in product_bullet_points"
+                :key="p.id"
+              >
+                <span class="list-circle"></span>
+                <span class="hightlist-li">{{ p.value }}</span>
+              </li>
+            </ul>
           </div>
+        </div>
 
-        <hr style="border: 0;border-bottom: 1px dashed #80808030;" v-if="product_bullet_points.length != 0"/>
+        <hr
+          style="border: 0;border-bottom: 1px dashed #80808030;"
+          v-if="product_bullet_points.length != 0"
+        />
 
         <div>
           <h4 class="pt-2">Specification</h4>
@@ -180,71 +186,45 @@
     <div class="container">
       <div class="single_product">
         <div>
-          <h4 class="pt-2">Reviews</h4>
+          <h4 class="pt-2 pb-2">Reviews</h4>
           <div class="row">
             <!-- Description -->
             <div class="col-12 order-3">
-              <div v-if="product.specs != ''">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tbody>
-                    <tr v-for="(p, index) in product.specs" :key="p.id">
-                      <td>
-                        <table
-                          width="100%"
-                          border="0"
-                          cellspacing="2"
-                          cellpadding="0"
-                          class="product-spec"
-                        >
-                          <tbody>
-                            <tr>
-                              <th colspan="2">{{ p.name.toUpperCase() }}</th>
-                            </tr>
-                            <tr
-                              v-for="(q, index1) in p['sub']"
-                              :key="q.id"
-                              v-if="q.value && q.value != undefined"
-                            >
-                              <td width="20%">
-                                <p class="specification-header-p">
-                                  {{ q.name }}
-                                </p>
-                              </td>
-                              <td>
-                                <div v-if="q.type == 1">
-                                  <p
-                                    class="specs-value specification-value-p"
-                                    type="text"
-                                  >
-                                    {{ q.value }}
-                                  </p>
-                                </div>
-
-                                <div style="display: flex;" v-if="q.type == 2">
-                                  <p
-                                    class="specs-value specification-value-p"
-                                    type="text"
-                                  >
-                                    {{ q.value }}
-                                  </p>
-                                </div>
-
-                                <div style="display: flex;" v-if="q.type == 3">
-                                  <p
-                                    class="specs-value specification-value-p"
-                                    type="text"
-                                  >
-                                    {{ q.value }} {{ q.dropdown }}
-                                  </p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div v-if="reviews != ''">
+                <div class="pb-5" v-for="p in reviews" :key="p.id">
+                  <div class="d-flex align-center justify-content-between">
+                    <!-- <img src="/"> -->
+                    <div
+                      class="d-flex align-center"
+                      style="position: relative;left: -2px;"
+                    >
+                      <div class="name-round">
+                        {{ p.name[0] }}
+                      </div>
+                      <p class="ml-2">{{ p.name }}</p>
+                    </div>
+                  </div>
+                  <h4 class="pt-3">
+                    {{ p.header }}
+                  </h4>
+                  <p>
+                    {{ p.created_date.split('T')[0] }}
+                    {{ p.created_date.split('T')[1].split(':')[0] }}:{{
+                      p.created_date.split('T')[1].split(':')[1]
+                    }}
+                  </p>
+                  <div class="d-flex pb-3">
+                    <star-rating
+                      :show-rating="false"
+                      :star-size="15"
+                      :rating="parseInt(p.rating)"
+                      :read-only="true"
+                    ></star-rating>
+                  </div>
+                  <div>
+                    {{ p.review }}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -305,7 +285,7 @@
 export default {
   data: () => ({
     product: [],
-    product_description: "",
+    product_description: '',
     product_bullet_points: [],
     productimages: {},
     auction_data: [],
@@ -317,7 +297,7 @@ export default {
       user_id: ''
     },
     rating: 0,
-    reviews: ""
+    reviews: ''
   }),
 
   components: {},
@@ -404,25 +384,23 @@ export default {
         this.$store.dispatch('addToCart', payload)
         this.getCartByUser()
       } else {
-
-        
       }
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
-         try {
+        try {
           this.cart = JSON.parse(JSON.stringify(res.data.body))
 
-        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
+          this.cart.filter(
+            v => (v.product_images = JSON.parse(v.product_images))
+          )
 
-        this.cart.forEach((element, index) => {
-          this.totalSum += parseInt(element.product_price)
-          this.discountedtotalSum +=
-            parseInt(element.product_mrp) - this.totalSum
-        })
-         }catch{
-           
-         }
+          this.cart.forEach((element, index) => {
+            this.totalSum += parseInt(element.product_price)
+            this.discountedtotalSum +=
+              parseInt(element.product_mrp) - this.totalSum
+          })
+        } catch {}
       })
     },
     createBid: function() {
@@ -864,5 +842,16 @@ button[disabled] {
   vertical-align: 2px;
   margin-right: 8px;
   margin-left: 3px;
+}
+
+.name-round {
+  background-color: #4caf50;
+  width: 40px;
+  height: 40px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
