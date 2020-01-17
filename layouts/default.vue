@@ -50,28 +50,28 @@ export default {
 
 @font-face {
 font-family: 'Regular';
-src: url('~static/fonts/Inter-Regular.woff2') format('truetype');
+src: url('~static/fonts/regular.woff') format('truetype');
 font-weight: normal;
 font-style: normal;
 }
 
 @font-face {
 font-family: 'Light';
-src: url('~static/fonts/Inter-Light.woff2') format('truetype');
+src: url('~static/fonts/light.woff') format('truetype');
 font-weight: lighter;
 font-style: normal;
 }
 
-@font-face {
+/* @font-face {
 font-family: 'Medium';
-src: url('~static/fonts/Inter-Medium.woff2') format('truetype');
+src: url('~static/fonts/um.woff2') format('truetype');
 font-weight: lighter;
 font-style: normal;
-}
+} */
 
 @font-face {
 font-family: 'Bold';
-src: url('~static/fonts/Inter-Bold.woff2') format('truetype');
+src: url('~static/fonts/bold.woff') format('truetype');
 font-weight: bold;
 font-style: normal;
 }
