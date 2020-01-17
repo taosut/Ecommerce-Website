@@ -48,12 +48,14 @@ export default {
           path: '/',
           // httpOnly : process.env.cookie,
           // secure: process.env.cookie,
+          // httpOnly : true,
+          // secure: true,
           maxAge: 60 * 60 * 24 * 7
         })
 
         this.$cookies.set('name', res.data.user_info.name, {
           path: '/',
-          httpOnly : process.env.cookie,
+          // httpOnly : process.env.cookie,
           // secure: process.env.cookie,
           maxAge: 60 * 60 * 24 * 7
         })

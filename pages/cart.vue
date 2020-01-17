@@ -8,21 +8,6 @@
               <div class="cart-header">
                 <p>My Cart</p>
               </div>
-              <div class="d-flex pad-2">
-                <span><img src="~static/icons/maps-and-flags.svg"/></span>
-                <span><p style="padding:5px">Deliver to</p></span>
-                <span>
-                  <div class="d-flex form-group m-0">
-                    <label for="sel1"></label>
-                    <select class="form-control" id="sel1">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                    </select>
-                  </div>
-                </span>
-              </div>
             </div>
             <div
               class="pad24"
@@ -125,8 +110,8 @@
         </div>
         <div class="col-md-4">
           <div class="bg-white shadow border-rad">
-            <div class="border-bottom f600" style="padding:13px 24px">
-              <p style="color:#878787">PRICE DETAILS</p>
+            <div class="border-bottom cart-header f600" style="padding:13px 24px">
+              <p>Price Details</p>
             </div>
             <div style="padding:0 24px">
               <div class="d-flex justify-content-between" style="margin:20px 0">
@@ -147,7 +132,7 @@
               </div>
               <div
                 class="d-flex justify-content-between border-top-dotted f600"
-                style="margin:20px 0"
+                style="padding:20px 0"
               >
                 <span><p>Total Payable</p></span>
                 <span
@@ -671,19 +656,24 @@ export default {
 .cart-header {
   font-size: 23px;
   font-weight: 600;
-  padding: 15px 0 15px 15px;
+  padding: 14px 0 13px 24px;
+}
+.cart-header p{
+  font-family: 'Bold';
+  color: #333;
+  font-size: 16px;
 }
 .border-rad {
   border-radius: 2px;
 }
 .border-bottom {
-  border-bottom: 1px solid #b3adad3b;
+  border-bottom: 1px solid rgb(240, 240, 240) !important
 }
 .border-top {
   border-top: 1px solid #b3adad3b;
 }
 .border-top-dotted {
-  border-top: 1px dotted #b3adad3b;
+  border-top: 1px solid #b3adad3b;
 }
 .f600 {
   font-weight: 600;
@@ -713,8 +703,8 @@ export default {
 }
 
 .quantity .input-text.qty {
-  width: 35px;
-  height: 39px;
+  width: 30px;
+  height: 30px;
   padding: 0 5px;
   text-align: center;
   background-color: transparent;
@@ -738,12 +728,12 @@ export default {
 .quantity.buttons_added .minus,
 .quantity.buttons_added .plus {
   /* padding: 7px 10px 8px; */
-  height: 40px;
+  height: 30px;
   background-color: #ffffff;
   border: 2px solid #efefef;
   cursor: pointer;
   border-radius: 100%;
-  width: 40px;
+  width: 30px;
 }
 
 .quantity.buttons_added .minus {
@@ -919,13 +909,6 @@ h3 {
   margin: 0;
   padding: 0;
   font-weight: 600;
-}
-p {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 14px;
-  line-height: 24px;
-  max-width: 80%;
-  margin: 0.25rem auto 0 auto;
 }
 body {
   background: #f2f2f2;
