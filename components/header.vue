@@ -48,35 +48,40 @@
               <div class="top_bar_menu">
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
-
-                    <a v-if="name" href="#"
+                    <a v-if="isLoggedIn" href="#"
                       >{{ name }}<i class="fas fa-chevron-down"></i
                     ></a>
-                    <ul class=user_dropdown>
-                      <li><nuxt-link to="/account/profile">Your Account</nuxt-link></li>
-                      <li><a href="#">Your Orders</a></li>
+                    <ul class="user_dropdown">
+                      <li>
+                        <nuxt-link to="/account/profile"
+                          >Your Account</nuxt-link
+                        >
+                      </li>
+                      <li><nuxt-link to="/account/orders">Your Orders</nuxt-link></li>
                       <li><a href="#" @click="logout">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
               </div>
 
-              <div v-if="!name" class="top_bar_user">
-                  <div>
-                    <a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a>
-                  </div>
-                  <div>
-                    <nuxt-link to="/register">Register as Customer</nuxt-link>
-                  </div>
-                  <div>
-                    <nuxt-link to="/login">Sign In</nuxt-link>
-                  </div>
+              <div v-if="!isLoggedIn" class="top_bar_user">
+                <div>
+                  <a target="_blank" href="https://seller.wenslink.com/"
+                    >Register as Seller</a
+                  >
+                </div>
+                <div>
+                  <nuxt-link to="/register">Register as Customer</nuxt-link>
+                </div>
+                <div>
+                  <nuxt-link to="/login">Sign In</nuxt-link>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
     <!-- Header Main -->
 
@@ -87,11 +92,11 @@
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
               <div class="logo">
-                <nuxt-link
-                  style="display: flex;align-items: center;" to="/">
+                <nuxt-link style="display: flex;align-items: center;" to="/">
                   <img
                     src="/icons/logo.png"
-                    style="width: 40px;height: 100%;object-fit: contain;"/>
+                    style="width: 40px;height: 100%;object-fit: contain;"
+                  />
                   <p style="color:white; font-size:18px;padding-left: 10px">
                     WENSLink India
                   </p>
@@ -105,21 +110,25 @@
             <div class="header_search">
               <div class="header_search_content">
                 <div class="header_search_form_container">
-                    <input
-                      type="search"
-                      required="required"
-                      class="header_search_input"
-                      v-model="search_query"
-                      placeholder="Search for products..."
-                      v-on:keyup.enter="search"
+                  <input
+                    type="search"
+                    required="required"
+                    class="header_search_input"
+                    v-model="search_query"
+                    placeholder="Search for products..."
+                    v-on:keyup.enter="search"
+                  />
+                  <button
+                    type="submit"
+                    class="header_search_button trans_300"
+                    value="Submit"
+                  >
+                    <img
+                      style="width: 15px;"
+                      src="~static/images/search.png"
+                      alt
                     />
-                    <button
-                      type="submit"
-                      class="header_search_button trans_300"
-                      value="Submit"
-                    >
-                      <img style="width: 15px;" src="~static/images/search.png" alt />
-                    </button>
+                  </button>
                 </div>
               </div>
             </div>
@@ -145,7 +154,9 @@
 
               <!-- Cart -->
               <div class="cart">
-                <div class="cart_container d-flex flex-row align-items-center justify-content-end">
+                <div
+                  class="cart_container d-flex flex-row align-items-center justify-content-end"
+                >
                   <div class="cart_icon">
                     <img src="~static/images/cart.png" alt />
                     <div class="cart_count">
@@ -179,25 +190,40 @@
                   @mouseover="showCategoryTree(p.name)"
                   @mouseout="removemenu"
                 >
-                  <a class="cat-name"  v-bind:class="p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()">
+                  <a
+                    class="cat-name"
+                    v-bind:class="
+                      p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()
+                    "
+                  >
                     {{ p.name }}
                     <i class="fas fa-chevron-down"></i>
                   </a>
                   <div
                     class="category-tree hide row"
-                    v-bind:class="p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()"
+                    v-bind:class="
+                      p.name.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()
+                    "
                     style="width:100%;z-index:9999;margin:auto;left:0;right:0;position:absolute;background-color:white;box-shadow: 0px 11px 14px 5px #00000017;"
                   >
                     <div
                       class="cat-row col-3"
-                      :class="{ 'dark-color' : index % 2 != 0, '' : index % 2 == 0 }"
-                      v-for="(r, index) in p.submenu" :key="index"
+                      :class="{
+                        'dark-color': index % 2 != 0,
+                        '': index % 2 == 0
+                      }"
+                      v-for="(r, index) in p.submenu"
+                      :key="index"
                     >
-                    <div v-for="(q, index1) in r" :key="index1">
-                        <a v-if="q.type=='1'" class="category-header" :href="'/search' +q.url">{{ q.title }}</a>
+                      <div v-for="(q, index1) in r" :key="index1">
+                        <a
+                          v-if="q.type == '1'"
+                          class="category-header"
+                          :href="'/search' + q.url"
+                          >{{ q.title }}</a
+                        >
                         <a v-else :href="'/search' + q.url">{{ q.title }}</a>
-                    </div>
-                    
+                      </div>
                     </div>
                   </div>
                 </li>
@@ -219,9 +245,9 @@
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
-      </div>
       </div>
     </nav>
   </header>
@@ -232,7 +258,7 @@ export default {
   data() {
     return {
       category: [],
-      search_query: ""
+      search_query: ''
     }
   },
 
@@ -244,11 +270,19 @@ export default {
       return this.$store.state.cart
     },
     name() {
-      console.log(this.$cookies.get('name'))
-      if (this.$cookies.get('name') != undefined) {
+      console.log('Sdsdsdsd')
+      console.log(this.$cookies.get('access_token'))
+      if (this.$cookies.get('access_token') != undefined) {
         console.log('cookie')
         this.$store.commit('isLoggedIn', 1)
-        this.$store.commit('name', this.$cookies.get('name'))
+        if (
+          this.$cookies.get('name') != undefined &&
+          this.$cookies.get('name') != ''
+        ) {
+          this.$store.commit('name', this.$cookies.get('name'))
+        } else {
+          this.$store.commit('name', '+ Add a Name')
+        }
       } else {
         console.log('cookieNot')
         this.$store.commit('isLoggedIn', 0)
@@ -259,7 +293,7 @@ export default {
   },
 
   mounted() {
-    if (this.$cookies.get('name') != undefined) {
+    if (this.$cookies.get('access_token') != undefined) {
       this.$store.dispatch('getCartByUser')
     }
 
@@ -268,31 +302,29 @@ export default {
       console.log(this.category.length)
 
       try {
-
-               for (var i = 0; i < this.category.length; i++) {
-            this.category[i].submenu = JSON.parse(
-              this.category[i].submenu
-            );
-          }
-        
-      } catch (error) {
-        
-      }
-
- 
+        for (var i = 0; i < this.category.length; i++) {
+          this.category[i].submenu = JSON.parse(this.category[i].submenu)
+        }
+      } catch (error) {}
     })
 
     console.log("this.$cookies.get('name')")
     console.log(this.$cookies.get('name'))
-    if (this.$cookies.get('name') != undefined) {
-      console.log('cookie')
-      this.$store.commit('isLoggedIn', 1)
-      this.$store.commit('name', this.$cookies.get('name'))
-    } else {
-      console.log('cookieNot')
-      this.$store.commit('name', 0)
-      this.$store.commit('isLoggedIn', 0)
-    }
+      if (this.$cookies.get('access_token') != undefined) {
+        console.log('cookie')
+        this.$store.commit('isLoggedIn', 1)
+        if (
+          this.$cookies.get('name') != undefined &&
+          this.$cookies.get('name') != ''
+        ) {
+          this.$store.commit('name', this.$cookies.get('name'))
+        } else {
+          this.$store.commit('name', '+ Add a Name')
+        }
+      } else {
+        console.log('cookieNot')
+        this.$store.commit('isLoggedIn', 0)
+      }
   },
   methods: {
     goToLogin: function() {
@@ -306,21 +338,20 @@ export default {
     showCategoryTree: function(id) {
       console.log('.category-tree.' + id)
       $('.category-tree').addClass('hide')
-      $('.category-tree.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()).removeClass(
-        'hide'
-      )
-      $('.cat-name.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()).addClass('active')
+      $(
+        '.category-tree.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()
+      ).removeClass('hide')
+      $(
+        '.cat-name.' + id.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase()
+      ).addClass('active')
     },
     removemenu: function(id) {
       // console.log()
       $('.cat-name').removeClass('active')
       $('.category-tree').addClass('hide')
     },
-    search: function(){
-    
+    search: function() {
       this.$router.push('/search?q=' + this.search_query + '&limit=10&offset=0')
-
-
     }
   }
 }
@@ -646,7 +677,7 @@ li.dropdown {
 
 .category-header {
   font-family: 'Bold';
-  color: #333!important;
+  color: #333 !important;
 }
 
 .subcategory .subsection:not(:last-child) {
@@ -678,17 +709,17 @@ li.dropdown {
   }
 }
 
-.cat-row{
+.cat-row {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-.cat-row a{
+.cat-row a {
   margin-bottom: 10px;
   font-size: 12px;
   cursor: pointer;
   text-transform: capitalize;
   line-height: 20px;
-  color: #717171
+  color: #717171;
 }
 
 .category-ul li {
@@ -716,33 +747,37 @@ li.dropdown {
   overflow: auto;
 }
 
-.dark-color{
-  background-color: #f6f6f6
+.dark-color {
+  background-color: #f6f6f6;
 }
 
-.category-header{
+.category-header {
   font-size: 13px;
   text-transform: capitalize;
   margin-bottom: 10px;
 }
 
-.cat-name{
-  font-weight: 'medium'
+.cat-name {
+  font-weight: 'medium';
 }
-.cat-name.active{
-  color: #41aaa8!important
+.cat-name.active {
+  color: #41aaa8 !important;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  font-size: 10px
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 10px;
 }
-::-moz-placeholder { /* Firefox 19+ */
- font-size: 10px
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: 10px;
 }
-:-ms-input-placeholder { /* IE 10+ */
-  font-size: 10px
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-size: 10px;
 }
-:-moz-placeholder { /* Firefox 18- */
-  font-size: 10px
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-size: 10px;
 }
 </style>

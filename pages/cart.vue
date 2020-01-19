@@ -16,6 +16,13 @@
               style="border-top: 1px solid #f0f0f0!important;"
             >
               <div class="row">
+                <div class="col-12" v-if="p.price_changed == 1">
+                  <p
+                    style="background-color: #2196F3;color: white;padding: 10px;margin-bottom: 20px;font-size: 12px;border-radius: 2px;"
+                  >
+                    Product Price has changed
+                  </p>
+                </div>
                 <div class="col-md-2">
                   <div class="d-flex justify-content-center">
                     <img
@@ -37,7 +44,7 @@
                       <p class="pad-11 font-12">Seller: {{ p.store_name }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{ p.product_price }}</p>
+                      <p class="pad-11">₹ {{ p.current_product_price }}</p>
                       <p class="pad-11" style="text-decoration: line-through;">
                         ₹ {{ p.product_mrp }}
                       </p>
@@ -65,7 +72,7 @@
                       value="-"
                       class="minus"
                       :disabled="p.quantity <= 1"
-                      @click="minus(index)"
+                      @click="minus(index, p.id)"
                     />
                     <input
                       type="number"
@@ -85,7 +92,7 @@
                       type="button"
                       value="+"
                       class="plus"
-                      @click="plus(index)"
+                      @click="plus(index, p.id)"
                     />
                   </div>
                 </div>
@@ -102,15 +109,13 @@
               </div>
             </div>
           </div>
-          <div class="d-flex justify-content-end pad12">
-            <button @click="startOrder" type="button" class="btn btn-order">
-              Place Order
-            </button>
-          </div>
         </div>
         <div class="col-md-4">
           <div class="bg-white shadow border-rad">
-            <div class="border-bottom cart-header f600" style="padding:13px 24px">
+            <div
+              class="border-bottom cart-header f600"
+              style="padding:13px 24px"
+            >
               <p>Price Details</p>
             </div>
             <div style="padding:0 24px">
@@ -141,7 +146,14 @@
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
-              <p>You will save ₹{{ discountedtotalSum }} on this order</p>
+              <p style="color: #009688">
+                You will save ₹ {{ discountedtotalSum }} on this order
+              </p>
+              <div class="d-flex justify-content-end pad12">
+                <button @click="startOrder" type="button" class="btn btn-order">
+                  Place Order
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -535,6 +547,7 @@
 import { mapState } from 'vuex'
 
 export default {
+  name: 'Cart',
   data: () => ({
     totalSum: 0,
     discountedtotalSum: 0,
@@ -549,25 +562,34 @@ export default {
   },
   methods: {
     checkuserlogin: function() {
-      if (this.$store.state.isLoggedIn) {
+      console.log(this.$store.state.isLoggedIn)
+      if (this.$store.state.isLoggedIn == 1) {
         this.getCartByUser()
       }
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
-        try {
-          this.cart = JSON.parse(JSON.stringify(res.data.body))
+        this.cart = JSON.parse(JSON.stringify(res.data.body))
 
-          this.cart.filter(
-            v => (v.product_images = JSON.parse(v.product_images))
-          )
+        console.log(this.cart)
 
-          this.cart.forEach((element, index) => {
-            this.totalSum += parseInt(element.product_price)
-            this.discountedtotalSum +=
-              parseInt(element.product_mrp) - this.totalSum
-          })
-        } catch {}
+        this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
+
+        this.cart.forEach((element, index) => {
+          this.totalSum += element.current_product_price
+
+          this.cart[index]['price_changed'] = 0
+          if (element.product_mrp > element.current_product_price) {
+            this.discountedtotalSum += element.product_mrp
+          } else {
+            this.discountedtotalSum += element.current_product_price
+          }
+          if (element.price != element.current_product_price) {
+            this.cart[index]['price_changed'] = 1
+          }
+        })
+
+        this.discountedtotalSum = this.discountedtotalSum - this.totalSum
       })
     },
     removeFromCart: function(id) {
@@ -584,37 +606,66 @@ export default {
       this.$router.push('/product')
     },
 
-    minus: function(id) {
-      console.log(id)
+    minus: function(index, id) {
+
+      var original = this.cart[index].quantity
+
+      this.cart[index].quantity = this.cart[index].quantity - 1
+
       var payload = new FormData()
 
-      // payload.append('quantity', id)
+      payload.append('quantity', this.cart[index].quantity)
 
-      // this.$store.dispatch('changeCartQuantity', { id, payload } ).then(res => {
-      this.cart[id].quantity = this.cart[id].quantity - 1
+      this.$store
+        .dispatch('cartQuantity', { payload, id })
+        .then(res => {
+        })
+        .catch(error => {
+          this.error = error.response.data
+          this.cart[index].quantity = original
+        })
       // })
     },
 
-    plus: function(id) {
-      console.log(id)
+    plus: function(index, id) {
+
+      var original = this.cart[index].quantity
+
+      this.cart[index].quantity = this.cart[index].quantity + 1
 
       var payload = new FormData()
 
-      // payload.append('quantity', id)
+      payload.append('quantity', this.cart[index].quantity)
 
-      // this.$store.dispatch('changeCartQuantity', payload).then(res => {
-      this.cart[id].quantity = this.cart[id].quantity + 1
-      // })
+      this.$store
+        .dispatch('cartQuantity', { payload, id })
+        .then(res => {
+        })
+        .catch(error => {
+          this.error = error.response.data
+          this.cart[index].quantity = original
+        })
     },
     startOrder: function() {
-      this.$cookies.set('cart_price', '1', {
-        path: '/',
-        // httpOnly: process.env.cookie,
-        // secure: process.env.cookie,
-        maxAge: 60 * 60 * 24 * 7
+      var payload = new FormData()
+
+      var cart_id = []
+
+      this.cart.forEach((element, index) => {
+        var single_cart = {}
+        single_cart['cart_key'] = element.cart_key
+        cart_id.push(single_cart)
       })
 
-      this.$router.push('/address')
+        console.log(cart_id)
+      // console.log(cart_simplified)
+
+      payload.append('cart_ids', JSON.stringify(cart_id))
+
+      // this.$store.dispatch('startOrder', payload).then(res => {
+        this.$router.push('/address')
+        // console.log(res)
+      // })
     },
     deleteCartItem: function(id) {
       this.$store.dispatch('removeFromCart', id).then(res => {
@@ -631,10 +682,10 @@ export default {
 }
 .btn-order {
   background: #fb641b;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 10px rgba(62, 85, 120, 0.07);
   border: none;
   color: #fff;
-  width: 248px;
+  width: 100%;
   height: 47px;
   font-size: 15px;
   font-weight: 600;
@@ -642,7 +693,7 @@ export default {
   position: relative;
 }
 .shadow {
-  box-shadow: 1px 5px 8px 7px rgba(128, 128, 128, 0.25882352941176473);
+  box-shadow: 0 3px 10px rgba(62, 85, 120, 0.07);
 }
 .bg-white {
   background-color: #ffffff;
@@ -658,7 +709,7 @@ export default {
   font-weight: 600;
   padding: 14px 0 13px 24px;
 }
-.cart-header p{
+.cart-header p {
   font-family: 'Bold';
   color: #333;
   font-size: 16px;
@@ -667,7 +718,7 @@ export default {
   border-radius: 2px;
 }
 .border-bottom {
-  border-bottom: 1px solid rgb(240, 240, 240) !important
+  border-bottom: 1px solid rgb(240, 240, 240) !important;
 }
 .border-top {
   border-top: 1px solid #b3adad3b;

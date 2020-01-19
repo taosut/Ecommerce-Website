@@ -7,11 +7,90 @@
         </div>
         <div class="col-lg-8 col-md-8">
           <div class="account-details" style="background-color: white">
-            <h4 class="header">Profile Information</h4>
+            <h4 class="header">
+              Profile Information
+              <span v-if="isEditing == 0" @click="allowEdit" class="link"
+                >Edit</span
+              >
+              <span v-if="isEditing == 1" @click="cancelEdit" class="link"
+                >Cancel</span
+              >
+            </h4>
+            <div class="row pt-3">
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="First Name"
+                    :value="user_info.firstname"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Last Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Last Name"
+                    :value="user_info.lastname"
+                  />
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio1"
+                    :checked = "user_info.gender == 0"
+                    :value="user_info.gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio1"
+                    >Male</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio2"
+                    :checked = "user_info.gender == 1"
+                    :value="user_info.gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio2"
+                    >Female</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="inlineRadioOptions"
+                    id="inlineRadio3"
+                    :checked = "user_info.gender == 2"
+                    :value="user_info.gender"
+                  />
+                  <label class="form-check-label" for="inlineRadio3"
+                    >Others</label
+                  >
+                </div>
+              </div>
+              <div class="col-12">
+                <button type="button" v-if="isEditing == 1" class="btn btn-primary">SAVE</button>
+              </div>
+            </div>
+
+            <!-- <h4 class="header">Email Address</h4> -->
 
             <div>
               <div
-                style="font-size: 18px;font-weight: 500;margin-bottom: 24px;">
+                style="font-size: 18px;font-weight: 500;margin-bottom: 24px;"
+              >
                 FAQs
               </div>
               <div>
@@ -55,10 +134,32 @@
 <script>
 import accountnav from '@/components/account_nav'
 export default {
+  data() {
+    return {
+      isEditing: 0,
+      user_info: []
+    }
+  },
   components: {
     accountnav
   },
-    middleware: 'auth',
+  mounted(){
+
+    this.$store.dispatch('getuserinfo').then(res=>{
+      console.log(res.data)
+      this.user_info = res.data
+    })
+
+  },
+  middleware: 'auth',
+  methods: {
+    allowEdit: function() {
+      this.isEditing = 1
+    },
+    cancelEdit: function() {
+      this.isEditing = 0
+    }
+  }
 }
 </script>
 
@@ -88,5 +189,12 @@ h4.faq {
 p {
   line-height: 1.5;
   margin-top: 15px;
+}
+
+.link {
+  font-size: 13px;
+  color: blue;
+  margin-left: 20px;
+  cursor: pointer;
 }
 </style>

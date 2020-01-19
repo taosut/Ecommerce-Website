@@ -195,9 +195,9 @@ export default {
           this.cart[index]['product_name'] = this.cart[index].product_info[
             'product_id'
           ]['product_name']
-          this.totalSum += parseInt(element.product_info.price)
+          this.totalSum += element.product_info.price
           this.discountedtotalSum +=
-            parseInt(element.product_info.mrp) - this.totalSum
+            this.totalSum - element.product_info.mrp
         })
       })
     },
@@ -269,7 +269,7 @@ export default {
   position: relative;
 }
 .shadow {
-  box-shadow: 1px 5px 8px 7px rgba(128, 128, 128, 0.25882352941176473);
+  box-shadow: 0 3px 10px rgba(62,85,120,.07)
 }
 .bg-white {
   background-color: #ffffff;

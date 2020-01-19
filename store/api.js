@@ -1,13 +1,12 @@
-
 console.log(process.env.NODE_ENV)
 
 var url
 
-if(process.env.NODE_ENV == "development"){
+if (process.env.NODE_ENV == "development") {
 
     var url = "http://127.0.0.1:8000/backend/api/";
 
-}else{
+} else {
 
     var url = "/backend/api/";
 
@@ -26,53 +25,63 @@ export const state = () => ({
 
     customer_signup: url + "users/create/customer",
 
-    allProducts : url + "products/getAllActiveProducts",
+    allProducts: url + "products/getAllActiveProducts",
 
-    eachCategoryProducts : url + "products/eachCategoryProducts",
+    eachCategoryProducts: url + "products/eachCategoryProducts",
 
-    getSingleProduct : url + "products/",
+    getSingleProduct: url + "products/",
 
-    getCategory : url + "products/product/home/category",
+    getCategory: url + "products/product/home/category",
 
-    getCategoryForMenu : url + "products/product/home/categoryMenu",
+    getCategoryForMenu: url + "products/product/home/categoryMenu",
 
-    getsubCategory : url + "products/product/subcategory",
+    getsubCategory: url + "products/product/subcategory",
 
-    getBrand : url + "products/product/brand",
+    getBrand: url + "products/product/brand",
 
-    getAllOrder : url + "orders",
-    
-    addProduct : url + "products/create/product",
+    getAllOrder: url + "orders",
 
-    deleteProduct : url + "products/delete/",
+    startOrder: url + "orders/createorderSession",
 
-    deleteCategory : url + "products/product/category/delete/",
+    addProduct: url + "products/create/product",
 
-    deleteSubCategory : url + "products/product/subcategory/delete/",
+    deleteProduct: url + "products/delete/",
 
-    deleteBrand : url + "products/product/brand/delete/",
+    deleteCategory: url + "products/product/category/delete/",
 
-    createOrder:  url +  "orders/order_payment",
+    deleteSubCategory: url + "products/product/subcategory/delete/",
 
-    addToCart : url + "cart/create",
+    deleteBrand: url + "products/product/brand/delete/",
 
-    getCartByUser : url + "cart",
+    createOrder: url + "orders/order_payment",
 
-    removeFromCart : url + "cart/delete/",
-    
-    getalluseraddress : url + "users/getalluseraddress",
+    addToCart: url + "cart/create",
 
-    changeuseraddress : url + "users/changeuseraddress", //id
+    getCartByUser: url + "cart",
 
-    addnewuseraddress : url + "users/addnewuseraddress",
+    cartQuantity: url + "cart/cartquantity/", //cart id
 
-    getrazorpayapi : url + "payments/getrazorpayapi",
+    removeFromCart: url + "cart/delete/",
+
+    getalluseraddress: url + "users/getalluseraddress",
+
+    changeuseraddress: url + "users/changeuseraddress", //id
+
+    addnewuseraddress: url + "users/addnewuseraddress",
+
+
+    //user
+
+    getuserinfo: url + "users/getuserinfo",
+
+
+    getrazorpayapi: url + "payments/getrazorpayapi",
 
     order_payment_success: url + 'orders/order_payment_success',
 
     order_payment_failed: url + 'orders/order_payment_failed/', //razor_order_id
-    
-    getallbanner : url + "admin_app/mainslider/all",
+
+    getallbanner: url + "admin_app/mainslider/all",
 
     productsearch: url + "products"
 

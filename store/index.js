@@ -154,14 +154,14 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                url: state.api.login,
-                data: payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'POST',
+                    url: state.api.login,
+                    data: payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -188,14 +188,14 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                url: state.api.customer_signup,
-                data: payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'POST',
+                    url: state.api.customer_signup,
+                    data: payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -214,19 +214,19 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                url: state.api.addToCart,
-                data: payload,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "Bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'POST',
+                    url: state.api.addToCart,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
                     commit('cart', res.data.body.length)
-                    commit('cart_data', res.body.data)
+                    commit('cart_data', res.data.body)
                     resolve(res)
                 })
                 .catch(err => {
@@ -241,19 +241,44 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getCartByUser,
-                data: payload,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "Bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'GET',
+                    url: state.api.getCartByUser,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
                     commit('cart', res.data.body.length)
                     commit('cart_data', res.data.body)
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    startOrder({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'POST',
+                    url: state.api.startOrder,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
                     resolve(res)
                 })
                 .catch(err => {
@@ -268,13 +293,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'DELETE',
-                url: state.api.removeFromCart + payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'DELETE',
+                    url: state.api.removeFromCart + payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -286,20 +311,46 @@ export const actions = {
         })
     },
 
+    cartQuantity({ commit, state }, { payload, id }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'POST',
+                    data: payload,
+                    url: state.api.cartQuantity + id,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch((err) => {
+                    console.log(err.response)
+                    reject(err);
+                })
+        })
+    },
+
     changeCartQuantity({ commit, state }, { id, payload }) {
 
 
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'PUT',
-                data: payload,
-                url: state.api.removeFromCart + id,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'PUT',
+                    data: payload,
+                    url: state.api.removeFromCart + id,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -321,14 +372,14 @@ export const actions = {
 
 
             axios({
-                method: 'POST',
-                data: payload,
-                url: state.api.createBid,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'POST',
+                    data: payload,
+                    url: state.api.createBid,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -347,14 +398,14 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                url: state.api.signup,
-                data: payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'POST',
+                    url: state.api.signup,
+                    data: payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -373,13 +424,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getCategory,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'GET',
+                    url: state.api.getCategory,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -399,13 +450,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getCategoryForMenu,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'GET',
+                    url: state.api.getCategoryForMenu,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -424,13 +475,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getSingleProduct + payload,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "Bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'GET',
+                    url: state.api.getSingleProduct + payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -457,13 +508,13 @@ export const actions = {
 
 
             axios({
-                method: 'GET',
-                url: state.api.getsubCategory + "/" + payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'GET',
+                    url: state.api.getsubCategory + "/" + payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -487,13 +538,13 @@ export const actions = {
             }
 
             axios({
-                method: 'GET',
-                url: state.api.getBrand + "/" + payload,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'GET',
+                    url: state.api.getBrand + "/" + payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -512,13 +563,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.eachCategoryProducts,
-                contentType: 'application/json',
-                // headers: {
-                //     'Authorization': "Bearer " + this.$cookies.get('access_token')
-                // }
-            })
+                    method: 'GET',
+                    url: state.api.eachCategoryProducts,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    // }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -537,13 +588,13 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getalluseraddress,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "Bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'GET',
+                    url: state.api.getalluseraddress,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -561,14 +612,14 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                data: payload,
-                url: state.api.addnewuseraddress,
-                contentType: 'application/json',
-                headers: {
-                    'Authorization': "Bearer " + this.$cookies.get('access_token')
-                }
-            })
+                    method: 'POST',
+                    data: payload,
+                    url: state.api.addnewuseraddress,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -586,10 +637,10 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getrazorpayapi,
-                contentType: 'application/json',
-            })
+                    method: 'GET',
+                    url: state.api.getrazorpayapi,
+                    contentType: 'application/json',
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -607,11 +658,14 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'POST',
-                data: payload,
-                url: state.api.order_payment_success,
-                contentType: 'application/json',
-            })
+                    method: 'POST',
+                    data: payload,
+                    url: state.api.order_payment_success,
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    },
+                    contentType: 'application/json',
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -629,11 +683,11 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'PUT',
-                data: payload,
-                url: state.api.order_payment_failed,
-                contentType: 'application/json',
-            })
+                    method: 'PUT',
+                    data: payload,
+                    url: state.api.order_payment_failed,
+                    contentType: 'application/json',
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -651,10 +705,34 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.getallbanner,
-                contentType: 'application/json'
-            })
+                    method: 'GET',
+                    url: state.api.getallbanner,
+                    contentType: 'application/json'
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    getuserinfo({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'GET',
+                    url: state.api.getuserinfo,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -672,10 +750,10 @@ export const actions = {
         return new Promise((resolve, reject) => {
 
             axios({
-                method: 'GET',
-                url: state.api.productsearch + payload,
-                contentType: 'application/json'
-            })
+                    method: 'GET',
+                    url: state.api.productsearch + payload,
+                    contentType: 'application/json'
+                })
                 .then(res => {
                     console.log(res.data)
                     console.log('response')
@@ -688,4 +766,3 @@ export const actions = {
     },
 
 }
-

@@ -47,10 +47,14 @@
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
               <star-rating
+                v-if="rating > 1"
                 :star-size="15"
                 v-model="rating"
                 :read-only="true"
               ></star-rating>
+              <div v-else>
+                <p class="pb-2 pt-2" style="font-size:12px">Product Not Rated Yet</p>
+              </div>
               <div class="d-flex align-center">
                 <div class="product_price">₹{{ product.price }}</div>
                 <div class="product_mrp">₹{{ product.mrp }}</div>
@@ -60,16 +64,16 @@
               </div>
               <div class="order_info flex-row">
                 <div class="button_container">
-                  <button type="button" class="button buy_button">
-                    Buy Now
-                  </button>
                   <button
                     type="button"
                     class="button cart_button"
                     @click="addToCart(product.id)"
-                    style="background-color: transparent;border: 1px solid black;color: black;margin-left: 20px"
+                    style="background-color: transparent;border: 1px solid black;color: black;margin-right: 20px"
                   >
                     Add to Cart
+                  </button>
+                  <button type="button" class="button buy_button">
+                    Buy Now
                   </button>
                 </div>
               </div>
@@ -379,7 +383,7 @@ export default {
 
         payload.append('product_info', this.variations[0].id)
         payload.append('quantity', 1)
-        payload.append('seller_id', 100)
+        // payload.append('seller_id', 100)
 
         this.$store.dispatch('addToCart', payload)
         this.getCartByUser()
@@ -807,7 +811,7 @@ button[disabled] {
   background-color: #f5805d;
   display: inline-block;
   border: none;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 48px;
   color: #ffffff;

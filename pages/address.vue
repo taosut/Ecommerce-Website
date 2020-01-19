@@ -61,99 +61,99 @@
                     <div class="col-12">
                       <p>Add New Address</p>
                       <div class="form-group">
-                        <label for="email">Full Name</label>
+                        <label for="fullname">Full Name</label>
                         <input
-                          type="email"
+                          type="text"
                           v-model="payload.fullname"
                           class="form-control"
-                          id="email"
+                          id="fullname"
                         />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Mobile Number</label>
+                        <label for="phonenumber">Mobile Number</label>
                         <input
                           type="text"
                           v-model="payload.mobilenumber"
                           class="form-control"
-                          id="email"
+                          id="phonenumber"
                         />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Pincode</label>
+                        <label for="pincode">Pincode</label>
                         <input
                           type="text"
                           v-model="payload.pincode"
                           class="form-control"
-                          id="email"
+                          id="pincode"
                         />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
+                        <label for="address"
                           >Flat, House no., Building, Company, Apartment:</label
                         >
                         <input
                           type="text"
                           v-model="payload.building"
                           class="form-control"
-                          id="email"
+                          id="address"
                         />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
+                        <label for="area"
                           >Area, Colony, Street, Sector, Village:</label
                         >
                         <input
                           type="text"
                           v-model="payload.street"
                           class="form-control"
-                          id="email"
+                          id="area"
                         />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">Town/City:</label>
+                        <label for="city">Town/City:</label>
                         <input
                           type="text"
                           v-model="payload.city"
                           class="form-control"
-                          id="email"
+                          id="city"
                         />
                       </div>
                     </div>
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email"
+                        <label for="landmark"
                           >Landmark e.g. near apollo hospital:</label
                         >
                         <input
                           type="text"
                           v-model="payload.landmark"
                           class="form-control"
-                          id="email"
+                          id="landmark"
                         />
                       </div>
                     </div>
 
                     <div class="col-12">
                       <div class="form-group">
-                        <label for="email">State:</label>
+                        <label for="state">State:</label>
                         <input
                           type="text"
                           v-model="payload.state"
                           class="form-control"
-                          id="email"
+                          id="state"
                         />
                       </div>
                     </div>
@@ -591,7 +591,8 @@ export default {
 
   //   computed: mapState(['cart_data']),
 
-  middleware: 'auth',
+  middleware: 'cart_auth',
+
   mounted() {
     this.getCartByUser()
     this.getAllUserAddress()
@@ -669,35 +670,11 @@ export default {
       var vm = this
 
       this.razorpay.on('payment.success', function(res) {
-        console.log('yeyhxdsdnsmdnm')
         var payload = new FormData()
-
-        var cart_simplified = []
-
-        vm.cart.forEach((food, index) => {
-          var single_cart = {}
-
-          single_cart['id'] = index + 1
-
-          single_cart['product_name'] = food.product_name
-          single_cart['product_id'] = food.product_id
-          single_cart['product_price'] = food.product_price
-
-          single_cart['seller_name'] = food.store_name
-          single_cart['seller_id'] = food.seller_id
-
-          single_cart['quantity'] = food.quantity
-          single_cart['cart_id'] = food.cart_key
-
-          cart_simplified.push(single_cart)
-        })
-
-        console.log(cart_simplified)
 
         payload.append('razorpay_order_id', res.razorpay_order_id)
         payload.append('razorpay_payment_id', res.razorpay_payment_id)
         payload.append('razorpay_signature', res.razorpay_signature)
-        payload.append('cart', JSON.stringify(cart_simplified))
 
         console.log('success____')
 
@@ -751,27 +728,27 @@ export default {
     createOrder: function(method) {
       var payload = new FormData()
 
-      var cart_simplified = []
+      // var cart_simplified = []
 
-      this.cart.forEach((food, index) => {
-        var single_cart = {}
+      // this.cart.forEach((food, index) => {
+      //   var single_cart = {}
 
-        single_cart['id'] = index + 1
+      //   single_cart['id'] = index + 1
 
-        single_cart['product_name'] = food.product_name
-        single_cart['product_id'] = food.product_id
-        single_cart['product_price'] = food.product_price
+      //   single_cart['product_name'] = food.product_name
+      //   single_cart['product_id'] = food.product_id
+      //   single_cart['product_price'] = food.product_price
 
-        single_cart['seller_name'] = food.store_name
-        single_cart['seller_id'] = food.seller_id
+      //   single_cart['seller_name'] = food.store_name
+      //   single_cart['seller_id'] = food.seller_id
 
-        single_cart['quantity'] = food.quantity
-        single_cart['cart_id'] = food.cart_key
+      //   single_cart['quantity'] = food.quantity
+      //   single_cart['cart_id'] = food.cart_key
 
-        cart_simplified.push(single_cart)
-      })
+      //   cart_simplified.push(single_cart)
+      // })
 
-      console.log(cart_simplified)
+      // console.log(cart_simplified)
 
       switch (method) {
         case 1:
@@ -796,7 +773,6 @@ export default {
       }
 
       payload.append('amount', this.totalSum * 100)
-      payload.append('cart', JSON.stringify(cart_simplified))
 
       axios({
         method: 'POST',
@@ -831,19 +807,27 @@ export default {
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
-        try{
         this.cart = JSON.parse(JSON.stringify(res.data.body))
+
+        console.log(this.cart)
 
         this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.totalSum += parseInt(element.product_price)
-          this.discountedtotalSum +=
-            parseInt(element.product_mrp) - this.totalSum
-        })
-        }catch{
+          this.totalSum += element.current_product_price
 
-        }
+          this.cart[index]['price_changed'] = 0
+          if (element.product_mrp > element.current_product_price) {
+            this.discountedtotalSum += element.product_mrp
+          } else {
+            this.discountedtotalSum += element.current_product_price
+          }
+          if (element.price != element.current_product_price) {
+            this.cart[index]['price_changed'] = 1
+          }
+        })
+
+        this.discountedtotalSum = this.discountedtotalSum - this.totalSum
       })
     },
     removeFromCart: function(id) {
@@ -911,7 +895,7 @@ export default {
   position: relative;
 }
 .shadow {
-  box-shadow: 1px 5px 8px 7px rgba(128, 128, 128, 0.25882352941176473);
+  box-shadow: 0 3px 10px rgba(62,85,120,.07)
 }
 .bg-white {
   background-color: #ffffff;

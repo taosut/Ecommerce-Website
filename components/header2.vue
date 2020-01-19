@@ -48,11 +48,19 @@ export default {
       return this.$store.state.cart
     },
     name() {
-      console.log(this.$cookies.get('name'))
-      if (this.$cookies.get('name') != undefined) {
+      console.log('Sdsdsdsd')
+      console.log(this.$cookies.get('access_token'))
+      if (this.$cookies.get('access_token') != undefined) {
         console.log('cookie')
         this.$store.commit('isLoggedIn', 1)
-        this.$store.commit('name', this.$cookies.get('name'))
+        if (
+          this.$cookies.get('name') != undefined &&
+          this.$cookies.get('name') != ''
+        ) {
+          this.$store.commit('name', this.$cookies.get('name'))
+        } else {
+          this.$store.commit('name', '+ Add a Name')
+        }
       } else {
         console.log('cookieNot')
         this.$store.commit('isLoggedIn', 0)
@@ -62,7 +70,7 @@ export default {
     }
   },
   mounted() {
-    if (this.$cookies.get('name') != undefined) {
+    if (this.$cookies.get('access_token') != undefined) {
       this.$store.dispatch('getCartByUser')
     }
 
@@ -77,15 +85,21 @@ export default {
 
     console.log("this.$cookies.get('name')")
     console.log(this.$cookies.get('name'))
-    if (this.$cookies.get('name') != undefined) {
-      console.log('cookie')
-      this.$store.commit('isLoggedIn', 1)
-      this.$store.commit('name', this.$cookies.get('name'))
-    } else {
-      console.log('cookieNot')
-      this.$store.commit('name', 0)
-      this.$store.commit('isLoggedIn', 0)
-    }
+      if (this.$cookies.get('access_token') != undefined) {
+        console.log('cookie')
+        this.$store.commit('isLoggedIn', 1)
+        if (
+          this.$cookies.get('name') != undefined &&
+          this.$cookies.get('name') != ''
+        ) {
+          this.$store.commit('name', this.$cookies.get('name'))
+        } else {
+          this.$store.commit('name', '+ Add a Name')
+        }
+      } else {
+        console.log('cookieNot')
+        this.$store.commit('isLoggedIn', 0)
+      }
   }
 }
 </script>
