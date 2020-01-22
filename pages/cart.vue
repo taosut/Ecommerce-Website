@@ -44,7 +44,7 @@
                       <p class="pad-11 font-12">Seller: {{ p.store_name }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{ p.price }}</p>
+                      <p class="pad-11">₹ {{ p.single_price }}</p>
                       <p class="pad-11" style="text-decoration: line-through;">
                         ₹ {{ p.product_mrp }}
                       </p>
@@ -576,11 +576,11 @@ export default {
         this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.totalSum += element.price
+          this.totalSum = element.single_price * element.quantity
 
           this.cart[index]['price_changed'] = 0
           if (element.product_mrp > element.price) {
-            this.discountedtotalSum += element.product_mrp
+            this.discountedtotalSum += element.product_mrp * element.quantity
           } else {
             this.discountedtotalSum += element.price
           }
