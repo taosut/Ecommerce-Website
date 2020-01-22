@@ -71,7 +71,7 @@ export default {
   },
   mounted() {
     if (this.$cookies.get('access_token') != undefined) {
-      this.$store.dispatch('getCartByUser')
+      // this.$store.dispatch('getCartByUser')
     }
 
     this.$store.dispatch('getCategory').then(res => {

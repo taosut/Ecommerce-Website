@@ -44,7 +44,7 @@
                       <p class="pad-11 font-12">Seller: {{ p.store_name }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{ p.current_product_price }}</p>
+                      <p class="pad-11">₹ {{ p.price }}</p>
                       <p class="pad-11" style="text-decoration: line-through;">
                         ₹ {{ p.product_mrp }}
                       </p>
@@ -576,15 +576,15 @@ export default {
         this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.totalSum += element.current_product_price
+          this.totalSum += element.price
 
           this.cart[index]['price_changed'] = 0
-          if (element.product_mrp > element.current_product_price) {
+          if (element.product_mrp > element.price) {
             this.discountedtotalSum += element.product_mrp
           } else {
-            this.discountedtotalSum += element.current_product_price
+            this.discountedtotalSum += element.price
           }
-          if (element.price != element.current_product_price) {
+          if (element.single_price != element.current_product_price) {
             this.cart[index]['price_changed'] = 1
           }
         })
@@ -619,6 +619,7 @@ export default {
       this.$store
         .dispatch('cartQuantity', { payload, id })
         .then(res => {
+          this.getCartByUser()
         })
         .catch(error => {
           this.error = error.response.data
@@ -640,6 +641,7 @@ export default {
       this.$store
         .dispatch('cartQuantity', { payload, id })
         .then(res => {
+          this.getCartByUser()
         })
         .catch(error => {
           this.error = error.response.data
