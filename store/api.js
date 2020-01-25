@@ -41,6 +41,8 @@ export const state = () => ({
 
     getAllOrder: url + "orders",
 
+    cod_payment: url + "orders/cod_payment",
+
     startOrder: url + "orders/createorderSession",
 
     addProduct: url + "products/create/product",

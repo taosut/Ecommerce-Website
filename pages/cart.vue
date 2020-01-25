@@ -655,19 +655,22 @@ export default {
 
       this.cart.forEach((element, index) => {
         var single_cart = {}
-        single_cart['cart_key'] = element.cart_key
+        single_cart['id'] = element.cart_key
+        single_cart['quantity'] = element.quantity
         cart_id.push(single_cart)
       })
 
         console.log(cart_id)
       // console.log(cart_simplified)
 
-      payload.append('cart_ids', JSON.stringify(cart_id))
+      payload.append('cart_keys', JSON.stringify(cart_id))
 
-      // this.$store.dispatch('startOrder', payload).then(res => {
+      this.$store.dispatch('startOrder', payload).then(res => {
+        console.log(res)
+        console.log(res.data.session_key)
+        this.$store.commit('session_key' , res.data.session_key)
         this.$router.push('/address')
-        // console.log(res)
-      // })
+      })
     },
     deleteCartItem: function(id) {
       this.$store.dispatch('removeFromCart', id).then(res => {
