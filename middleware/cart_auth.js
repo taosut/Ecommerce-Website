@@ -1,6 +1,6 @@
 export default function({ store, redirect, app }) {
-    console.log(app.$cookies.get('access_token'))
-    if (!app.$cookies.get('access_token')) {
+    console.log(store.state.session_key)
+    if (!app.$cookies.get('access_token') || !store.state.session_key) {
         return redirect('/cart')
     }
 }

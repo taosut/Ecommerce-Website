@@ -44,7 +44,7 @@
                       <p class="pad-11 font-12">Seller: {{ p.store_name }}</p>
                     </div>
                     <div>
-                      <p class="pad-11">₹ {{ p.current_product_price }}</p>
+                      <p class="pad-11">₹ {{ p.single_price }}</p>
                       <p class="pad-11" style="text-decoration: line-through;">
                         ₹ {{ p.product_mrp }}
                       </p>
@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
-              <p style="color: #009688">
+              <p style="color: #009688" v-if="discountedtotalSum > 0">
                 You will save ₹ {{ discountedtotalSum }} on this order
               </p>
               <div class="d-flex justify-content-end pad12">
@@ -576,15 +576,15 @@ export default {
         this.cart.filter(v => (v.product_images = JSON.parse(v.product_images)))
 
         this.cart.forEach((element, index) => {
-          this.totalSum += element.current_product_price
+          this.totalSum = element.single_price * element.quantity
 
           this.cart[index]['price_changed'] = 0
-          if (element.product_mrp > element.current_product_price) {
-            this.discountedtotalSum += element.product_mrp
+          if (element.product_mrp > element.price) {
+            this.discountedtotalSum += element.product_mrp * element.quantity
           } else {
-            this.discountedtotalSum += element.current_product_price
+            this.discountedtotalSum += element.price
           }
-          if (element.price != element.current_product_price) {
+          if (element.single_price != element.current_product_price) {
             this.cart[index]['price_changed'] = 1
           }
         })
@@ -619,6 +619,7 @@ export default {
       this.$store
         .dispatch('cartQuantity', { payload, id })
         .then(res => {
+          this.getCartByUser()
         })
         .catch(error => {
           this.error = error.response.data
@@ -640,6 +641,7 @@ export default {
       this.$store
         .dispatch('cartQuantity', { payload, id })
         .then(res => {
+          this.getCartByUser()
         })
         .catch(error => {
           this.error = error.response.data
@@ -652,20 +654,21 @@ export default {
       var cart_id = []
 
       this.cart.forEach((element, index) => {
-        var single_cart = {}
-        single_cart['cart_key'] = element.cart_key
-        cart_id.push(single_cart)
+        cart_id.push(element.cart_key)
       })
 
-        console.log(cart_id)
+        console.log(cart_id.join(", "))
       // console.log(cart_simplified)
 
-      payload.append('cart_ids', JSON.stringify(cart_id))
+      payload.append('cart_keys', cart_id.join(", "))
+      payload.append('source', 'Website')
 
-      // this.$store.dispatch('startOrder', payload).then(res => {
+      this.$store.dispatch('startOrder', payload).then(res => {
+        console.log(res)
+        console.log(res.data.session_key)
+        this.$store.commit('session_key' , res.data.session_key)
         this.$router.push('/address')
-        // console.log(res)
-      // })
+      })
     },
     deleteCartItem: function(id) {
       this.$store.dispatch('removeFromCart', id).then(res => {

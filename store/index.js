@@ -51,6 +51,7 @@ export const state = () => ({
     getAllOrder: [],
     getSingleProduct: [],
 
+    session_key: "",
 
     cart_address: []
 
@@ -100,6 +101,10 @@ export const mutations = {
     cart_address(state, cart_address) {
         console.log('selecting exercise mutation, ' + cart_address)
         state.cart_address = cart_address
+    },
+    session_key(state, session_key) {
+        console.log('selecting exercise mutation, ' + session_key)
+        state.session_key = session_key
     },
 }
 
@@ -270,6 +275,31 @@ export const actions = {
             axios({
                     method: 'POST',
                     url: state.api.startOrder,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    cod_payment({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'POST',
+                    url: state.api.cod_payment,
                     data: payload,
                     contentType: 'application/json',
                     headers: {
@@ -708,6 +738,30 @@ export const actions = {
                     method: 'GET',
                     url: state.api.getallbanner,
                     contentType: 'application/json'
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    allUserOrders({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'GET',
+                    url: state.api.allUserOrders,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    },
                 })
                 .then(res => {
                     console.log(res.data)
