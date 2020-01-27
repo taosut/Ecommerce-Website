@@ -24,7 +24,8 @@
                     type="text"
                     class="form-control"
                     placeholder="First Name"
-                    :value="user_info.firstname"
+                    v-model="firstname"
+                    value="user_info.firstname"
                   />
                 </div>
               </div>
@@ -35,7 +36,8 @@
                     type="text"
                     class="form-control"
                     placeholder="Last Name"
-                    :value="user_info.lastname"
+                    v-model="lastname"
+                    value="user_info.lastname"
                   />
                 </div>
               </div>
@@ -46,8 +48,10 @@
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio1"
+                    value="0"
                     :checked = "user_info.gender == 0"
-                    :value="user_info.gender"
+                    v-model="user_info.gender"
+                    
                   />
                   <label class="form-check-label" for="inlineRadio1"
                     >Male</label
@@ -59,8 +63,9 @@
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio2"
+                    value = "1"
                     :checked = "user_info.gender == 1"
-                    :value="user_info.gender"
+                    v-model="user_info.gender"
                   />
                   <label class="form-check-label" for="inlineRadio2"
                     >Female</label
@@ -72,8 +77,9 @@
                     type="radio"
                     name="inlineRadioOptions"
                     id="inlineRadio3"
+                    value = "2"
                     :checked = "user_info.gender == 2"
-                    :value="user_info.gender"
+                    v-model="user_info.gender"
                   />
                   <label class="form-check-label" for="inlineRadio3"
                     >Others</label
@@ -81,7 +87,7 @@
                 </div>
               </div>
               <div class="col-12">
-                <button type="button" v-if="isEditing == 1" class="btn btn-primary">SAVE</button>
+                <button @click="updateUserInfo" type="button" v-if="isEditing == 1" class="btn btn-primary">SAVE</button>
               </div>
             </div>
 
@@ -137,6 +143,9 @@ export default {
   data() {
     return {
       isEditing: 0,
+      firstname: "",
+      lastname: "",
+      gender: "",
       user_info: []
     }
   },
@@ -148,6 +157,9 @@ export default {
     this.$store.dispatch('getuserinfo').then(res=>{
       console.log(res.data)
       this.user_info = res.data
+      this.firstname = res.data.firstname
+      this.lastname = res.data.lastname
+      this.gender = res.data.gender
     })
 
   },
@@ -158,6 +170,18 @@ export default {
     },
     cancelEdit: function() {
       this.isEditing = 0
+    },
+    updateUserInfo: function(){
+
+      var payload = new FormData()
+      console.log(this.user_info.firstname)
+      payload.append('firstname' , this.firstname)
+      payload.append('lastname' , this.lastname)
+      // payload.append('gender' , this.user_info.gender)
+
+      this.$store.dispatch('updateuserinfo', payload).then(res=>{
+        console.log("Updated User")
+      })
     }
   }
 }

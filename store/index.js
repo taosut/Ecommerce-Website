@@ -744,6 +744,31 @@ export const actions = {
         })
     },
 
+    updateuserinfo({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'PUT',
+                    data: payload,
+                    url: state.api.updateuserinfo,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
     productsearch({ commit, state }, payload) {
 
 

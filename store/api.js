@@ -74,6 +74,8 @@ export const state = () => ({
 
     getuserinfo: url + "users/getuserinfo",
 
+    updateuserinfo: url + "users/updateuserinfo",
+
 
     getrazorpayapi: url + "payments/getrazorpayapi",
 
