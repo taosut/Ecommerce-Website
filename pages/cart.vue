@@ -146,7 +146,7 @@
               </div>
             </div>
             <div class="border-top" style="padding:20px 24px">
-              <p style="color: #009688">
+              <p style="color: #009688" v-if="discountedtotalSum > 0">
                 You will save ₹ {{ discountedtotalSum }} on this order
               </p>
               <div class="d-flex justify-content-end pad12">
@@ -654,16 +654,14 @@ export default {
       var cart_id = []
 
       this.cart.forEach((element, index) => {
-        var single_cart = {}
-        single_cart['id'] = element.cart_key
-        single_cart['quantity'] = element.quantity
-        cart_id.push(single_cart)
+        cart_id.push(element.cart_key)
       })
 
-        console.log(cart_id)
+        console.log(cart_id.join(", "))
       // console.log(cart_simplified)
 
-      payload.append('cart_keys', JSON.stringify(cart_id))
+      payload.append('cart_keys', cart_id.join(", "))
+      payload.append('source', 'Website')
 
       this.$store.dispatch('startOrder', payload).then(res => {
         console.log(res)
