@@ -162,7 +162,7 @@ export default {
   mounted() {
     this.getUserAddress()
   },
-  middleware: 'cart_auth',
+  middleware: 'auth',
   methods: {
     getUserAddress: function() {
       this.$store.dispatch('getAllUserAddress').then(res => {

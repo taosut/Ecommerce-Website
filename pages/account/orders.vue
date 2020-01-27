@@ -10,14 +10,14 @@
             <h4 class="header">My Orders</h4>
             <div class="row pt-3">
               <div class="col-12" v-for="p in allOrders" :key="p.id">
-                <div class="d-flex align-items-center">
+                <div class="d-flex pb-5">
                   <div class="product_images">
                     <img
-                      :src="baseurl + '/backend/api/products/image/200/40/'"
+                      :src="baseurl + '/backend/api/products/image/50/40/' + p.product_images[0]"
                       alt
                     />
                   </div>
-                  <div>
+                  <div class="pl-3">
                     <p>{{p.product_name}}</p>
                     <p>{{p.product_price}}</p>
                   </div>
@@ -91,10 +91,10 @@ h4.faq {
   font-weight: 500;
 }
 
-p {
+/* p {
   line-height: 1.5;
   margin-top: 15px;
-}
+} */
 
 .link {
   font-size: 13px;
