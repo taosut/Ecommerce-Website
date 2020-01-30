@@ -29,6 +29,8 @@ export const state = () => ({
 
     eachCategoryProducts: url + "products/eachCategoryProducts",
 
+    eachofferset: url + "admin_app/eachofferset",
+
     getSingleProduct: url + "products/",
 
     getCategory: url + "products/product/home/category",

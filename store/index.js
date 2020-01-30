@@ -612,6 +612,31 @@ export const actions = {
         })
     },
 
+    eachofferset({ commit, state }) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'GET',
+                    url: state.api.eachofferset,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    // }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    commit('getAllProducts', res.data);
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
     getAllUserAddress({ commit, state }) {
 
 

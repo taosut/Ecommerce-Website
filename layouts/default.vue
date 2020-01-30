@@ -1,10 +1,14 @@
 <template>
   <div>
     <!-- <Header v-if="$nuxt.$route.name != 'address'"/> -->
-    <Header v-if="$nuxt.$route.name != 'cart' && $nuxt.$route.name != 'address' && $nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
+    <Header
+      v-if="$nuxt.$route.name != 'cart' && $nuxt.$route.name != 'address' && $nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"
+    />
     <Header2 v-else />
     <nuxt />
-    <Footer v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"/>
+    <Footer
+      v-if="$nuxt.$route.name != 'legal-about' && $nuxt.$route.name != 'legal-buyeragreement' && $nuxt.$route.name != 'legal-privacy' && $nuxt.$route.name != 'legal-returnpolicy' &&$nuxt.$route.name != 'legal-selleragreement' && $nuxt.$route.name != 'legal-disclaimer'"
+    />
   </div>
 </template>
 
@@ -47,19 +51,18 @@ export default {
 </script>
 
 <style>
-
 @font-face {
-font-family: 'Regular';
-src: url('~static/fonts/regular.woff') format('truetype');
-font-weight: normal;
-font-style: normal;
+  font-family: 'Regular';
+  src: url('~static/fonts/regular.woff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
-font-family: 'Light';
-src: url('~static/fonts/light.woff') format('truetype');
-font-weight: lighter;
-font-style: normal;
+  font-family: 'Light';
+  src: url('~static/fonts/light.woff') format('truetype');
+  font-weight: lighter;
+  font-style: normal;
 }
 
 /* @font-face {
@@ -70,28 +73,27 @@ font-style: normal;
 } */
 
 @font-face {
-font-family: 'Bold';
-src: url('~static/fonts/bold.woff') format('truetype');
-font-weight: bold;
-font-style: normal;
+  font-family: 'Bold';
+  src: url('~static/fonts/bold.woff') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
-
-.no-padd{
-  padding: 0
+.no-padd {
+  padding: 0;
 }
 
-.no-mar{
-  margin: 0
+.no-mar {
+  margin: 0;
 }
 
-th{
+th {
   font-family: 'Light';
 }
 
 html {
-  font-family: 'Regular' ,'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Regular', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -108,10 +110,10 @@ html {
   margin: 0;
 }
 
-body{
-  font-family: 'Regular' ,'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  background-color: #f1f3f6
+body {
+  font-family: 'Regular', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: #f1f3f6;
 }
 
 .button--green {
@@ -257,7 +259,7 @@ p {
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
-  border-radius: 5px 0px 0px 5px!important;
+  border-radius: 5px 0px 0px 5px !important;
   width: 50px;
   height: 50px;
   display: flex;
@@ -271,7 +273,7 @@ p {
   top: -190px;
   background-color: white !important;
   box-shadow: 0px 7px 8px #0000002b;
-  border-radius: 0px 5px 5px 0px!important;
+  border-radius: 0px 5px 5px 0px !important;
   width: 50px;
   height: 50px;
   display: flex;
@@ -342,9 +344,23 @@ p {
   cursor: pointer;
 }
 
+.container-header {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 @media (min-width: 1200px) {
-  .container {
+  .container-header {
     max-width: 1250px;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .container {
+    max-width: 90%;
   }
 }
 
@@ -352,5 +368,9 @@ p {
   .container {
     max-width: 95%;
   }
+}
+
+.VueCarousel-pagination {
+  display: none !important;
 }
 </style>

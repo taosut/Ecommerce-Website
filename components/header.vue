@@ -5,7 +5,7 @@
     <!-- Top Bar -->
 
     <div class="top_bar">
-      <div class="container">
+      <div class="container-header">
         <div class="row">
           <div class="col d-flex flex-row">
             <div class="top_bar_contact_item">
@@ -86,7 +86,7 @@
     <!-- Header Main -->
 
     <div class="header_main">
-      <div class="container">
+      <div class="container-header">
         <div class="row no-mar">
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">

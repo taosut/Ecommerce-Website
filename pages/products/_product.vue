@@ -8,15 +8,11 @@
           <!-- Images -->
           <div class="col-lg-1 order-lg-1 order-2">
             <ul class="image_list">
-              <li
-                @mouseover="changeImage(p)"
-                v-for="(p, index) in productimages"
-                :key="p.id"
-              >
+              <li @mouseover="changeImage(p)" v-for="(p, index) in productimages" :key="p.id">
                 <img
                   :src="baseurl + '/backend/api/products/image/50/90/' + p"
                   @error="setFallbackImageUrl"
-                  alt=""
+                  alt
                 />
               </li>
             </ul>
@@ -32,7 +28,7 @@
                     productimages[0]
                 "
                 @error="setFallbackImageUrl"
-                alt=""
+                alt
               />
             </div>
           </div>
@@ -40,18 +36,13 @@
           <!-- Description -->
           <div class="col-lg-5 order-3">
             <div class="product_description">
-              <div class="product_category">
-                {{ product.category_name }} > {{ product.subcategory_name }}
-              </div>
+              <div
+                class="product_category"
+              >{{ product.category_name }} > {{ product.subcategory_name }}</div>
 
               <div class="product_name">{{ product.product_name }}</div>
               <div>{{ product.brand_name }}</div>
-              <star-rating
-                v-if="rating > 1"
-                :star-size="15"
-                v-model="rating"
-                :read-only="true"
-              ></star-rating>
+              <star-rating v-if="rating > 1" :star-size="15" v-model="rating" :read-only="true"></star-rating>
               <div v-else>
                 <p class="pb-2 pt-2" style="font-size:12px">Product Not Rated Yet</p>
               </div>
@@ -67,14 +58,14 @@
                   <button
                     type="button"
                     class="button cart_button"
-                    @click="addToCart(product.id)"
+                    @click="addToCart(product.id , 0)"
                     style="background-color: transparent;border: 1px solid black;color: black;margin-right: 20px"
-                  >
-                    Add to Cart
-                  </button>
-                  <button type="button" class="button buy_button">
-                    Buy Now
-                  </button>
+                  >Add to Cart</button>
+                  <button
+                    type="button"
+                    @click="addToCart(product.id, 1)"
+                    class="button buy_button"
+                  >Buy Now</button>
                 </div>
               </div>
             </div>
@@ -97,11 +88,7 @@
           <h4 class="pt-2">Highlights</h4>
           <div>
             <ul class="row" style="padding:20px 10px">
-              <li
-                class="col-4 no-padd"
-                v-for="(p, index) in product_bullet_points"
-                :key="p.id"
-              >
+              <li class="col-4 no-padd" v-for="(p, index) in product_bullet_points" :key="p.id">
                 <span class="list-circle"></span>
                 <span class="hightlist-li">{{ p.value }}</span>
               </li>
@@ -141,36 +128,28 @@
                               v-if="q.value && q.value != undefined"
                             >
                               <td width="20%">
-                                <p class="specification-header-p">
-                                  {{ q.name }}
-                                </p>
+                                <p class="specification-header-p">{{ q.name }}</p>
                               </td>
                               <td>
                                 <div v-if="q.type == 1">
                                   <p
                                     class="specs-value specification-value-p"
                                     type="text"
-                                  >
-                                    {{ q.value }}
-                                  </p>
+                                  >{{ q.value }}</p>
                                 </div>
 
                                 <div style="display: flex;" v-if="q.type == 2">
                                   <p
                                     class="specs-value specification-value-p"
                                     type="text"
-                                  >
-                                    {{ q.value }}
-                                  </p>
+                                  >{{ q.value }}</p>
                                 </div>
 
                                 <div style="display: flex;" v-if="q.type == 3">
                                   <p
                                     class="specs-value specification-value-p"
                                     type="text"
-                                  >
-                                    {{ q.value }} {{ q.dropdown }}
-                                  </p>
+                                  >{{ q.value }} {{ q.dropdown }}</p>
                                 </div>
                               </td>
                             </tr>
@@ -198,23 +177,16 @@
                 <div class="pb-5" v-for="p in reviews" :key="p.id">
                   <div class="d-flex align-center justify-content-between">
                     <!-- <img src="/"> -->
-                    <div
-                      class="d-flex align-center"
-                      style="position: relative;left: -2px;"
-                    >
-                      <div class="name-round">
-                        {{ p.name[0] }}
-                      </div>
+                    <div class="d-flex align-center" style="position: relative;left: -2px;">
+                      <div class="name-round">{{ p.name[0] }}</div>
                       <p class="ml-2">{{ p.name }}</p>
                     </div>
                   </div>
-                  <h4 class="pt-3">
-                    {{ p.header }}
-                  </h4>
+                  <h4 class="pt-3">{{ p.header }}</h4>
                   <p>
                     {{ p.created_date.split('T')[0] }}
                     {{ p.created_date.split('T')[1].split(':')[0] }}:{{
-                      p.created_date.split('T')[1].split(':')[1]
+                    p.created_date.split('T')[1].split(':')[1]
                     }}
                   </p>
                   <div class="d-flex pb-3">
@@ -225,9 +197,7 @@
                       :read-only="true"
                     ></star-rating>
                   </div>
-                  <div>
-                    {{ p.review }}
-                  </div>
+                  <div>{{ p.review }}</div>
                 </div>
               </div>
             </div>
@@ -281,7 +251,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -377,7 +347,7 @@ export default {
       })
     },
 
-    addToCart: function() {
+    addToCart: function(p, i) {
       if (this.$store.state.isLoggedIn) {
         var payload = new FormData()
 
@@ -385,7 +355,9 @@ export default {
         payload.append('quantity', 1)
         // payload.append('seller_id', 100)
 
-        this.$store.dispatch('addToCart', payload)
+        this.$store.dispatch('addToCart', payload).then(res => {
+          if (i == 1) this.$router.push('/cart')
+        })
         this.getCartByUser()
       } else {
       }

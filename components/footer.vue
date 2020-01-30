@@ -5,7 +5,7 @@
     <!-- Footer -->
 
     <footer class="footer" style="background-color: #fefefe">
-      <div class="container">
+      <div class="container-header">
         <div class="row">
           <div class="col-lg-3 footer_col">
             <div class="footer_column footer_contact">
@@ -92,7 +92,7 @@
     <!-- Copyright -->
 
     <div class="copyright">
-      <div class="container">
+      <div class="container-header">
         <div class="row no-mar">
           <div class="col">
             <div
