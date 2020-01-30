@@ -18,7 +18,8 @@
     "nuxt": "^2.0.0",
     "postcss-color-mod-function": "^3.0.3",
     "vue-owl-carousel": "^2.0.3",
-    "vue-star-rating": "^1.6.1"
+    "vue-star-rating": "^1.6.1",
+    "vue-carousel": "^0.18.0"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.27",

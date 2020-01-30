@@ -4,20 +4,16 @@
       <client-only>
         <carousel
           class="hero-carousel"
-          :nav="false"
+          :per-page="1"
           :autoplay="true"
-          :autoplayTimeout="3000"
+          :mouse-drag="true"
           :loop="true"
-          :items="1"
-          :dots="false"
-          v-if="allBanners.length > 0"
+          paginationColor="#e91e63"
+          paginationSize="0"
+          paginationActiveColor="#ffffff"
         >
-          <template class="hide-on-small-only" slot="prev"
-            ><span class="carousel-prev hide-on-small-only"
-              ><img class="rotate180" src="icons/arrow.svg"/></span
-          ></template>
-          <div class="item" v-for="p in allBanners" :key="p.id">
-     
+          <slide v-for="p in allBanners" :key="p.id">
+            <div class="item">
               <nuxt-link :to="p.url" v-if="p.url != null && p.url != '' && p.url != undefined">
                 <img
                   @click="get"
@@ -28,16 +24,14 @@
                 />
               </nuxt-link>
 
-              <img v-else
+              <img
+                v-else
                 @click="get"
                 :src="baseurl + '/media/banners/' + p.image"
                 @error="setFallbackImageUrl"
               />
-          </div>
-          <template class="hide-on-small-only" slot="next"
-            ><span class="carousel-next hide-on-small-only"
-              ><img src="icons/arrow.svg"/></span
-          ></template>
+            </div>
+          </slide>
         </carousel>
       </client-only>
     </div>
@@ -49,18 +43,9 @@
         <div class="container">
           <div class="row">
             <!-- Char. Item -->
-            <div
-              class="col-lg-3 col-md-6 char_col"
-              v-for="p in 4"
-              :key="p"
-              style="display: none"
-            >
-              <div
-                class="viewed_item discount d-flex flex-column justify-content-center"
-              >
-                <p style="text-align:left;padding-bottom:20px">
-                  iPhone 11 Gold XR
-                </p>
+            <div class="col-lg-3 col-md-6 char_col" v-for="p in 4" :key="p" style="display: none">
+              <div class="viewed_item discount d-flex flex-column justify-content-center">
+                <p style="text-align:left;padding-bottom:20px">iPhone 11 Gold XR</p>
                 <div
                   class="viewed_image"
                   style="display: flex;width: 100%;align-items: center;justify-content: center;"
@@ -89,47 +74,55 @@
                 </div>
 
                 <div>
-                  <div class="owl-carousel owl-theme viewed_slider">
-                    <div class="" v-for="q in p.products" :key="q.id">
-                      <nuxt-link :to="'/products/' + q.slug">
-                        <div
-                          class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                        >
-                          <div class="viewed_image">
-                            <img
-                              :src="
+                  <client-only>
+                    <carousel
+                      class="product-carousel"
+                      :perPageCustom="[[0, 1], [600, 6]]"
+                      :autoplay="true"
+                      :mouse-drag="true"
+                      :loop="true"
+                      paginationColor="#e91e63"
+                      paginationSize="0"
+                      paginationActiveColor="#ffffff"
+                    >
+                      <slide class v-for="q in p.products" :key="q.id">
+                        <nuxt-link :to="'/products/' + q.slug">
+                          <div
+                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
+                          >
+                            <div class="viewed_image">
+                              <img
+                                :src="
                                 baseurl +
                                   '/backend/api/products/image/200/40/' +
                                   q.images[0]
                               "
-                              @error="setFallbackImageUrl"
-                              alt
-                            />
-                          </div>
-                          <div class="viewed_content text-center">
-                            <div class="viewed_name">
-                              <p class="clamp2">{{ q.product_name }}</p>
+                                @error="setFallbackImageUrl"
+                                alt
+                              />
                             </div>
-                            <div class="viewed_price">
-                              ₹{{ q.price }}
-                              <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
+                            <div class="viewed_content text-center">
+                              <div class="viewed_name">
+                                <p class="clamp2">{{ q.product_name }}</p>
+                              </div>
+                              <div class="viewed_price">
+                                ₹{{ q.price }}
+                                <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
+                              </div>
                             </div>
-                          </div>
-                          <ul class="item_marks">
-                            <li
-                              class="item_mark item_discount"
-                              v-if="q.price < q.mrp"
-                            >
-                              {{
+                            <ul class="item_marks">
+                              <li class="item_mark item_discount" v-if="q.price < q.mrp">
+                                {{
                                 Math.round(((q.mrp - q.price) / q.mrp) * 100)
-                              }}%
-                            </li>
-                            <li class="item_mark item_new">new</li>
-                          </ul>
-                        </div>
-                      </nuxt-link>
-                    </div>
-                  </div>
+                                }}%
+                              </li>
+                              <li class="item_mark item_new">new</li>
+                            </ul>
+                          </div>
+                        </nuxt-link>
+                      </slide>
+                    </carousel>
+                  </client-only>
                 </div>
               </div>
             </div>
@@ -393,5 +386,19 @@ export default {
 
 .carousel-image {
   cursor: pointer;
+}
+
+.hero-carousel img {
+  height: 500px;
+  width: 100%;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
+}
+
+.product-carousel img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover !important;
+  object-fit: cover !important;
 }
 </style>
