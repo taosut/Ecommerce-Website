@@ -8,7 +8,6 @@
           :autoplay="false"
           :mouse-drag="true"
           :loop="true"
-          paginationSize="0"
           paginationColor="#e91e63"
           paginationActiveColor="#ffffff"
         >
@@ -75,7 +74,8 @@
                     <h3 class="viewed_title">{{ p.title }}</h3>
                     <h3 class="viewed_subtitle">{{ p.subtitle }}</h3>
                   </div>
-                  <button v-if="p.items.length > 5" class="btn btn-primary white-text">View All</button>
+                  <button @click="viewOfferList(p.title)" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
+                  <button @click="viewOfferList(p.title)" v-if="p.items.length > 5" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
                 </div>
 
                 <div>
@@ -122,7 +122,7 @@
                       v-else-if="p.carousel_type==1"
                       class="product-carousel"
                       :perPageCustom="[[0, 1], [600, 6]]"
-                      :autoplay="true"
+                      :autoplay="false"
                       :mouse-drag="true"
                       :loop="true"
                       paginationColor="#e91e63"
@@ -340,6 +340,13 @@ export default {
           }
         }
       })
+    },
+    viewOfferList: function(title) {
+
+      console.log(title)
+
+        this.$router.push('/offers-list/' + title.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase())
+
     },
     eachofferset: function() {
       this.$store.dispatch('eachofferset').then(res => {

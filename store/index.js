@@ -637,6 +637,29 @@ export const actions = {
         })
     },
 
+    singleHomeCarousel({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'GET',
+                    url: state.api.singleHomeCarousel + payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    // }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
     getAllUserAddress({ commit, state }) {
 
 

@@ -31,6 +31,8 @@ export const state = () => ({
 
     eachofferset: url + "admin_app/eachofferset",
 
+    singleHomeCarousel: url + "admin_app/singleofferlist/", //home_id
+
     getSingleProduct: url + "products/",
 
     getCategory: url + "products/product/home/category",
@@ -80,7 +82,6 @@ export const state = () => ({
 
     updateuserinfo: url + "users/updateuserinfo",
 
-
     getrazorpayapi: url + "payments/getrazorpayapi",
 
     order_payment_success: url + 'orders/order_payment_success',
@@ -92,6 +93,8 @@ export const state = () => ({
     productsearch: url + "products",
 
     allUserOrders: url + "orders/alluserorder",
+
+
 
 
 
