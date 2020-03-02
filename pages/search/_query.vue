@@ -1,38 +1,44 @@
 <template>
   <div style="margin: 20px 0;">
+    <div class="loading-container loading">
+      <div class="loader">Loading...</div>
+    </div>
     <div class="container">
       <div class="row">
         <div class="col-12">
           <h3 class="capitalize">{{ subcategory }}</h3>
         </div>
         <div class="col-md-3">
-          <div class="account">
-            <div class="account-info">
+          <div class="account" v-show="subcategories_list.length == 1">
+            <!-- <div class="account-info">
               <span>PRICE</span>
-              <input
-                type="text"
-                class="js-range-slider"
-                name="my_range"
-                value=""
-              />
-            </div>
-            <div
-              class="account-info"
-              v-for="(p, index) in filter_options"
-              :key="index"
-            >
+              <input type="text" class="js-range-slider" name="my_range" value />
+            </div>-->
+            <div class="account-info" v-for="(p, index) in filter_options" :key="index">
               <span>{{ index }}</span>
-              <div class="" :title="index1" v-for="(q, index1) in p" :key="q">
-                <label
-                  ><input
+              <div class :title="index1" v-for="(q, index1) in p" :key="q">
+                <label>
+                  <input
                     @change="refresh_result(index, q, $event.target.checked)"
                     type="checkbox"
                     class="_3uUUD5"
                     :name="slugify(index)"
                     :value="slugify(q)"
                   />
-                  <div class="filter_name">{{ q }}</div></label
-                >
+                  <div class="filter_name">{{ q }}</div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="account" v-show="subcategories_list.length > 1">
+            <div class="account-info">
+              <span style="font-size:10px">PICK A CATEGORY</span>
+            </div>
+            <div class="account-info" v-for="(p, index) in subcategories_list" :key="index">
+              <div>
+                <label>
+                  <nuxt-link :to="'/search/' + slugify(p) + '?limit=10&offset=0'">{{ p }}</nuxt-link>
+                </label>
               </div>
             </div>
           </div>
@@ -61,9 +67,10 @@
                     </div>
                   </div>
                   <ul class="item_marks">
-                    <li class="item_mark item_discount" v-if="q.price < q.mrp">
-                      {{ Math.round(((q.mrp - q.price) / q.mrp) * 100) }}%
-                    </li>
+                    <li
+                      class="item_mark item_discount"
+                      v-if="q.price < q.mrp"
+                    >{{ Math.round(((q.mrp - q.price) / q.mrp) * 100) }}%</li>
                     <li class="item_mark item_new">new</li>
                   </ul>
                 </div>
@@ -80,12 +87,22 @@
 export default {
   data() {
     return {
-      query_string: this.$route.params,
+      query_string: this.$route.fullPath,
       search_result: [],
       subcategory: '',
       filters: {},
       baseurl: process.env.baseUrl,
-      filter_options: {}
+      filter_options: {},
+      subcategories_list: []
+    }
+  },
+  watch: {
+    $route(to, from) {
+      $('.loading').removeClass('hide')
+      console.log('sdsd')
+      console.log(to)
+      console.log(from)
+      this.getQuery(this.$route.fullPath)
     }
   },
   methods: {
@@ -98,53 +115,44 @@ export default {
       if (state == true) {
         searchParams.append('filters', attr + '=' + this.slugify(value))
         var final_url = decodeURIComponent(searchParams.toString())
-        window.location.href = final_url
+        // window.location.href = final_url
+        this.$router.push(final_url)
       } else {
         console.log(attr + '=' + this.slugify(value))
         // searchParams.delete('filters', attr + '=' + this.slugify(value))
         var temp = searchParams.toString()
-        var replace = "&filters=" + encodeURIComponent(attr + '=' + this.slugify(value.toLowerCase()))
+        var replace =
+          '&filters=' +
+          encodeURIComponent(attr + '=' + this.slugify(value.toLowerCase()))
+        encodeURIComponent(attr + '=' + this.slugify(value.toLowerCase()))
         console.log(replace)
-        temp = temp.replace(replace, "");
-        console.log(temp)
-        window.location.href = decodeURIComponent(temp)
-
+        temp = temp.replace(replace, '')
+        console.log(decodeURIComponent(temp))
+        // window.location.href = decodeURIComponent(temp)
+        this.$router.push(decodeURIComponent(temp))
       }
-
 
       console.log(final_url)
     },
     slugify: function(string) {
-    return string.trim() // Remove surrounding whitespace.
-    .toLowerCase() // Lowercase.
-    .replace(/[^a-z0-9]+/g,'-') // Find everything that is not a lowercase letter or number, one or more times, globally, and replace it with a dash.
-    .replace(/^-+/, '') // Remove all dashes from the beginning of the string.
-    .replace(/-+$/, ''); // Remove all dashes from the end of the string.
-}
-  },
-  mounted() {
-    console.log('sssssssssssss')
-    console.log(this.$route.path)
-    console.log(this.$route.fullPath.replace('/search', ''))
-    console.log(this.$route.query.filters)
-
-    $('.js-range-slider').ionRangeSlider({
-      type: 'double',
-      grid: true,
-      min: 0,
-      max: 1000,
-      skin: 'round',
-      from: 200,
-      to: 800,
-      prefix: '₹'
-    })
-
-    this.$store.dispatch('productsearch', this.$route.fullPath).then(res => {
+      string = string.toString()
+      console.log(string)
+      // console.trace()
+      return string
+        .trim() // Remove surrounding whitespace.
+        .toLowerCase() // Lowercase.
+        .replace(/[^a-z0-9]+/g, '-') // Find everything that is not a lowercase letter or number, one or more times, globally, and replace it with a dash.
+        .replace(/^-+/, '') // Remove all dashes from the beginning of the string.
+        .replace(/-+$/, '') // Remove all dashes from the end of the string.
+    },
+    getQuery: function(route){
+      this.$store.dispatch('productsearch', route).then(res => {
       console.log(res)
       this.search_result = res.data.products
       // this.search_result = Object.assign([] , res.data.products)
       this.subcategory = res.data.subcategory
       this.filter_options = res.data.filter_options
+      this.subcategories_list = res.data.subcategories_list
 
       for (let key1 in this.search_result) {
         console.log(this.search_result[key1])
@@ -188,22 +196,48 @@ export default {
           } else {
             $(
               'input[name="' +
-               vm.slugify( vm.$route.query.filters.split('=')[0]) +
+                vm.slugify(vm.$route.query.filters.split('=')[0]) +
                 '"][value="' +
                 vm.slugify(vm.$route.query.filters.split('=')[1]) +
                 '"]'
             ).attr('checked', true)
             console.log(
               'input[name="' +
-               vm.slugify( vm.$route.query.filters.split('=')[0]) +
+                vm.slugify(vm.$route.query.filters.split('=')[0]) +
                 '"][value="' +
                 vm.slugify(vm.$route.query.filters.split('=')[1]) +
                 '"]'
             )
           }
-        } catch (error) {}
+          $('.loading').addClass('hide')
+        } catch (error) {
+          $('.loading').addClass('hide')
+        }
       }, 100)
     })
+    }
+  },
+  mounted() {
+    $('.loading').removeClass('hide')
+    console.log('sssssssssssss')
+    console.log(this.$route.path)
+    console.log(this.$route.params)
+    console.log(this.$route.fullPath.replace('/search', ''))
+    console.log(this.$route.query.filters)
+
+    $('.js-range-slider').ionRangeSlider({
+      type: 'double',
+      grid: true,
+      min: 0,
+      max: 1000,
+      skin: 'round',
+      from: 200,
+      to: 800,
+      prefix: '₹'
+    })
+
+    this.getQuery(this.$route.fullPath)
+
   }
 }
 </script>

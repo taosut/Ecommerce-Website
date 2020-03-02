@@ -15,9 +15,11 @@
           <div class="row card-view-row">
             <div class="col-sm-12 col-md-4 col-lg-3" v-for="p in offer_list" :key="p.id">
               <div class="carousel-card">
+                 <nuxt-link :to="'/search/' + p.url">
                 <div class="carousel_viewed_image">
-                  <img :src="baseurl + '/media/' + p.img" />
+                  <img :src="baseurl + '/media/' + p.img" @error="setFallbackImageUrl"/>
                 </div>
+                 </nuxt-link>
                 <div class="viewed_content text-center">
                   <div class="viewed_name">
                     <p class="offer-title clamp1">{{ p.title }}</p>

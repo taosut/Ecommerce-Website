@@ -85,9 +85,9 @@
 
     <!-- Header Main -->
 
-    <div class="header_main">
-      <div class="container-header">
-        <div class="row no-mar">
+    <div class="header_main" style="height: 65px">
+      <div class="container-header" style="height: 65px">
+        <div class="row no-mar" style="height: 65px">
           <!-- Logo -->
           <div class="col-lg-2 col-sm-3 col-3">
             <div class="logo_container">
@@ -95,7 +95,7 @@
                 <nuxt-link style="display: flex;align-items: center;" to="/">
                   <img
                     src="/icons/logo.png"
-                    style="width: 40px;height: 100%;object-fit: contain;"
+                    style="width: 30px;height: 100%;object-fit: contain;"
                   />
                   <p style="color:white; font-size:18px;padding-left: 10px">
                     WENSLink India
@@ -119,9 +119,10 @@
                     v-on:keyup.enter="search"
                   />
                   <button
-                    type="submit"
+                    type="button"
                     class="header_search_button trans_300"
                     value="Submit"
+                    @click="search"
                   >
                     <img
                       style="width: 15px;"
@@ -147,7 +148,7 @@
                 </div>
                 <div class="wishlist_content">
                   <div class="wishlist_text">
-                    <a href="#">Wishlist</a>
+                    <nuxt-link to="/wishlist">Wishlist</nuxt-link>
                   </div>
                 </div>
               </div>
@@ -351,6 +352,7 @@ export default {
       $('.category-tree').addClass('hide')
     },
     search: function() {
+      console.log(this.search_query)
       this.$router.push('/search?q=' + this.search_query + '&limit=10&offset=0')
     }
   }

@@ -1,7 +1,11 @@
 <template>
   <div>
+
     <!-- Single Product -->
 
+    <div class="loading-container loading">
+      <div class="loader">Loading...</div>
+    </div>
     <div class="container">
       <div class="single_product">
         <div class="row">
@@ -51,6 +55,15 @@
                 <div class="product_mrp">₹{{ product.mrp }}</div>
               </div>
               <div class="product_text">
+                <p class="clamp4">Delivery</p>
+                <input type="number" v-model="pincode" placeholder="pincode">
+                <div class="btn" @click="check_pincode">Check</div>
+                <p>{{delivery_message}}</p>
+              </div>
+              <div class="product_text">
+                <p class="clamp4">Seller: {{ seller_name }}</p>
+              </div>
+              <div class="product_text">
                 <p class="clamp4">{{ product.description }}</p>
               </div>
               <div class="order_info flex-row">
@@ -66,6 +79,12 @@
                     @click="addToCart(product.id, 1)"
                     class="button buy_button"
                   >Buy Now</button>
+                  <button
+                    type="button"
+                    @click="addToWishlist(product.id, 1)"
+                    class="button cart_button"
+                    style="background-color: transparent;border: 0 solid black;color: black;margin-left: 20px"
+                  >Add To Wishlist</button>
                 </div>
               </div>
             </div>
@@ -101,15 +120,15 @@
           v-if="product_bullet_points.length != 0"
         />
 
-        <div>
+        <div v-if="product.specs">
           <h4 class="pt-2">Specification</h4>
           <div class="row">
             <!-- Description -->
             <div class="col-12 order-3">
-              <div v-if="product.specs != ''">
+              <div>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tbody>
-                    <tr v-for="(p, index) in product.specs" :key="p.id">
+                    <tr v-for="(p, index) in specs_array" :key="p.id">
                       <td>
                         <table
                           width="100%"
@@ -119,37 +138,23 @@
                           class="product-spec"
                         >
                           <tbody>
+                            <!-- {{p['sub'][0]['value']}} -->
                             <tr>
-                              <th colspan="2">{{ p.name.toUpperCase() }}</th>
+                              <th colspan="2">{{ p.header.toUpperCase() }}</th>
                             </tr>
                             <tr
                               v-for="(q, index1) in p['sub']"
                               :key="q.id"
-                              v-if="q.value && q.value != undefined"
                             >
                               <td width="20%">
                                 <p class="specification-header-p">{{ q.name }}</p>
                               </td>
                               <td>
-                                <div v-if="q.type == 1">
+                                <div>
                                   <p
                                     class="specs-value specification-value-p"
                                     type="text"
                                   >{{ q.value }}</p>
-                                </div>
-
-                                <div style="display: flex;" v-if="q.type == 2">
-                                  <p
-                                    class="specs-value specification-value-p"
-                                    type="text"
-                                  >{{ q.value }}</p>
-                                </div>
-
-                                <div style="display: flex;" v-if="q.type == 3">
-                                  <p
-                                    class="specs-value specification-value-p"
-                                    type="text"
-                                  >{{ q.value }} {{ q.dropdown }}</p>
                                 </div>
                               </td>
                             </tr>
@@ -167,13 +172,13 @@
     </div>
 
     <div class="container">
-      <div class="single_product">
+      <div class="single_product" v-if="reviews != ''">
         <div>
           <h4 class="pt-2 pb-2">Reviews</h4>
           <div class="row">
             <!-- Description -->
             <div class="col-12 order-3">
-              <div v-if="reviews != ''">
+              <div>
                 <div class="pb-5" v-for="p in reviews" :key="p.id">
                   <div class="d-flex align-center justify-content-between">
                     <!-- <img src="/"> -->
@@ -262,8 +267,10 @@ export default {
     product_description: '',
     product_bullet_points: [],
     productimages: {},
+    specs_array: [],
     auction_data: [],
     auction_timer: [],
+    seller_name: "",
     variations: [],
     baseurl: process.env.baseUrl,
     auction_status: 0,
@@ -271,12 +278,18 @@ export default {
       user_id: ''
     },
     rating: 0,
-    reviews: ''
+    reviews: '',
+    pincode: "",
+    delivery_message: ""
   }),
 
   components: {},
 
   mounted() {
+
+    console.log("param")
+    console.log(this.$route.params.product)
+
     $('.cat_menu').css({
       visibility: 'hidden',
       opacity: '0'
@@ -296,7 +309,9 @@ export default {
         this.productimages = JSON.parse(this.product.images)
         this.product_bullet_points = JSON.parse(this.product.bullet_points)
         this.product_description = res.data.description
-        this.product.specs = JSON.parse(this.product.specs)
+        this.specs_array = res.data.specs_array
+        this.seller_name = res.data.variations[0].store_name
+        $(".loading").addClass('hide')
       })
   },
   methods: {
@@ -361,6 +376,46 @@ export default {
         this.getCartByUser()
       } else {
       }
+    },
+    addToWishlist: function(p, i) {
+      if (this.$store.state.isLoggedIn) {
+        var payload = new FormData()
+
+        payload.append('product_info', this.variations[0].id)
+        payload.append('quantity', 1)
+        // payload.append('seller_id', 100)
+
+        this.$store.dispatch('addToWishlist', payload).then(res => {
+        })
+        this.getCartByUser()
+      } else {
+      }
+    },
+    check_pincode: function() {
+
+      $(".loading").removeClass('hide')
+
+      this.delivery_message = ""
+
+      var payload = new FormData()
+
+
+      payload.append("delivery",  this.pincode)
+      payload.append("pickup",  this.variations[0].pincode)
+      payload.append("weight",  this.product.weight)
+
+
+
+      
+
+      this.$store.dispatch('check_delivery', payload).then(res=>{
+        this.delivery_message = res.data.delivery_message
+        $(".loading").addClass('hide')
+      })
+
+      console.log(payload)
+
+
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {

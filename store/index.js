@@ -240,6 +240,84 @@ export const actions = {
         })
     },
 
+    addToWishlist({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'POST',
+                    url: state.api.addToWishlist,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    commit('cart', res.data.body.length)
+                    commit('cart_data', res.data.body)
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    removeFromWishlist({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'DELETE',
+                    url: state.api.removeFromWishlist + payload,
+                    contentType: 'application/json',
+                    // headers: {
+                    //     'Authorization': "bearer " + this.$cookies.get('access_token')
+                    // }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    getWishlistByUser({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'GET',
+                    url: state.api.getWishlistByUser,
+                    data: payload,
+                    contentType: 'application/json',
+                    headers: {
+                        'Authorization': "Bearer " + this.$cookies.get('access_token')
+                    }
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    commit('cart', res.data.body.length)
+                    commit('cart_data', res.data.body)
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
     getCartByUser({ commit, state }, payload) {
 
 
@@ -879,6 +957,28 @@ export const actions = {
             axios({
                     method: 'GET',
                     url: state.api.productsearch + payload,
+                    contentType: 'application/json'
+                })
+                .then(res => {
+                    console.log(res.data)
+                    console.log('response')
+                    resolve(res)
+                })
+                .catch(err => {
+                    console.log('error in request', err)
+                })
+        })
+    },
+
+    check_delivery({ commit, state }, payload) {
+
+
+        return new Promise((resolve, reject) => {
+
+            axios({
+                    method: 'POST',
+                    data: payload,
+                    url: state.api.check_delivery,
                     contentType: 'application/json'
                 })
                 .then(res => {

@@ -1,5 +1,8 @@
 <template>
   <div style="margin-top: 20px;">
+    <div class="loading-container loading">
+      <div class="loader">Loading...</div>
+    </div>
     <div class="container hero-carousel">
       <client-only>
         <carousel
@@ -75,7 +78,7 @@
                     <h3 class="viewed_subtitle">{{ p.subtitle }}</h3>
                   </div>
                   <button @click="viewOfferList(p.title)" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
-                  <button @click="viewOfferList(p.title)" v-if="p.items.length > 5" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
+                  <!-- <button @click="viewOfferList(p.title)" v-if="p.items.length > 5" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button> -->
                 </div>
 
                 <div>
@@ -91,7 +94,7 @@
                       paginationActiveColor="#ffffff"
                     >
                       <slide class v-for="q in p.items" :key="q.id">
-                        <nuxt-link :to="'/products/' + q.slug">
+                        <nuxt-link :to="'/search/' + q.url">
                           <div
                             class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
                           >
@@ -176,7 +179,7 @@
       <section style="height: 500px;background-color: white;margin-bottom: 50px;">
         <div class="container">
           <div class="d-flex justify-content-around align-items-center" style="height: 500px">
-            <img src="/images/app-footer.png" />
+            <img class="h-100" src="/images/app-footer.png" />
             <div>
               <h2 class="download-message">Download WENSLink</h2>
               <h2 class="download-message">App Now</h2>
@@ -282,7 +285,7 @@ export default {
   mounted() {
     this.getAllBanner()
 
-    this.getAllProducts()
+    // this.getAllProducts()
     this.eachofferset()
 
     $('.cat_menu').css({
@@ -351,7 +354,9 @@ export default {
     eachofferset: function() {
       this.$store.dispatch('eachofferset').then(res => {
         console.log(res)
-        this.allOffers = res.data
+        this.allOffers = res.data.body
+
+        $(".loading").addClass('hide')
 
         // for (let key1 in this.allOffers) {
         //   if (this.allOffers.hasOwnProperty(key1)) {

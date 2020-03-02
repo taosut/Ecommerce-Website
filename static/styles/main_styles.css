@@ -541,7 +541,7 @@ section {
 }
 
 .logo_container {
-    height: 100px;
+    height: 65px;
 }
 
 .logo {
@@ -560,7 +560,7 @@ section {
 }
 
 .header_search {
-    height: 100px;
+    height: 65px;
 }
 
 .header_search_content {
@@ -594,7 +594,7 @@ section {
     padding-left: 26px;
     color: #7f7f7f;
     float: left;
-    border-radius: 50px;
+    border-radius: 2px 0px 0px 2px;
 }
 
 .header_search_input::-webkit-input-placeholder {
@@ -768,16 +768,16 @@ select option {
     width: 50px;
     height: 40px;
     height: 100%;
-    background: #ffffff;
+    background: #333333;
     border: none;
     outline: none;
     cursor: pointer;
-    border-top-right-radius: 23px;
-    border-bottom-right-radius: 23px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 
 .wishlist_cart {
-    height: 100px;
+    height: 65px;
 }
 
 .wishlist {
@@ -3353,7 +3353,7 @@ select option {
 .item_marks {
     position: absolute;
     top: 18px;
-    left: 18px;
+    left: 48px;
 }
 
 .item_mark {
@@ -3369,7 +3369,7 @@ select option {
 }
 
 .item_discount {
-    background: #4CAF50;
+    background: #f44336;
     margin-right: 5px;
 }
 

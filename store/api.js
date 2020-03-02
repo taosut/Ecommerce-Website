@@ -69,6 +69,12 @@ export const state = () => ({
 
     removeFromCart: url + "cart/delete/",
 
+    addToWishlist: url + "cart/wishlist",
+
+    getWishlistByUser: url + "cart/wishlist_view",
+
+    removeFromWishlist: url + "cart/wishlist_delete/",
+
     getalluseraddress: url + "users/getalluseraddress",
 
     changeuseraddress: url + "users/changeuseraddress", //id
@@ -93,6 +99,8 @@ export const state = () => ({
     productsearch: url + "products",
 
     allUserOrders: url + "orders/alluserorder",
+
+    check_delivery: url + "orders/check_delivery"
 
 
 

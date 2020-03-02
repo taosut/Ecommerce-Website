@@ -16,7 +16,7 @@
                 <div class="col-12 col-sm-6" v-for="(p, index) in alluseraddress" :key="p.id">
                   <div>
                     <div>
-                      <p class="pad-9" style="font-size:16px">{{ p.fullname }}</p>
+                      <p class="pad-9" style="font-size:16px">{{ p.firstname }} {{ p.lastname }}</p>
                     </div>
                     <div>
                       <p class="pad-11 font-12">{{ p.building }} {{ p.street }}</p>
@@ -28,7 +28,7 @@
                     </div>
                     <button
                       type="button"
-                      @click="selectedAddress(index)"
+                      @click="selectedAddress(p.id)"
                       class="btn btn-primary btn-sm"
                     >Deliver to this address</button>
                     <button type="button" class="btn btn-danger btn-sm">Delete</button>
@@ -45,10 +45,19 @@
                     <div class="col-12">
                       <p>Add New Address</p>
                       <div class="form-group">
-                        <label for="fullname">Full Name</label>
+                        <label for="fullname">First Name</label>
                         <input
                           type="text"
-                          v-model="payload.fullname"
+                          v-model="payload.firstname"
+                          class="form-control"
+                          id="fullname"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="fullname">Last Name</label>
+                        <input
+                          type="text"
+                          v-model="payload.lastname"
                           class="form-control"
                           id="fullname"
                         />
@@ -660,6 +669,17 @@ export default {
             case 3:
               this.pay_wallet()
               break
+            case 4:
+              console.log("sdsds")
+              payload.append('razorpay_order_id', res.data.order_id)
+              payload.append('razorpay_payment_id', "")
+              payload.append('razorpay_signature', "")
+              payload.append('session_key', this.$store.state.session_key)
+              this.$store.dispatch('order_payment_success', payload).then(res => {
+                console.log('success')
+                this.order_step = 3
+              })
+              break
           }
         })
         .catch(err => {
@@ -714,6 +734,7 @@ export default {
       })
 
       console.log(this.alluseraddress[id])
+      console.log(id)
 
       this.$store.commit('cart_address', this.alluseraddress[id])
 
@@ -726,7 +747,8 @@ export default {
 
       console.log(this.payload.fullname)
 
-      payload.append('fullname', this.payload.fullname)
+      payload.append('firstname', this.payload.firstname)
+      payload.append('lastname', this.payload.lastname)
       payload.append('pincode', this.payload.pincode)
       payload.append('mobilenumber', this.payload.mobilenumber)
       payload.append('building', this.payload.building)

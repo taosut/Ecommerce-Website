@@ -2,11 +2,11 @@
   <div>
     <div class="container">
       <div class="row mt-4" v-if="cart.length > 0">
-        <div class="col-md-8">
+        <div class="col-12">
           <div class="shadow bg-white">
             <div class="d-flex w-100 justify-content-between">
               <div class="cart-header">
-                <p>My Cart</p>
+                <p>My Wishlist</p>
               </div>
             </div>
             <div
@@ -36,9 +36,7 @@
                 <div class="col-md-7">
                   <div>
                     <div>
-                      <p class="pad-9" style="font-size:13px">
-                        {{ p.product_name }}
-                      </p>
+                      <nuxt-link :to="'/products/' + p.slug">{{ p.product_name }}</nuxt-link>
                     </div>
                     <div>
                       <p class="pad-11 font-12">Seller: {{ p.store_name }}</p>
@@ -51,51 +49,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-3">
-                  <div>
-                    <p class="pad-9 font-12">
-                      Delivery by {{ delivery_date }}
-                    </p>
-                  </div>
-                  <div v-if="p.product_return_days > 0">
-                    <p class="font-12">
-                      {{ p.product_return_days }} Days Replacement Policy
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex mt-2 align-items-center">
-                <div class="mt-3">
-                  <div class="quantity buttons_added">
-                    <input
-                      type="button"
-                      value="-"
-                      class="minus"
-                      :disabled="p.quantity <= 1"
-                      @click="minus(index, p.id)"
-                    />
-                    <input
-                      type="number"
-                      step="1"
-                      min="1"
-                      max=""
-                      v-model="p.quantity"
-                      name="quantity"
-                      value="1"
-                      title="Qty"
-                      class="input-text qty text"
-                      size="4"
-                      pattern=""
-                      inputmode=""
-                    />
-                    <input
-                      type="button"
-                      value="+"
-                      class="plus"
-                      @click="plus(index, p.id)"
-                    />
-                  </div>
-                </div>
+                <div class="col-md-7">
                 <div class="d-flex">
                   <span style="padding:0 0 0 36px">
                     <!-- <nuxt-link class="none" to=""
@@ -106,53 +60,7 @@
                     ><div @click="deleteCartItem(p.id)">REMOVE</div></span
                   >
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="bg-white shadow border-rad">
-            <div
-              class="border-bottom cart-header f600"
-              style="padding:13px 24px"
-            >
-              <p>Price Details</p>
-            </div>
-            <div style="padding:0 24px">
-              <div class="d-flex justify-content-between" style="margin:20px 0">
-                <span
-                  ><p>
-                    Price ({{ cart.length }} item<span v-if="cart.length > 1"
-                      >s</span
-                    >)
-                  </p></span
-                >
-                <span
-                  ><p>₹ {{ totalSum }}</p></span
-                >
-              </div>
-              <div class="d-flex justify-content-between" style="margin:20px 0">
-                <span><p>Delivery</p></span>
-                <!-- <span><p>FREE</p></span> -->
-              </div>
-              <div
-                class="d-flex justify-content-between border-top-dotted f600"
-                style="padding:20px 0"
-              >
-                <span><p>Total Payable</p></span>
-                <span
-                  ><p>₹ {{ totalSum }}</p></span
-                >
-              </div>
-            </div>
-            <div class="border-top" style="padding:20px 24px">
-              <p style="color: #009688" v-if="discountedtotalSum > 0">
-                You will save ₹ {{ discountedtotalSum }} on this order
-              </p>
-              <div class="d-flex justify-content-end pad12">
-                <button @click="startOrder" type="button" class="btn btn-order">
-                  Place Order
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -534,7 +442,7 @@
             ></path>
           </svg>
 
-          <h4>Your cart is empty!</h4>
+          <h4>Your Wishlist is empty!</h4>
           <p>Add items to it now.</p>
           <nuxt-link class="btn btn-info" to="/">Shop Now</nuxt-link>
         </div>
@@ -569,7 +477,7 @@ export default {
       }
     },
     getCartByUser: function() {
-      this.$store.dispatch('getCartByUser').then(res => {
+      this.$store.dispatch('getWishlistByUser').then(res => {
         this.cart = JSON.parse(JSON.stringify(res.data.body))
 
         console.log(this.cart)
@@ -688,7 +596,7 @@ export default {
       })
     },
     deleteCartItem: function(id) {
-      this.$store.dispatch('removeFromCart', id).then(res => {
+      this.$store.dispatch('removeFromWishlist', id).then(res => {
         this.getCartByUser()
       })
     }
