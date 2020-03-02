@@ -77,7 +77,8 @@
                     <h3 class="viewed_title">{{ p.title }}</h3>
                     <h3 class="viewed_subtitle">{{ p.subtitle }}</h3>
                   </div>
-                  <button @click="viewOfferList(p.title)" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
+                  <button @click="viewOfferList(p.title)" v-if="p.carousel_type==2" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
+                  <button @click="searchQuery(p.url)" v-else-if="p.carousel_type==1" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button>
                   <!-- <button @click="viewOfferList(p.title)" v-if="p.items.length > 5" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button> -->
                 </div>
 
@@ -349,6 +350,13 @@ export default {
       console.log(title)
 
         this.$router.push('/offers-list/' + title.replace(/[\s.;,?&%0-9]/g, '-').toLowerCase())
+
+    },
+    searchQuery: function(url) {
+
+      console.log(url)
+
+      this.$router.push('/search' + url)
 
     },
     eachofferset: function() {
