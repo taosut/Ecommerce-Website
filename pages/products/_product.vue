@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- Single Product -->
 
     <div class="loading-container loading">
@@ -56,7 +55,7 @@
               </div>
               <div class="product_text">
                 <p class="clamp4">Delivery</p>
-                <input type="number" v-model="pincode" placeholder="pincode">
+                <input type="number" v-model="pincode" placeholder="pincode" />
                 <div class="btn" @click="check_pincode">Check</div>
                 <p>{{delivery_message}}</p>
               </div>
@@ -142,10 +141,7 @@
                             <tr>
                               <th colspan="2">{{ p.header.toUpperCase() }}</th>
                             </tr>
-                            <tr
-                              v-for="(q, index1) in p['sub']"
-                              :key="q.id"
-                            >
+                            <tr v-for="(q, index1) in p['sub']" :key="q.id">
                               <td width="20%">
                                 <p class="specification-header-p">{{ q.name }}</p>
                               </td>
@@ -213,50 +209,70 @@
 
     <!-- Recently Viewed -->
 
-    <!-- <div class="viewed">
+    <div class="viewed">
       <div class="container">
         <div class="row">
           <div class="col">
-            <div class="">
-              <h3 class="viewed_title">Newly Added</h3>
+            <div class>
+              <h3 class="viewed_title">You may also like</h3>
             </div>
 
             <div>
-
-              <div class="owl-carousel owl-theme viewed_slider">
-             
-                <div class="" v-for="p in product" :key="p.id">
-                  <div
-                    class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
+              <div>
+                <client-only>
+                  <carousel
+                    class="product-carousel"
+                    :perPageCustom="[[0, 1], [600, 6]]"
+                    :autoplay="false"
+                    :mouse-drag="true"
+                    :loop="true"
+                    paginationColor="#e91e63"
+                    paginationActiveColor="#ffffff"
                   >
-                    <div class="viewed_image">
-                      <img
-                        :src="baseurl + '/backend/api/products/image/100/40/'"
-                        @error="setFallbackImageUrl"
-                        alt
-                      />
-                    </div>
-                    <div class="viewed_content text-center">
-                      <div class="viewed_name">
-                        <a href="#">{{ p.product_name }}</a>
-                      </div>
-                      <div class="viewed_price">
-                        ₹{{ p.price }}fg fg {{ p }}
-                        <span>${{ p.discount }}</span>
-                      </div>
-                    </div>
-                    <ul class="item_marks">
-                      <li class="item_mark item_discount">-25%</li>
-                      <li class="item_mark item_new">new</li>
-                    </ul>
-                  </div>
-                </div>
+                    <slide class v-for="q in recommendation" :key="q.id">
+                      <nuxt-link :to="'/products/' + q.slug">
+                        <div
+                          class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
+                        >
+                          <div class="viewed_image">
+                            <img
+                              :src="
+                                baseurl +
+                                  '/backend/api/products/image/200/40/' +
+                                  JSON.parse(q.images)[0]
+                              "
+                              @error="setFallbackImageUrl"
+                              alt
+                            />
+                          </div>
+                          <div class="viewed_content text-center">
+                            <div class="viewed_name">
+                              <p class="clamp2">{{ q.product_name }}</p>
+                            </div>
+                            <div class="viewed_price">
+                              ₹{{ q.price }}
+                              <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
+                            </div>
+                          </div>
+                          <ul class="item_marks">
+                            <li class="item_mark item_discount" v-if="q.price < q.mrp">
+                              {{
+                              Math.round(((q.mrp - q.price) / q.mrp) * 100)
+                              }}%
+                            </li>
+                            <li class="item_mark item_new">new</li>
+                          </ul>
+                        </div>
+                      </nuxt-link>
+                    </slide>
+                  </carousel>
+                </client-only>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -270,7 +286,7 @@ export default {
     specs_array: [],
     auction_data: [],
     auction_timer: [],
-    seller_name: "",
+    seller_name: '',
     variations: [],
     baseurl: process.env.baseUrl,
     auction_status: 0,
@@ -279,15 +295,16 @@ export default {
     },
     rating: 0,
     reviews: '',
-    pincode: "",
-    delivery_message: ""
+    pincode: '',
+    delivery_message: '',
+    subcategory_name: '',
+    recommendation: []
   }),
 
   components: {},
 
   mounted() {
-
-    console.log("param")
+    console.log('param')
     console.log(this.$route.params.product)
 
     $('.cat_menu').css({
@@ -309,9 +326,20 @@ export default {
         this.productimages = JSON.parse(this.product.images)
         this.product_bullet_points = JSON.parse(this.product.bullet_points)
         this.product_description = res.data.description
+        this.subcategory_name = res.data.product.subcategory_name
         this.specs_array = res.data.specs_array
         this.seller_name = res.data.variations[0].store_name
-        $(".loading").addClass('hide')
+        $('.loading').addClass('hide')
+
+        this.$store
+          .dispatch(
+            'productsearch',
+            '/search?q=' + this.subcategory_name + '&limit=8&offset=0&sort=recent'
+          )
+          .then(res => {
+            console.log(res)
+            this.recommendation = res.data.products
+          })
       })
   },
   methods: {
@@ -385,37 +413,28 @@ export default {
         payload.append('quantity', 1)
         // payload.append('seller_id', 100)
 
-        this.$store.dispatch('addToWishlist', payload).then(res => {
-        })
+        this.$store.dispatch('addToWishlist', payload).then(res => {})
         this.getCartByUser()
       } else {
       }
     },
     check_pincode: function() {
+      $('.loading').removeClass('hide')
 
-      $(".loading").removeClass('hide')
-
-      this.delivery_message = ""
+      this.delivery_message = ''
 
       var payload = new FormData()
 
+      payload.append('delivery', this.pincode)
+      payload.append('pickup', this.variations[0].pincode)
+      payload.append('weight', this.product.weight)
 
-      payload.append("delivery",  this.pincode)
-      payload.append("pickup",  this.variations[0].pincode)
-      payload.append("weight",  this.product.weight)
-
-
-
-      
-
-      this.$store.dispatch('check_delivery', payload).then(res=>{
+      this.$store.dispatch('check_delivery', payload).then(res => {
         this.delivery_message = res.data.delivery_message
-        $(".loading").addClass('hide')
+        $('.loading').addClass('hide')
       })
 
       console.log(payload)
-
-
     },
     getCartByUser: function() {
       this.$store.dispatch('getCartByUser').then(res => {
