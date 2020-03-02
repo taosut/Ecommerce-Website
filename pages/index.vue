@@ -177,7 +177,7 @@
         </div>
       </div>
 
-      <section style="height: 500px;background-color: white;margin-bottom: 50px;">
+      <section class="hide-on-med-and-down" style="height: 500px;background-color: white;margin-bottom: 50px;">
         <div class="container">
           <div class="d-flex justify-content-around align-items-center" style="height: 500px">
             <img class="h-100" src="/images/app-footer.png" />
