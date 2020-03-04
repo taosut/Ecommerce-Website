@@ -587,8 +587,8 @@ export default {
 .product-carousel img {
   height: 100%;
   width: 100%;
-  -o-object-fit: cover !important;
-  object-fit: cover !important;
+  -o-object-fit: contain !important;
+  object-fit: contain !important;
 }
 
 .offer-title {
