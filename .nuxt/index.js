@@ -12,8 +12,8 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_cookieuniversalnuxt_54db20ec from 'nuxt_plugin_cookieuniversalnuxt_54db20ec' // Source: .\\cookie-universal-nuxt.js (mode: 'all')
-import nuxt_plugin_axios_1a16ed78 from 'nuxt_plugin_axios_1a16ed78' // Source: .\\axios.js (mode: 'all')
+import nuxt_plugin_cookieuniversalnuxt_54c6eccc from 'nuxt_plugin_cookieuniversalnuxt_54c6eccc' // Source: .\\cookie-universal-nuxt.js (mode: 'all')
+import nuxt_plugin_axios_fe97d5b8 from 'nuxt_plugin_axios_fe97d5b8' // Source: .\\axios.js (mode: 'all')
 import nuxt_plugin_main_6a83762f from 'nuxt_plugin_main_6a83762f' // Source: ..\\plugins\\main (mode: 'all')
 import nuxt_plugin_globalcomponents_68527f08 from 'nuxt_plugin_globalcomponents_68527f08' // Source: ..\\plugins\\global_components (mode: 'all')
 import nuxt_plugin_carousel_2496c93e from 'nuxt_plugin_carousel_2496c93e' // Source: ..\\plugins\\carousel.js (mode: 'client')
@@ -174,12 +174,12 @@ async function createApp (ssrContext) {
 
   // Plugin execution
 
-  if (typeof nuxt_plugin_cookieuniversalnuxt_54db20ec === 'function') {
-    await nuxt_plugin_cookieuniversalnuxt_54db20ec(app.context, inject)
+  if (typeof nuxt_plugin_cookieuniversalnuxt_54c6eccc === 'function') {
+    await nuxt_plugin_cookieuniversalnuxt_54c6eccc(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_axios_1a16ed78 === 'function') {
-    await nuxt_plugin_axios_1a16ed78(app.context, inject)
+  if (typeof nuxt_plugin_axios_fe97d5b8 === 'function') {
+    await nuxt_plugin_axios_fe97d5b8(app.context, inject)
   }
 
   if (typeof nuxt_plugin_main_6a83762f === 'function') {
