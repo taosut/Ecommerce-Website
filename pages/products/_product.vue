@@ -63,7 +63,7 @@
                 <p class="clamp4">Seller: {{ seller_name }}</p>
               </div>
               <div class="product_text">
-                <p class="clamp4">{{ product.description }}</p>
+                <p class="clamp4" style="text-align: justify;">{{ product.description }}</p>
               </div>
               <div class="order_info flex-row">
                 <div class="button_container">
@@ -97,7 +97,7 @@
         <div v-if="product_description != ''">
           <h4>Product Description</h4>
           <div class="pb-2 pt-2">
-            <p style="line-height: 28px">{{ product.description }}</p>
+            <p style="line-height: 28px;text-align:justify">{{ product.description }}</p>
           </div>
           <hr style="border: 0;border-bottom: 1px dashed #80808030;" />
         </div>
@@ -116,10 +116,10 @@
 
         <hr
           style="border: 0;border-bottom: 1px dashed #80808030;"
-          v-if="product_bullet_points.length != 0"
+           v-if="specs_array.length > 0"
         />
 
-        <div v-if="product.specs">
+        <div v-if="specs_array.length > 0">
           <h4 class="pt-2">Specification</h4>
           <div class="row">
             <!-- Description -->
