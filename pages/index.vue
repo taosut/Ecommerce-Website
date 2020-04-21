@@ -13,6 +13,8 @@
         <p
           style="color: white;line-height: 30px;padding-bottom: 20px;padding-top: 20px;font-size: 18px;"
         >To combat against the effect of CORONA Virus epidemic that has spread all over the world. As per govt. notice until 3rd of May 2020, request all of our members to cancel all our work or meeting scheduled. And stay at home and take care of yourself and others.</p>
+
+        <a v-for="breed in breeds" :key="breed" class="breed">{{breed}}</a>
       </div>
     </div>
 
@@ -117,7 +119,11 @@
       <div class="viewed">
         <div class="container">
           <div class="row">
-            <div v-bind:class="{'col-12 col-md-6': p.products[0].carousel_type == 1,  'col-12': p.products[0].carousel_type != 1}" v-for="p in carousel" :key="p.id">
+            <div
+              v-bind:class="{'col-12 col-md-6': p.products[0].carousel_type == 1,  'col-12': p.products[0].carousel_type != 1}"
+              v-for="p in carousel"
+              :key="p.id"
+            >
               <CarouselType v-if="p.products[0].carousel_type == 1" :p="p" />
               <Products v-else :p="p" />
             </div>
@@ -157,6 +163,8 @@
 <script>
 import Vue from 'vue'
 
+import axios from 'axios'
+
 import CarouselType from '@/components/carousel_type'
 import Products from '@/components/products'
 
@@ -174,14 +182,36 @@ export default {
     allBanners: [],
     allOffers: [],
     baseurl: process.env.baseUrl,
-    hideMessage: false
+    hideMessage: false,
+    breeds: []
   }),
   components: {
     CarouselType,
     Products
   },
+
+  // async asyncData() {
+  //   const { data } = await axios.get('https://dog.ceo/api/breeds/list')
+  //   return { breeds: data.message }
+  // },
+
+  // async asyncData({ app, params, store }) {
+  //   await store.dispatch('allProducts').then(res => {
+  //     console.log(res.data)
+  //   })
+
+  //   // var url = `https://myapi/news/${store.state.market}/detail/${params.id}`
+  //   // return app.$axios.get(url).then(response => {
+  //   //   return { actu: response.data }
+  //   // })
+  // },
+
   mounted() {
     this.getAllBanner()
+
+    // axios.get('https://dog.ceo/api/breeds/list').then(res => {
+    //   this.breeds = res.data.message
+    // })
 
     $('.loading').removeClass('hide')
 

@@ -1,6 +1,6 @@
 <template>
   <div style="margin: 30px 0">
-    <nuxt-link :to="'/search/' + p.products[0].url">
+    <nuxt-link target="_blank" :to="'/search' + p.products[0].url">
       <img
         style="height: 250px;width: 100%;object-fit: cover;border-radius: 5px;"
         :src="baseurl + '/media/' + p.products[0].images"
