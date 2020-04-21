@@ -1,18 +1,18 @@
 <template>
   <div style="margin-top: 20px;">
-    <div class="container">
+    <div class="message" v-if="!hideMessage">
       <div
         class="message-container"
-        style="background-color: #F44336;border-radius: 5px;padding: 30px 60px;color: white;text-align: center;"
+        style="background-color: #F44336;border-radius: 5px;padding: 30px 60px;color: white;text-align: center;margin: auto;position: absolute;top: 100px;right: 0;left: 0; z-index: 99;"
       >
+        <p
+          style="font-size: 20px;color: white; font-weight: bold; position:absolute;right: 40px;cursor:pointer"
+          @click="hideMessage = !hideMessage"
+        >X</p>
         <h3 style="font-weight: bold">NATIONAL APPEAL</h3>
         <p
           style="color: white;line-height: 30px;padding-bottom: 20px;padding-top: 20px;font-size: 18px;"
-        >
-          To combat against the effect of CORONO Virus epidemic that has spread all over the world. So, this Sunday our organization WENS LINK, with its entire family member will adhere to the
-          <span style="font-weight: bold;text-decoration:underline">JANATA CURFEW</span> on 22nd of March, 2020, and will stay at home and request all of our members to cancel all our work or meeting scheduled.
-        </p>
-        <h3 style="font-weight: bold">JAI HIND</h3>
+        >To combat against the effect of CORONA Virus epidemic that has spread all over the world. As per govt. notice until 3rd of May 2020, request all of our members to cancel all our work or meeting scheduled. And stay at home and take care of yourself and others.</p>
       </div>
     </div>
 
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="viewed">
+      <div class="viewed" v-if="allOffers.length > 0">
         <div class="container">
           <div class="row">
             <div class="col-12" v-for="p in allOffers" :key="p.id">
@@ -107,96 +107,7 @@
                   >View All</button>
                   <!-- <button @click="viewOfferList(p.title)" v-if="p.items.length > 5" class="btn btn-primary white-text" style="font-size:0.8rem!important">View All</button> -->
                 </div>
-
-                <div>
-                  <client-only>
-                    <carousel
-                      v-if="p.carousel_type==2"
-                      class="product-carousel"
-                      :perPageCustom="[[0, 1], [600, 6]]"
-                      :autoplay="true"
-                      :mouse-drag="true"
-                      :loop="true"
-                      paginationColor="#e91e63"
-                      paginationActiveColor="#ffffff"
-                    >
-                      <slide class v-for="q in p.items" :key="q.id">
-                        <nuxt-link :to="'/search/' + q.url">
-                          <div
-                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                          >
-                            <div class="viewed_image">
-                              <img
-                                :src="
-                                baseurl +
-                                  '/media/' +
-                                  q.img
-                              "
-                                @error="setFallbackImageUrl"
-                                alt
-                              />
-                            </div>
-                            <div class="text-center">
-                              <div class="viewed_name">
-                                <p class="offer-title clamp1">{{ q.title }}</p>
-                                <p class="offer-text clamp1">{{ q.offer_text }}</p>
-                                <p class="offer-subtitle clamp1">{{ q.subtitle }}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </nuxt-link>
-                      </slide>
-                    </carousel>
-
-                    <carousel
-                      v-else-if="p.carousel_type==1"
-                      class="product-carousel"
-                      :perPageCustom="[[0, 1], [600, 6]]"
-                      :autoplay="false"
-                      :mouse-drag="true"
-                      :loop="true"
-                      paginationColor="#e91e63"
-                      paginationActiveColor="#ffffff"
-                    >
-                      <slide class v-for="q in p.items" :key="q.id">
-                        <nuxt-link :to="'/products/' + q.slug">
-                          <div
-                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                          >
-                            <div class="viewed_image">
-                              <img
-                                :src="
-                                baseurl +
-                                  '/backend/api/products/image/200/40/' +
-                                  JSON.parse(q.images)[0]
-                              "
-                                @error="setFallbackImageUrl"
-                                alt
-                              />
-                            </div>
-                            <div class="viewed_content text-center">
-                              <div class="viewed_name">
-                                <p class="clamp2">{{ q.product_name }}</p>
-                              </div>
-                              <div class="viewed_price">
-                                ₹{{ q.price }}
-                                <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
-                              </div>
-                            </div>
-                            <ul class="item_marks">
-                              <li class="item_mark item_discount" v-if="q.price < q.mrp">
-                                {{
-                                Math.round(((q.mrp - q.price) / q.mrp) * 100)
-                                }}%
-                              </li>
-                              <li class="item_mark item_new">new</li>
-                            </ul>
-                          </div>
-                        </nuxt-link>
-                      </slide>
-                    </carousel>
-                  </client-only>
-                </div>
+                <CarouselType />
               </div>
             </div>
           </div>
@@ -206,63 +117,9 @@
       <div class="viewed">
         <div class="container">
           <div class="row">
-            <div class="col-12" v-for="p in carousel" :key="p.id">
-              <div class="product_section" v-if="p.products.length != 0">
-                <div class="product_section_title">
-                  <h3 class="viewed_title">{{ p.title }}</h3>
-                </div>
-
-                <div>
-                  <client-only>
-                    <carousel
-                      class="product-carousel"
-                      :perPageCustom="[[0, 1], [600, 6]]"
-                      :autoplay="false"
-                      :mouse-drag="true"
-                      :loop="true"
-                      paginationColor="#e91e63"
-                      paginationActiveColor="#ffffff"
-                    >
-                      <slide class v-for="q in p.products" :key="q.id">
-                        <nuxt-link :to="'/products/' + q.slug">
-                          <div
-                            class="viewed_item discount d-flex flex-column align-items-center justify-content-center text-center"
-                          >
-                            <div class="viewed_image">
-                              <img
-                                :src="
-                                baseurl +
-                                  '/backend/api/products/image/200/40/' +
-                                  q.images[0]
-                              "
-                                @error="setFallbackImageUrl"
-                                alt
-                              />
-                            </div>
-                            <div class="viewed_content text-center">
-                              <div class="viewed_name">
-                                <p class="clamp2">{{ q.product_name }}</p>
-                              </div>
-                              <div class="viewed_price">
-                                ₹{{ q.price }}
-                                <span v-if="q.price < q.mrp">₹{{ q.mrp }}</span>
-                              </div>
-                            </div>
-                            <ul class="item_marks">
-                              <li class="item_mark item_discount" v-if="q.price < q.mrp">
-                                {{
-                                Math.round(((q.mrp - q.price) / q.mrp) * 100)
-                                }}%
-                              </li>
-                              <li class="item_mark item_new">new</li>
-                            </ul>
-                          </div>
-                        </nuxt-link>
-                      </slide>
-                    </carousel>
-                  </client-only>
-                </div>
-              </div>
+            <div v-bind:class="{'col-12 col-md-6': p.products[0].carousel_type == 1,  'col-12': p.products[0].carousel_type != 1}" v-for="p in carousel" :key="p.id">
+              <CarouselType v-if="p.products[0].carousel_type == 1" :p="p" />
+              <Products v-else :p="p" />
             </div>
           </div>
         </div>
@@ -299,6 +156,10 @@
 </template>
 <script>
 import Vue from 'vue'
+
+import CarouselType from '@/components/carousel_type'
+import Products from '@/components/products'
+
 export default {
   data: () => ({
     allProducts: [
@@ -312,10 +173,17 @@ export default {
     carousel: [],
     allBanners: [],
     allOffers: [],
-    baseurl: process.env.baseUrl
+    baseurl: process.env.baseUrl,
+    hideMessage: false
   }),
+  components: {
+    CarouselType,
+    Products
+  },
   mounted() {
     this.getAllBanner()
+
+    $('.loading').removeClass('hide')
 
     this.getAllProducts()
     // this.eachofferset()
@@ -326,7 +194,7 @@ export default {
     })
 
     Vue.config.errorHandler = function(err) {
-      alert(err)
+      alert('error')
     }
 
     // $('body').css('background-color', '#eff6fa')
@@ -366,6 +234,9 @@ export default {
               this.allProducts[key1].filter(
                 v => (v.images = JSON.parse(v.images))
               )
+              if (this.allProducts[key1][0]['carousel_type']) {
+                console.log('got one')
+              }
             } catch (error) {}
 
             var products = {}
@@ -489,15 +360,15 @@ export default {
     padding: 0;
   }
   .message-container {
-    width: 95%!important;
+    width: 95% !important;
     margin: auto;
   }
 }
 
-  .message-container {
-    width: 70%;
-    margin: auto;
-  }
+.message-container {
+  width: 70%;
+  margin: auto;
+}
 
 .hero-carousel > span {
   display: block !important;
@@ -659,5 +530,23 @@ export default {
 .p-message {
   font-size: 16px;
   line-height: 35px;
+}
+
+.message {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.message::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00000096;
+  left: 0;
 }
 </style>

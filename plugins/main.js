@@ -10,12 +10,12 @@ Vue.mixin({
 
                 var payload = new FormData()
 
-                payload.append('product_info' , id)
-                payload.append('seller_id' , this.$cookies.get('user_id'))
-                payload.append('quantity' , 1)
+                payload.append('product_info', id)
+                payload.append('seller_id', this.$cookies.get('user_id'))
+                payload.append('quantity', 1)
 
 
-                this.$store.dispatch('addToCart' , payload).then(res=>{
+                this.$store.dispatch('addToCart', payload).then(res => {
                     this.$store.dispatch('getCartByUser')
                 })
 
