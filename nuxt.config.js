@@ -113,16 +113,13 @@ export default {
         '~/plugins/main',
         '~/plugins/global_components',
         { src: '~/plugins/carousel.js', ssr: false },
-        { src: '~/plugins/star.js', ssr: false }
+        { src: '~/plugins/star.js', ssr: false },
+        { src: '~plugins/ga.js', ssr: false }
     ],
     /*
      ** Nuxt.js dev-modules
      */
-    buildModules: [
-        ['@nuxtjs/google-analytics', {
-            id: 'UA-166644677-1'
-        }]
-    ],
+    buildModules: [],
     /*
      ** Nuxt.js modules
      */

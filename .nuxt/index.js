@@ -14,11 +14,11 @@ import { createStore } from './store.js'
 
 import nuxt_plugin_cookieuniversalnuxt_54db20ec from 'nuxt_plugin_cookieuniversalnuxt_54db20ec' // Source: .\\cookie-universal-nuxt.js (mode: 'all')
 import nuxt_plugin_axios_1a16ed78 from 'nuxt_plugin_axios_1a16ed78' // Source: .\\axios.js (mode: 'all')
-import nuxt_plugin_googleanalytics_45f9c73c from 'nuxt_plugin_googleanalytics_45f9c73c' // Source: .\\google-analytics.js (mode: 'client')
 import nuxt_plugin_main_6a83762f from 'nuxt_plugin_main_6a83762f' // Source: ..\\plugins\\main (mode: 'all')
 import nuxt_plugin_globalcomponents_68527f08 from 'nuxt_plugin_globalcomponents_68527f08' // Source: ..\\plugins\\global_components (mode: 'all')
 import nuxt_plugin_carousel_2496c93e from 'nuxt_plugin_carousel_2496c93e' // Source: ..\\plugins\\carousel.js (mode: 'client')
 import nuxt_plugin_star_75b96e2f from 'nuxt_plugin_star_75b96e2f' // Source: ..\\plugins\\star.js (mode: 'client')
+import nuxt_plugin_ga_fb0a2534 from 'nuxt_plugin_ga_fb0a2534' // Source: ..\\plugins\\ga.js (mode: 'client')
 import nuxt_plugin_plugin_47fd141a from 'nuxt_plugin_plugin_47fd141a' // Source: .\\auth\\plugin.js (mode: 'all')
 import nuxt_plugin_axios_5659d192 from 'nuxt_plugin_axios_5659d192' // Source: ..\\plugins\\axios.js (mode: 'all')
 import nuxt_plugin_auth_7f7561ce from 'nuxt_plugin_auth_7f7561ce' // Source: ..\\plugins\\auth.js (mode: 'client')
@@ -186,10 +186,6 @@ async function createApp (ssrContext) {
     await nuxt_plugin_axios_1a16ed78(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_googleanalytics_45f9c73c === 'function') {
-    await nuxt_plugin_googleanalytics_45f9c73c(app.context, inject)
-  }
-
   if (typeof nuxt_plugin_main_6a83762f === 'function') {
     await nuxt_plugin_main_6a83762f(app.context, inject)
   }
@@ -204,6 +200,10 @@ async function createApp (ssrContext) {
 
   if (process.client && typeof nuxt_plugin_star_75b96e2f === 'function') {
     await nuxt_plugin_star_75b96e2f(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_ga_fb0a2534 === 'function') {
+    await nuxt_plugin_ga_fb0a2534(app.context, inject)
   }
 
   if (typeof nuxt_plugin_plugin_47fd141a === 'function') {
