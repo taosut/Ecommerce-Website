@@ -12,16 +12,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
     "cookie-universal-nuxt": "^2.0.18",
     "nuxt": "^2.0.0",
     "postcss-color-mod-function": "^3.0.3",
+    "vue-carousel": "^0.18.0",
     "vue-owl-carousel": "^2.0.3",
-    "vue-star-rating": "^1.6.1",
-    "vue-carousel": "^0.18.0"
+    "vue-star-rating": "^1.6.1"
   },
   "devDependencies": {
+    "@nuxtjs/google-analytics": "^2.2.3",
     "@vue/test-utils": "^1.0.0-beta.27",
     "babel-jest": "^24.1.0",
     "jest": "^24.1.0",

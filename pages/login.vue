@@ -33,37 +33,76 @@
 export default {
   mounted() {},
   methods: {
-    login: function() {
+    async login() {
       var payload = new FormData()
 
       payload.append('phone_number', document.getElementById('usr').value)
       payload.append('password', document.getElementById('pwd').value)
 
-      this.$store.dispatch('login', payload).then(res => {
-        console.log(res)
+      try {
+        let response = await this.$auth.loginWith('local', { data: payload })
+        console.log(response)
 
-        console.log(res.data.access)
-
-        this.$cookies.set('access_token', res.data.access, {
-          path: '/',
-          // secure: process.env.cookie,
-          // httpOnly : true,
-          // secure: true,
-          maxAge: 60 * 60 * 24 * 7
-        })
-
-        this.$cookies.set('name', res.data.user_info.name, {
-          path: '/',
-          // httpOnly : process.env.cookie,
-          // secure: process.env.cookie,
-          maxAge: 60 * 60 * 24 * 7
-        })
-
-        this.$store.commit('isLoggedIn', 1)
-
-        this.$router.push('/')
-      })
+        this.$auth.setToken('local', 'Bearer ' + response.data.access)
+        this.$auth.setRefreshToken('local', response.data.refresh)
+        this.$axios.setHeader(
+          'Authorization',
+          'Bearer ' + response.data.access_token
+        )
+        this.$auth.ctx.app.$axios.setHeader(
+          'Authorization',
+          'Bearer ' + response.data.access_token
+        )
+        // this.$axios.get('/users/me').then((resp) => { this.$auth.setUser(resp.data); this.$router.push('/')
+      } catch (err) {
+        console.log(err)
+      }
     }
+
+    // login: function() {
+    //   var payload = new FormData()
+
+    //   payload.append('phone_number', document.getElementById('usr').value)
+    //   payload.append('password', document.getElementById('pwd').value)
+
+    //   this.$auth.loginWith('local', { data: this.login })
+
+    // this.$axios.post('/token', {
+    //     phone_number: this.phone_number,
+    //     password: this.password
+    //   }).then((resp) => {
+    //     this.$auth.setToken('local', 'Bearer ' + resp.data.access_token)
+    //     this.$auth.setRefreshToken('local', resp.data.refresh_token)
+    //     this.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
+    //     this.$auth.ctx.app.$axios.setHeader('Authorization', 'Bearer ' + resp.data.access_token)
+    //     this.$axios.get('/users/me').then((resp) => { this.$auth.setUser(resp.data); this.$router.push('/') })
+    //   })
+
+    // this.$store.dispatch('login', payload).then(res => {
+    //   console.log(res)
+
+    //   console.log(res.data.access)
+
+    //   this.$cookies.set('access_token', res.data.access, {
+    //     path: '/',
+    //     // secure: process.env.cookie,
+    //     // httpOnly : true,
+    //     // secure: true,
+    //     maxAge: 60 * 60 * 24 * 7
+    //   })
+
+    //   this.$cookies.set('name', res.data.user_info.name, {
+    //     path: '/',
+    //     // httpOnly : process.env.cookie,
+    //     // secure: process.env.cookie,
+    //     maxAge: 60 * 60 * 24 * 7
+    //   })
+
+    //   this.$store.commit('isLoggedIn', 1)
+
+    //   this.$router.push('/')
+    // })
+    // }
   }
 }
 </script>

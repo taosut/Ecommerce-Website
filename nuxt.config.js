@@ -118,15 +118,52 @@ export default {
     /*
      ** Nuxt.js dev-modules
      */
-    buildModules: [],
+    buildModules: [
+        ['@nuxtjs/google-analytics', {
+            id: 'UA-166644677-1'
+        }]
+    ],
     /*
      ** Nuxt.js modules
      */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
-        'cookie-universal-nuxt'
+        'cookie-universal-nuxt',
+        '@nuxtjs/auth'
     ],
+
+
+    auth: {
+        localStorage: false,
+        cookie: {
+            options: {
+                expires: 7
+            }
+        },
+        strategies: {
+            local: {
+                endpoints: {
+                    login: { url: 'http://127.0.0.1:8000/backend/api/login/customers', method: 'post', propertyName: 'access' },
+                    refresh: { url: '/api/v1/auth/jwt/refresh/', method: 'post' }, // change to your refresh token url
+                    logout: false,
+                    user: false
+                }
+            }
+        },
+        plugins: ['~/plugins/axios.js', { src: '~/plugins/auth.js', mode: 'client' }]
+    },
+
+    // refresh_token: {
+    //     prefix: '_refresh_token.'
+    // },
+
+    axios: {
+        baseURL: 'http://localhost:8000'
+    },
+    router: {
+        middleware: ['loggedIn']
+    },
 
     env: {
         // baseUrl: process.env.BASE_URL || 'http://localhost:3003',

@@ -591,8 +591,6 @@ export const actions = {
                     }
                 })
                 .then(res => {
-                    console.log(res.data)
-                    console.log('response')
                     commit('getSingleProduct', res.data);
                     resolve(res)
                 })

@@ -2,7 +2,7 @@
   <div>
     <!-- Single Product -->
 
-    <div class="loading-container loading">
+    <div class="loading-container loading hide">
       <div class="loader">Loading...</div>
     </div>
     <div class="container">
@@ -114,10 +114,7 @@
           </div>
         </div>
 
-        <hr
-          style="border: 0;border-bottom: 1px dashed #80808030;"
-           v-if="specs_array.length > 0"
-        />
+        <hr style="border: 0;border-bottom: 1px dashed #80808030;" v-if="specs_array.length > 0" />
 
         <div v-if="specs_array.length > 0">
           <h4 class="pt-2">Specification</h4>
@@ -303,6 +300,42 @@ export default {
 
   components: {},
 
+  // async asyncData({ app, params, store }) {
+  //   var that = this
+  //   var seller_name
+  //   await store.dispatch('getSingleProduct', params.product).then(res => {
+  //     console.log('res.data')
+  //     console.log( res.data.variations[0].store_name)
+
+
+  //     seller_name = res.data.variations[0].store_name
+
+
+
+  //       // product = Object.assign({}, res.data.product)
+  //       // variations = res.data.variations
+  //       // product['price'] = res.data.variations[0]['price']
+  //       // product['mrp'] = res.data.variations[0]['mrp']
+  //       // rating = res.data.rating_avg
+  //       // reviews = res.data.reviews
+  //       // productimages = JSON.parse(product.images)
+  //       // product_bullet_points = JSON.parse(product.bullet_points)
+  //       // product_description = res.data.description
+  //       // subcategory_name = res.data.product.subcategory_name
+  //       // specs_array = res.data.specs_array
+  //       // seller_name = res.data.variations[0].store_name
+  //   })
+
+  //          return { 
+  //         seller_name
+  //       }
+
+  //   // var url = `https://myapi/news/${store.state.market}/detail/${params.id}`
+  //   // return app.$axios.get(url).then(response => {
+  //   //   return { actu: response.data }
+  //   // })
+  // },
+
   mounted() {
     console.log('param')
     console.log(this.$route.params.product)
@@ -334,7 +367,9 @@ export default {
         this.$store
           .dispatch(
             'productsearch',
-            '/search?q=' + this.subcategory_name + '&limit=8&offset=0&sort=recent'
+            '/search?q=' +
+              this.subcategory_name +
+              '&limit=8&offset=0&sort=recent'
           )
           .then(res => {
             console.log(res)
