@@ -101,7 +101,7 @@ export default {
 
     router: {
         // base: '/ecommerce/'
-        middleware: ['user_verify']
+        // middleware: ['user_verify']
     },
 
 
@@ -127,29 +127,29 @@ export default {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         'cookie-universal-nuxt',
-        '@nuxtjs/auth'
+        // '@nuxtjs/auth'
     ],
 
 
-    auth: {
-        localStorage: false,
-        cookie: {
-            options: {
-                expires: 7
-            }
-        },
-        strategies: {
-            local: {
-                endpoints: {
-                    login: { url: 'http://127.0.0.1:8000/backend/api/login/customers', method: 'post', propertyName: 'access' },
-                    refresh: { url: '/api/v1/auth/jwt/refresh/', method: 'post' }, // change to your refresh token url
-                    logout: false,
-                    user: false
-                }
-            }
-        },
-        plugins: ['~/plugins/axios.js', { src: '~/plugins/auth.js', mode: 'client' }]
-    },
+    // auth: {
+    //     localStorage: false,
+    //     cookie: {
+    //         options: {
+    //             expires: 7
+    //         }
+    //     },
+    //     strategies: {
+    //         local: {
+    //             endpoints: {
+    //                 login: { url: 'http://127.0.0.1:8000/backend/api/login/customers', method: 'post', propertyName: 'access' },
+    //                 refresh: { url: '/api/v1/auth/jwt/refresh/', method: 'post' }, // change to your refresh token url
+    //                 logout: false,
+    //                 user: false
+    //             }
+    //         }
+    //     },
+    //     plugins: ['~/plugins/axios.js', { src: '~/plugins/auth.js', mode: 'client' }]
+    // },
 
     // refresh_token: {
     //     prefix: '_refresh_token.'
@@ -159,7 +159,7 @@ export default {
         baseURL: 'http://localhost:8000'
     },
     router: {
-        middleware: ['loggedIn']
+        // middleware: ['loggedIn']
     },
 
     env: {

@@ -1,13 +1,13 @@
 <template>
   <div style="margin: 30px 0">
-    <nuxt-link target="_blank" :to="'/search' + p.products[0].url">
+    <div style="cursor: pointer" @click="goTo(p.products[0].url)">
       <img
         style="height: 250px;width: 100%;object-fit: cover;border-radius: 5px;"
         :src="baseurl + '/media/' + p.products[0].images"
         @error="setFallbackImageUrl"
         alt
       />
-    </nuxt-link>
+    </div>
   </div>
   <!-- <div>
     <client-only>
@@ -110,6 +110,18 @@ export default {
   data() {
     return {
       baseurl: process.env.baseUrl
+    }
+  },
+  methods: {
+    goTo: function(e) {
+      var str =
+        e
+      var res = str.replace(
+        'https://wenslink.com/backend/api/products',
+        'https://wenslink.com'
+      )
+
+     window.open(res, '_blank');
     }
   }
 }

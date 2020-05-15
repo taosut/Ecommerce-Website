@@ -224,6 +224,7 @@ export default {
     })
 
     Vue.config.errorHandler = function(err) {
+      console.log(err)
       alert('error')
     }
 
