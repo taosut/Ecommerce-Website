@@ -13,18 +13,18 @@
                 <div class="logo">
                   <a href="#"
                     ><img
-                      src="/icons/logo.png"
+                      src="/icon.png"
                       style="width: 50px;height: 100%;object-fit: contain;"
                   /></a>
                 </div>
-                <p style="color:black; font-size:18px;">WENSLink Ecommerce</p>
+                <p style="color:black; font-size:18px;">Bhajanlal Ecommerce</p>
               </div>
               <!-- <div class="footer_title">Got Question?</div> -->
-              <div class="footer_phone">1800 121 3578</div>
+              <div class="footer_phone">1800 000 000</div>
               <div class="footer_contact_text">
                 <p style="font-weight: bold">Contact Info</p>
-                <p>Toll Free Number - 1800 121 3578</p>
-                <p>Email - info@wenslink.com</p>
+                <p>Toll Free Number - 1800 000 000</p>
+                <p>Email - info@bhajanlal.com</p>
               </div>
             </div>
           </div>
@@ -61,11 +61,11 @@
               <div class="footer_title">Let Us Help</div>
               <ul class="footer_list">
                 <li><a href="#">Your Account</a></li>
-                <li>
+                <!-- <li>
                   <a target="_blank" href="https://seller.wenslink.com/"
                     >Sell on WENSLink</a
                   >
-                </li>
+                </li> -->
                 <li><a href="#">100% Purchase Help</a></li>
               </ul>
             </div>

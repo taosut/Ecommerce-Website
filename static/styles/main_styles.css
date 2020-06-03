@@ -524,7 +524,7 @@ section {
 
 .header_main {
     z-index: 1;
-    background-color: #41aaa8;
+    background-color: white;
 }
 
 .header.scrolled .header_main {
@@ -797,7 +797,7 @@ select option {
 .wishlist_text a {
     font-size: 14px;
     font-weight: 400;
-    color: #ffffff;
+    color: black;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;
@@ -806,7 +806,7 @@ select option {
 }
 
 .wishlist_text a:hover {
-    color: #ffffff;
+    color: black;
 }
 
 .wishlist_count {
@@ -830,6 +830,8 @@ select option {
     display: block;
     line-height: 23px;
     font-size: 12px;
+    border-radius: 50px;
+    background-color: #ffc107;
     color: #000000;
     -webkit-transform: translateY(1px);
     -moz-transform: translateY(1px);
@@ -851,7 +853,7 @@ select option {
 .cart_text a {
     font-size: 14px;
     font-weight: 400;
-    color: #ffffff;
+    color: black;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;

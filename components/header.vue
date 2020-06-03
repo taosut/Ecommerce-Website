@@ -4,7 +4,7 @@
   <header class="header">
     <!-- Top Bar -->
 
-    <div class="top_bar">
+    <div class="top_bar" v-if="false">
       <div class="container-header">
         <div class="row">
           <div class="col d-flex flex-row">
@@ -48,17 +48,20 @@
               <div class="top_bar_menu">
                 <ul class="standard_dropdown top_bar_dropdown">
                   <li>
-                    <a v-if="isLoggedIn" href="#"
-                      >{{ name }}<i class="fas fa-chevron-down"></i
-                    ></a>
+                    <a v-if="isLoggedIn" href="#">
+                      {{ name }}
+                      <i class="fas fa-chevron-down"></i>
+                    </a>
                     <ul class="user_dropdown">
                       <li>
-                        <nuxt-link to="/account/profile"
-                          >Your Account</nuxt-link
-                        >
+                        <nuxt-link to="/account/profile">Your Account</nuxt-link>
                       </li>
-                      <li><nuxt-link to="/account/orders">Your Orders</nuxt-link></li>
-                      <li><a href="#" @click="logout">Logout</a></li>
+                      <li>
+                        <nuxt-link to="/account/orders">Your Orders</nuxt-link>
+                      </li>
+                      <li>
+                        <a href="#" @click="logout">Logout</a>
+                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -66,9 +69,7 @@
 
               <div v-if="!isLoggedIn" class="top_bar_user">
                 <div>
-                  <a target="_blank" href="https://seller.wenslink.com/"
-                    >Register as Seller</a
-                  >
+                  <a target="_blank" href="https://seller.wenslink.com/">Register as Seller</a>
                 </div>
                 <div>
                   <nuxt-link to="/register">Register as Customer</nuxt-link>
@@ -93,20 +94,15 @@
             <div class="logo_container">
               <div class="logo">
                 <nuxt-link style="display: flex;align-items: center;" to="/">
-                  <img
-                    src="/icons/logo.png"
-                    style="width: 30px;height: 100%;object-fit: contain;"
-                  />
-                  <p style="color:white; font-size:18px;padding-left: 10px">
-                    WENSLink India
-                  </p>
+                  <img src="/icon.png" style="width: 30px;height: 100%;object-fit: contain;" />
+                  <p style="color:black; font-size:18px;padding-left: 10px">Bhajanlal</p>
                 </nuxt-link>
               </div>
             </div>
           </div>
 
           <!-- Search -->
-          <div class="col-lg-5 col-6 text-lg-left text-right">
+          <div class="col-lg-5 col-6 text-lg-left text-right" style="opacity:0">
             <div class="header_search">
               <div class="header_search_content">
                 <div class="header_search_form_container">
@@ -124,11 +120,7 @@
                     value="Submit"
                     @click="search"
                   >
-                    <img
-                      style="width: 15px;"
-                      src="~static/images/search.png"
-                      alt
-                    />
+                    <img style="width: 15px;" src="~static/images/search.png" alt />
                   </button>
                 </div>
               </div>
@@ -137,10 +129,8 @@
 
           <!-- Wishlist -->
           <div class="col-lg-5 col-3 text-lg-left text-right">
-            <div
-              class="wishlist_cart d-flex flex-row align-items-center justify-content-end"
-            >
-              <div
+            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+              <!-- <div
                 class="wishlist d-flex flex-row align-items-center justify-content-end"
               >
                 <div class="wishlist_icon">
@@ -151,13 +141,11 @@
                     <nuxt-link to="/wishlist">Wishlist</nuxt-link>
                   </div>
                 </div>
-              </div>
+              </div>-->
 
               <!-- Cart -->
               <div class="cart">
-                <div
-                  class="cart_container d-flex flex-row align-items-center justify-content-end"
-                >
+                <div class="cart_container d-flex flex-row align-items-center justify-content-end">
                   <div class="cart_icon">
                     <img src="~static/images/cart.png" alt />
                     <div class="cart_count">
@@ -168,6 +156,17 @@
                     <div class="cart_text">
                       <nuxt-link to="/cart">Cart</nuxt-link>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="login d-flex flex-row align-items-center justify-content-end">
+                <div class="">
+                  <img src="~static/images/user.png" alt />
+                </div>
+                <div class="wishlist_content">
+                  <div class="wishlist_text">
+                    <nuxt-link to="/login">Login</nuxt-link>
                   </div>
                 </div>
               </div>
@@ -221,8 +220,7 @@
                           v-if="q.type == '1'"
                           class="category-header"
                           :href="'/search' + q.url"
-                          >{{ q.title }}</a
-                        >
+                        >{{ q.title }}</a>
                         <a v-else :href="'/search' + q.url">{{ q.title }}</a>
                       </div>
                     </div>
@@ -234,9 +232,7 @@
             <!-- Menu Trigger -->
 
             <div class="menu_trigger_container ml-auto hide">
-              <div
-                class="menu_trigger d-flex flex-row align-items-center justify-content-end"
-              >
+              <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
                 <div class="menu_burger">
                   <div class="menu_trigger_text">menu</div>
                   <div class="cat_burger menu_burger_inner">
@@ -311,21 +307,21 @@ export default {
 
     console.log("this.$cookies.get('name')")
     console.log(this.$cookies.get('name'))
-      if (this.$cookies.get('access_token') != undefined) {
-        console.log('cookie')
-        this.$store.commit('isLoggedIn', 1)
-        if (
-          this.$cookies.get('name') != undefined &&
-          this.$cookies.get('name') != ''
-        ) {
-          this.$store.commit('name', this.$cookies.get('name'))
-        } else {
-          this.$store.commit('name', '+ Add a Name')
-        }
+    if (this.$cookies.get('access_token') != undefined) {
+      console.log('cookie')
+      this.$store.commit('isLoggedIn', 1)
+      if (
+        this.$cookies.get('name') != undefined &&
+        this.$cookies.get('name') != ''
+      ) {
+        this.$store.commit('name', this.$cookies.get('name'))
       } else {
-        console.log('cookieNot')
-        this.$store.commit('isLoggedIn', 0)
+        this.$store.commit('name', '+ Add a Name')
       }
+    } else {
+      console.log('cookieNot')
+      this.$store.commit('isLoggedIn', 0)
+    }
   },
   methods: {
     goToLogin: function() {
@@ -360,6 +356,12 @@ export default {
 </script>
 
 <style scoped>
+
+.login{
+  margin-left: 50px;
+}
+
+
 input[type='text'] {
   /* width: 130px; */
   -webkit-transition: width 0.4s ease-in-out;

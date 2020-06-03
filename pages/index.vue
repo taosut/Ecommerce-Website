@@ -34,7 +34,7 @@
         >
           <slide v-for="p in allBanners" :key="p.id">
             <div class="item">
-              <nuxt-link :to="p.url" v-if="p.url != null && p.url != '' && p.url != undefined">
+              <div @click="gotTo(p.url)" v-if="p.url != null && p.url != '' && p.url != undefined">
                 <img
                   @click="get"
                   class="carousel-image"
@@ -42,7 +42,7 @@
                   :src="baseurl + '/media/banners/' + p.image"
                   @error="setFallbackImageUrl"
                 />
-              </nuxt-link>
+              </div>
 
               <img
                 v-else
@@ -132,6 +132,7 @@
       </div>
 
       <section
+        v-if="false"
         class="hide-on-med-and-down"
         style="height: 500px;background-color: white;margin-bottom: 50px;"
       >
@@ -139,7 +140,7 @@
           <div class="d-flex justify-content-around align-items-center" style="height: 500px">
             <img class="h-100" src="/images/app-footer.png" />
             <div>
-              <h2 class="download-message">Download WENSLink</h2>
+              <h2 class="download-message">Download Bhajanlal</h2>
               <h2 class="download-message">App Now</h2>
               <p class="p-message">Fast, Simple & Delightful.</p>
               <p class="p-message">All it takes is 30 seconds to Download.</p>
@@ -182,7 +183,7 @@ export default {
     allBanners: [],
     allOffers: [],
     baseurl: process.env.baseUrl,
-    hideMessage: false,
+    hideMessage: true,
     breeds: []
   }),
   components: {
@@ -372,6 +373,9 @@ export default {
     },
     get: function() {
       console.log('sss')
+    },
+    gotTo: function(url) {
+      window.open(url, '_blank')
     }
   }
 }

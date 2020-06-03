@@ -3,29 +3,29 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _6a229784 = () => interopDefault(import('..\\pages\\address.vue' /* webpackChunkName: "pages_address" */))
-const _2f22ddc0 = () => interopDefault(import('..\\pages\\cart.vue' /* webpackChunkName: "pages_cart" */))
-const _31e3d78e = () => interopDefault(import('..\\pages\\homepage.vue' /* webpackChunkName: "pages_homepage" */))
-const _44ac8679 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
-const _b379c30e = () => interopDefault(import('..\\pages\\newarrival.vue' /* webpackChunkName: "pages_newarrival" */))
-const _9f074166 = () => interopDefault(import('..\\pages\\payments.vue' /* webpackChunkName: "pages_payments" */))
-const _6745d3c3 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages_register" */))
-const _c5839490 = () => interopDefault(import('..\\pages\\signup.vue' /* webpackChunkName: "pages_signup" */))
-const _79f45efd = () => interopDefault(import('..\\pages\\wishlist\\index.vue' /* webpackChunkName: "pages_wishlist_index" */))
-const _2d069407 = () => interopDefault(import('..\\pages\\account\\address.vue' /* webpackChunkName: "pages_account_address" */))
-const _a3ed3fbc = () => interopDefault(import('..\\pages\\account\\orders.vue' /* webpackChunkName: "pages_account_orders" */))
-const _ec94c188 = () => interopDefault(import('..\\pages\\account\\profile.vue' /* webpackChunkName: "pages_account_profile" */))
-const _550c8dc2 = () => interopDefault(import('..\\pages\\account\\wishlist.vue' /* webpackChunkName: "pages_account_wishlist" */))
-const _354bc3d4 = () => interopDefault(import('..\\pages\\legal\\about.vue' /* webpackChunkName: "pages_legal_about" */))
-const _ad335d00 = () => interopDefault(import('..\\pages\\legal\\buyeragreement.vue' /* webpackChunkName: "pages_legal_buyeragreement" */))
-const _5e4cabe4 = () => interopDefault(import('..\\pages\\legal\\disclaimer.vue' /* webpackChunkName: "pages_legal_disclaimer" */))
-const _6b12fe8f = () => interopDefault(import('..\\pages\\legal\\privacy.vue' /* webpackChunkName: "pages_legal_privacy" */))
-const _7d4f30eb = () => interopDefault(import('..\\pages\\legal\\returnpolicy.vue' /* webpackChunkName: "pages_legal_returnpolicy" */))
-const _7a87581c = () => interopDefault(import('..\\pages\\legal\\selleragreement.vue' /* webpackChunkName: "pages_legal_selleragreement" */))
-const _5d1a9b1a = () => interopDefault(import('..\\pages\\offers-list\\_offer_title.vue' /* webpackChunkName: "pages_offers-list__offer_title" */))
-const _2d4e8398 = () => interopDefault(import('..\\pages\\products\\_product.vue' /* webpackChunkName: "pages_products__product" */))
-const _1ab1cd11 = () => interopDefault(import('..\\pages\\search\\_query.vue' /* webpackChunkName: "pages_search__query" */))
-const _7b04e362 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+const _f2ca26ca = () => interopDefault(import('..\\pages\\address.vue' /* webpackChunkName: "pages_address" */))
+const _2ee50fee = () => interopDefault(import('..\\pages\\cart.vue' /* webpackChunkName: "pages_cart" */))
+const _b713b552 = () => interopDefault(import('..\\pages\\homepage.vue' /* webpackChunkName: "pages_homepage" */))
+const _8ed59560 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
+const _850dc3fc = () => interopDefault(import('..\\pages\\newarrival.vue' /* webpackChunkName: "pages_newarrival" */))
+const _230ead16 = () => interopDefault(import('..\\pages\\payments.vue' /* webpackChunkName: "pages_payments" */))
+const _4c4fbce8 = () => interopDefault(import('..\\pages\\register.vue' /* webpackChunkName: "pages_register" */))
+const _b3293c7e = () => interopDefault(import('..\\pages\\signup.vue' /* webpackChunkName: "pages_signup" */))
+const _ad24a5d8 = () => interopDefault(import('..\\pages\\wishlist\\index.vue' /* webpackChunkName: "pages_wishlist_index" */))
+const _2691ee60 = () => interopDefault(import('..\\pages\\account\\address.vue' /* webpackChunkName: "pages_account_address" */))
+const _44faa38e = () => interopDefault(import('..\\pages\\account\\orders.vue' /* webpackChunkName: "pages_account_orders" */))
+const _49661405 = () => interopDefault(import('..\\pages\\account\\profile.vue' /* webpackChunkName: "pages_account_profile" */))
+const _e92a9bce = () => interopDefault(import('..\\pages\\account\\wishlist.vue' /* webpackChunkName: "pages_account_wishlist" */))
+const _5700051d = () => interopDefault(import('..\\pages\\legal\\about.vue' /* webpackChunkName: "pages_legal_about" */))
+const _fe471b52 = () => interopDefault(import('..\\pages\\legal\\buyeragreement.vue' /* webpackChunkName: "pages_legal_buyeragreement" */))
+const _d6aa5f8a = () => interopDefault(import('..\\pages\\legal\\disclaimer.vue' /* webpackChunkName: "pages_legal_disclaimer" */))
+const _1e87dcd0 = () => interopDefault(import('..\\pages\\legal\\privacy.vue' /* webpackChunkName: "pages_legal_privacy" */))
+const _d694c8fc = () => interopDefault(import('..\\pages\\legal\\returnpolicy.vue' /* webpackChunkName: "pages_legal_returnpolicy" */))
+const _4beb640a = () => interopDefault(import('..\\pages\\legal\\selleragreement.vue' /* webpackChunkName: "pages_legal_selleragreement" */))
+const _58567871 = () => interopDefault(import('..\\pages\\offers-list\\_offer_title.vue' /* webpackChunkName: "pages_offers-list__offer_title" */))
+const _7ebf24bd = () => interopDefault(import('..\\pages\\products\\_product.vue' /* webpackChunkName: "pages_products__product" */))
+const _bf4a3fcc = () => interopDefault(import('..\\pages\\search\\_query.vue' /* webpackChunkName: "pages_search__query" */))
+const _2224db8e = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 Vue.use(Router)
 
@@ -38,95 +38,95 @@ export const routerOptions = {
 
   routes: [{
     path: "/address",
-    component: _6a229784,
+    component: _f2ca26ca,
     name: "address"
   }, {
     path: "/cart",
-    component: _2f22ddc0,
+    component: _2ee50fee,
     name: "cart"
   }, {
     path: "/homepage",
-    component: _31e3d78e,
+    component: _b713b552,
     name: "homepage"
   }, {
     path: "/login",
-    component: _44ac8679,
+    component: _8ed59560,
     name: "login"
   }, {
     path: "/newarrival",
-    component: _b379c30e,
+    component: _850dc3fc,
     name: "newarrival"
   }, {
     path: "/payments",
-    component: _9f074166,
+    component: _230ead16,
     name: "payments"
   }, {
     path: "/register",
-    component: _6745d3c3,
+    component: _4c4fbce8,
     name: "register"
   }, {
     path: "/signup",
-    component: _c5839490,
+    component: _b3293c7e,
     name: "signup"
   }, {
     path: "/wishlist",
-    component: _79f45efd,
+    component: _ad24a5d8,
     name: "wishlist"
   }, {
     path: "/account/address",
-    component: _2d069407,
+    component: _2691ee60,
     name: "account-address"
   }, {
     path: "/account/orders",
-    component: _a3ed3fbc,
+    component: _44faa38e,
     name: "account-orders"
   }, {
     path: "/account/profile",
-    component: _ec94c188,
+    component: _49661405,
     name: "account-profile"
   }, {
     path: "/account/wishlist",
-    component: _550c8dc2,
+    component: _e92a9bce,
     name: "account-wishlist"
   }, {
     path: "/legal/about",
-    component: _354bc3d4,
+    component: _5700051d,
     name: "legal-about"
   }, {
     path: "/legal/buyeragreement",
-    component: _ad335d00,
+    component: _fe471b52,
     name: "legal-buyeragreement"
   }, {
     path: "/legal/disclaimer",
-    component: _5e4cabe4,
+    component: _d6aa5f8a,
     name: "legal-disclaimer"
   }, {
     path: "/legal/privacy",
-    component: _6b12fe8f,
+    component: _1e87dcd0,
     name: "legal-privacy"
   }, {
     path: "/legal/returnpolicy",
-    component: _7d4f30eb,
+    component: _d694c8fc,
     name: "legal-returnpolicy"
   }, {
     path: "/legal/selleragreement",
-    component: _7a87581c,
+    component: _4beb640a,
     name: "legal-selleragreement"
   }, {
     path: "/offers-list/:offer_title?",
-    component: _5d1a9b1a,
+    component: _58567871,
     name: "offers-list-offer_title"
   }, {
     path: "/products/:product?",
-    component: _2d4e8398,
+    component: _7ebf24bd,
     name: "products-product"
   }, {
     path: "/search/:query?",
-    component: _1ab1cd11,
+    component: _bf4a3fcc,
     name: "search-query"
   }, {
     path: "/",
-    component: _7b04e362,
+    component: _2224db8e,
     name: "index"
   }],
 

@@ -44,7 +44,7 @@ a{
 }
 
 .nuxt-link-exact-active .account-info, .nuxt-link-active .account-info{
-    background-color: #41aaa8;
+    background-color: white;
     color: white
 }
 

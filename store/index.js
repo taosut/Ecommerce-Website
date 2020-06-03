@@ -579,6 +579,10 @@ export const actions = {
 
     getSingleProduct({ commit, state }, payload) {
 
+        console.log("this.$cookies.get('access_token') ? `Bearer ${this.$cookies.get('access_token')}` : ''")
+        console.log(this.$cookies.get('access_token') ? `Bearer ${this.$cookies.get('access_token')}` : '')
+        console.log(this.$cookies.get('access_token'))
+
 
         return new Promise((resolve, reject) => {
 

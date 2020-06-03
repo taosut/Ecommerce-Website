@@ -53,15 +53,15 @@
                 <div class="product_price">₹{{ product.price }}</div>
                 <div class="product_mrp">₹{{ product.mrp }}</div>
               </div>
-              <div class="product_text">
-                <p class="clamp4">Delivery</p>
-                <input type="number" v-model="pincode" placeholder="pincode" />
-                <div class="btn" @click="check_pincode">Check</div>
+              <!-- <div class="product_text">
+                <p class="clamp4">Check Delivery in your area</p>
+                <input type="number" class="pincode" v-model="pincode" placeholder="pincode" />
+                <div class="btn pincode" @click="check_pincode">Check</div>
                 <p>{{delivery_message}}</p>
-              </div>
-              <div class="product_text">
+              </div> -->
+              <!-- <div class="product_text">
                 <p class="clamp4">Seller: {{ seller_name }}</p>
-              </div>
+              </div> -->
               <div class="product_text">
                 <p class="clamp4" style="text-align: justify;">{{ product.description }}</p>
               </div>
@@ -78,12 +78,12 @@
                     @click="addToCart(product.id, 1)"
                     class="button buy_button"
                   >Buy Now</button>
-                  <button
+                  <!-- <button
                     type="button"
                     @click="addToWishlist(product.id, 1)"
                     class="button cart_button"
                     style="background-color: transparent;border: 0 solid black;color: black;margin-left: 20px"
-                  >Add To Wishlist</button>
+                  >Add To Wishlist</button>-->
                 </div>
               </div>
             </div>
@@ -307,10 +307,7 @@ export default {
   //     console.log('res.data')
   //     console.log( res.data.variations[0].store_name)
 
-
   //     seller_name = res.data.variations[0].store_name
-
-
 
   //       // product = Object.assign({}, res.data.product)
   //       // variations = res.data.variations
@@ -326,7 +323,7 @@ export default {
   //       // seller_name = res.data.variations[0].store_name
   //   })
 
-  //          return { 
+  //          return {
   //         seller_name
   //       }
 
@@ -552,6 +549,18 @@ export default {
 .nav-link p {
   color: black;
   cursor: pointer;
+}
+
+.btn.pincode {
+  font-size: 14px;
+  background-color: #8bc34a;
+  color: white;
+  line-height: 30px;
+}
+
+input.pincode {
+  height: 40px;
+  padding: 10px;
 }
 
 /* change border radius for the tab , apply corners on top*/
