@@ -183,7 +183,7 @@ export default {
     allBanners: [],
     allOffers: [],
     baseurl: process.env.baseUrl,
-    hideMessage: true,
+    hideMessage: false,
     breeds: []
   }),
   components: {
