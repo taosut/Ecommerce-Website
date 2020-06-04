@@ -584,15 +584,27 @@ export const actions = {
         console.log(this.$cookies.get('access_token'))
 
 
+        var authorization = this.$cookies.get('access_token') ? `Bearer ${this.$cookies.get('access_token')}` : ''
+
+        var headers = {}
+
+        if (authorization != '') {
+
+            headers = {
+                'Authorization': "Bearer " + this.$cookies.get('access_token')
+            }
+
+        }
+
+
         return new Promise((resolve, reject) => {
 
             axios({
                     method: 'GET',
                     url: state.api.getSingleProduct + payload,
                     contentType: 'application/json',
-                    headers: {
-                        'Authorization': "Bearer " + this.$cookies.get('access_token')
-                    }
+                    headers
+
                 })
                 .then(res => {
                     commit('getSingleProduct', res.data);

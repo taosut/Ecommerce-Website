@@ -8,7 +8,7 @@ if (process.env.NODE_ENV == "development") {
 
 } else {
 
-    var url = "/backend/api/";
+    var url = "http://127.0.0.1:8000/backend/api/";
 
 }
 
